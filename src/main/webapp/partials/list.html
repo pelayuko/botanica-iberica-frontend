@@ -18,7 +18,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr dir-paginate="cita in citasList | filter:q | itemsPerPage: 10" total-items="totalLocalidentifList">
+					<tr dir-paginate="cita in citasList | filter:q | itemsPerPage: 10" total-items="totalCitasList">
 						<td>{{cita.especie.genero}}</td>
 						<td>{{cita.especie.color}}</td>
 						<td>{{cita.lugar}}</td>

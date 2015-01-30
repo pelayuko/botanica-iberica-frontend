@@ -53,39 +53,55 @@ flora.config(function(uiGmapGoogleMapApiProvider) {
     });
 });
 
-flora.controller('TreeCtrl', function ($scope, $http) {
-//	 $scope.my_tree_handler = {};
-//	 $scope.my_tree = {};
-	$scope.my_treedata = [{
-		label: 'North America',
-		children: [
-		  {
-		    label: 'Canada',
-		    children: ['Toronto', 'Vancouver']
-		  }, {
-		    label: 'USA',
-		    children: ['New York', 'Los Angeles']
-		  }, {
-		    label: 'Mexico',
-		    children: ['Mexico City', 'Guadalajara']
-		      }
-		    ]
-		  }, {
-		    label: 'South America',
-		children: [
-		  {
-		    label: 'Venezuela',
-		    children: ['Caracas', 'Maracaibo']
-		  }, {
-		    label: 'Brazil',
-		    children: ['Sao Paulo', 'Rio de Janeiro']
-		  }, {
-		    label: 'Argentina',
-		    children: ['Buenos Aires', 'Cordoba']
-		      }
-		    ]
-		  }
-		];	
+
+flora.config(function(paginationTemplateProvider) {
+    paginationTemplateProvider.setPath('components/pagination/dirPagination.tpl.html');
+});
+
+flora.service('CitasService', function($http) {
+    this.getCitas = function(pageNumber, pageSize, sort) {
+    	return $http.get(serverUrl + '/citas?page=' + pageNumber + '&size=' + pageSize + '&sort=' + sort);
+    };
+});
+
+flora.service('FamiliasService', function($http) {
+    this.getFamilias = function(pageNumber, pageSize, sort) {
+    	return $http.get(serverUrl + '/familias');
+    };
+});
+
+flora.service('TreeService', function($http) {
+	this.newTreeElement = function(name, children) {
+		var el = {};
+		el.label = name;
+		el.children = children;
+    	return el;
+    };
+});
+
+flora.controller('TreeCtrl', function ($scope, $http, FamiliasService, TreeService) {
+	$scope.my_treedata = [];
+    $scope.my_tree_handler = function(branch) {
+    	console.log("Event in branch " + branch);
+    };
+	
+    FamiliasService.getFamilias().
+	  success(function(data, status, headers, config) {
+		  	var families;
+		    for (index = 0, length = data.length; index < length; index++) {
+		    	var fam = data[index];
+		    	
+		    	var generos = [];
+		    	for (i = 0; i < fam.generos.length; ++i) {
+		    		generos.push(fam.generos[i].nombreGen);
+		    	}
+		    	
+		    	var branch = TreeService.newTreeElement(fam.nombreFam, generos);
+		    	
+		    	$scope.my_treedata.push(branch);
+		    }
+
+	  });
 });
 
 flora.controller('MainCtrl', function ($scope, $http) {
@@ -102,6 +118,7 @@ flora.controller('MainCtrl', function ($scope, $http) {
 	    // called asynchronously if an error occurs
 	    // or server returns response with an error status.
 	  });
+	
 	$http.get(serverUrl + '/randomPhotoFlower').
 	  success(function(data, status, headers, config) {
 	    // this callback will be called asynchronously
@@ -148,45 +165,34 @@ flora.controller('MapCtrl', function ($scope, uiGmapGoogleMapApi) {
     });	 
 });
 
-flora.config(function(paginationTemplateProvider) {
-    paginationTemplateProvider.setPath('components/pagination/dirPagination.tpl.html');
-});
 
-flora.service('CitasService', function($http) {
-    this.fetch = function(pageNumber, pageSize, sort) {
-    	return $http.get(serverUrl + '/citas?page=' + pageNumber + '&size=' + pageSize + '&sort=' + sort);
-    };
-     
-    this.subtract = function(a, b) { return a - b };
-});
-
-
-function DenomListController($scope, $http, CitasService) {
+flora.controller('DenomListController', function DenomListController($scope, $http, CitasService) {
 
     $scope.citasList = [];
     $scope.totalCitasList = 0;
     $scope.pageSize = 10; // this should match however many results your API puts on one page
     var sort = $scope.sort||'id';
 
-    getResultsPage(1); 
+    getResultsPage(0); 
     
     $scope.pagination = {
-            current: 1
+            current: 0
     };
     
 	$scope.pageChangeHandler = function(num) {
-		console.log('1 going to page ' + num);
+		console.log('going to page ' + num);
 		getResultsPage(num);
 	};
 	
     function getResultsPage(pageNumber) {
-    	CitasService.fetch(pageNumber, $scope.pageSize, sort).then(function(result) {
+    	CitasService.getCitas(pageNumber, $scope.pageSize, sort).then(function(result) {
             $scope.citasList = result.data.content;
             $scope.totalCitasList = result.data.totalElements;
         });
     }
  
-}
+});
+
 
 /**
  * Controls all other Pages
@@ -199,7 +205,6 @@ flora.controller('PageCtrl', function (/* $scope, $location, $http */) {
     interval: 5000
   });
 });
-flora.controller('DenomListController', DenomListController);
 
 
 
