@@ -18,12 +18,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr dir-paginate="localidentif in localidentifList | filter:q | itemsPerPage: 10" total-items="totalLocalidentifList">
-						<td>{{localidentif.especy.genero}}</td>
-						<td>{{localidentif.especy.color}}</td>
-						<td>{{localidentif.lugar}}</td>
-						<td>{{localidentif.lugare.nombre}}</td>
-						<td>{{localidentif.comentario}}</td>
+					<tr dir-paginate="cita in citasList | filter:q | itemsPerPage: 10" total-items="totalLocalidentifList">
+						<td>{{cita.especie.genero}}</td>
+						<td>{{cita.especie.color}}</td>
+						<td>{{cita.lugar}}</td>
+						<td>{{cita.lugare.nombre}}</td>
+						<td>{{cita.comentario}}</td>
 					</tr>
 				</tbody>
 			</table>

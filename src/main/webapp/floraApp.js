@@ -152,19 +152,19 @@ flora.config(function(paginationTemplateProvider) {
     paginationTemplateProvider.setPath('components/pagination/dirPagination.tpl.html');
 });
 
-flora.service('LocalIdentifService', function($http) {
+flora.service('CitasService', function($http) {
     this.fetch = function(pageNumber, pageSize, sort) {
-    	return $http.get(serverUrl + '/allLocalidentif?page=' + pageNumber + '&size=' + pageSize + '&sort=' + sort);
+    	return $http.get(serverUrl + '/citas?page=' + pageNumber + '&size=' + pageSize + '&sort=' + sort);
     };
      
     this.subtract = function(a, b) { return a - b };
 });
 
 
-function DenomListController($scope, $http, LocalIdentifService) {
+function DenomListController($scope, $http, CitasService) {
 
-    $scope.localidentifList = [];
-    $scope.totalLocalidentifList = 0;
+    $scope.citasList = [];
+    $scope.totalCitasList = 0;
     $scope.pageSize = 10; // this should match however many results your API puts on one page
     var sort = $scope.sort||'id';
 
@@ -180,9 +180,9 @@ function DenomListController($scope, $http, LocalIdentifService) {
 	};
 	
     function getResultsPage(pageNumber) {
-    	LocalIdentifService.fetch(pageNumber, $scope.pageSize, sort).then(function(result) {
-            $scope.localidentifList = result.data.content;
-            $scope.totalLocalidentifList = result.data.totalElements;
+    	CitasService.fetch(pageNumber, $scope.pageSize, sort).then(function(result) {
+            $scope.citasList = result.data.content;
+            $scope.totalCitasList = result.data.totalElements;
         });
     }
  
