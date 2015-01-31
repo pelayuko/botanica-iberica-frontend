@@ -65,8 +65,17 @@ flora.service('CitasService', function($http) {
 });
 
 flora.service('FamiliasService', function($http) {
-    this.getFamilias = function(pageNumber, pageSize, sort) {
+    this.getFamilias = function() {
     	return $http.get(serverUrl + '/familias');
+    };
+});
+
+flora.service('PhotoService', function($http) {
+    this.getRandomPhotoFlower = function() {
+    	return $http.get(serverUrl + '/randomPhotoFlower');
+    };
+    this.getRandomPhotoLandscape = function() {
+    	return $http.get(serverUrl + '/randomPhotoLandscape');
     };
 });
 
@@ -79,11 +88,17 @@ flora.service('TreeService', function($http) {
     };
 });
 
-flora.controller('TreeCtrl', function ($scope, $http, FamiliasService, TreeService) {
+flora.controller('TreeCtrl', function ($scope, $http, FamiliasService, TreeService, PhotoService) {
 	$scope.my_treedata = [];
     $scope.my_tree_handler = function(branch) {
     	console.log("Event in branch " + branch);
+    	
+    	PhotoService.getRandomPhotoFlower().
+	  	  success(function(data, status, headers, config) {
+	  		  $scope.randomPhotoFlowerInTree = data.content;
+	  	  });    	
     };
+    $scope.my_tree_handler();
 	
     FamiliasService.getFamilias().
 	  success(function(data, status, headers, config) {
@@ -104,32 +119,19 @@ flora.controller('TreeCtrl', function ($scope, $http, FamiliasService, TreeServi
 	  });
 });
 
-flora.controller('MainCtrl', function ($scope, $http) {
-	
-	$http.get(serverUrl + '/randomPhotoLandscape').
+flora.controller('MainCtrl', function ($scope, $http, PhotoService) {
+	PhotoService.getRandomPhotoLandscape().
 	  success(function(data, status, headers, config) {
-	    // this callback will be called asynchronously
-	    // when the response is available
 		  $scope.randomPhotoLandscapeUrl = data.location;
 		  $scope.randomPhotoLandscape = data.content;
 
-	  }).
-	  error(function(data, status, headers, config) {
-	    // called asynchronously if an error occurs
-	    // or server returns response with an error status.
 	  });
 	
-	$http.get(serverUrl + '/randomPhotoFlower').
+	PhotoService.getRandomPhotoFlower().
 	  success(function(data, status, headers, config) {
-	    // this callback will be called asynchronously
-	    // when the response is available
 		  $scope.randomPhotoFlowerUrl = data.location;
 		  $scope.randomPhotoFlower = data.content;
 
-	  }).
-	  error(function(data, status, headers, config) {
-	    // called asynchronously if an error occurs
-	    // or server returns response with an error status.
 	  });
 });
 
