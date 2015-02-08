@@ -1,8 +1,12 @@
+// 'use strict';
+
 // TO CFG!!
 var serverUrl = "http://192.168.1.111:8080";
-var flora = angular.module('flora', ['ngAnimate', 'ngRoute',
+var flora = angular.module('flora', ['ngAnimate',
+                                     'ngRoute',
                                      'angularUtils.directives.dirPagination',
-                                     'uiGmapgoogle-maps', 'angularBootstrapNavTree', 
+                                     'uiGmapgoogle-maps',
+                                     'angularBootstrapNavTree', 
                                      'ui.bootstrap.typeahead']);
 
 
@@ -35,7 +39,7 @@ flora.directive("bootstrapNavbar", function() {
 	  restrict: "E",
 	  replace: true,
 	  transclude: true,
-	  templateUrl: "templates/navbar.html",
+	  templateUrl: "template/navbar.html",
 	  compile: function(element, attrs) {  // (1)
 	    var li, liElements, links, index, length;
 	
@@ -163,14 +167,29 @@ flora.controller('MapCtrl', function ($scope, uiGmapGoogleMapApi) {
     uiGmapGoogleMapApi.then(function(maps) {
     	$scope.map = {
     			center: {
-    				latitude: 40.454018, 
-    				longitude: -3.509205
+    				latitude: 41.76106872528615, 
+    				longitude: -1.218109130859375
     			}, 
-    			zoom: 12,
+    			zoom: 9,
     			options : {
     				scrollwheel: false
     			},
-    			control: {}
+    			control: {},
+    			events: {
+    				//This turns of events and hits against scope from gMap events this does speed things up
+    				// adding a blacklist for watching your controller scope should even be better
+    				// blacklist: ['drag', 'dragend','dragstart','zoom_changed', 'center_changed'],
+			        tilesloaded: function (map, eventName, originalEventArgs) {
+			        	//console.log( 'Titles loaded' );
+			        },
+			        click: function (mapModel, eventName, originalEventArgs) {
+			        	console.log( 'Click!' );
+			        	 var e = originalEventArgs[0];
+			             var lat = e.latLng.lat(),
+			               lon = e.latLng.lng();
+			    	    console.log( lat + ', ' + lon );
+			        }
+    			}
     	};
     	$scope.marker = {
     			id: 0,
@@ -182,6 +201,7 @@ flora.controller('MapCtrl', function ($scope, uiGmapGoogleMapApi) {
     				draggable: true
     			}
     	};
+    	
     });	 
 });
 
