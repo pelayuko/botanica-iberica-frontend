@@ -82,11 +82,11 @@ flora.service('FamiliasService', function($http) {
 });
 
 flora.service('PhotoService', function($http) {
-    this.getRandomPhotoFlower = function() {
-    	return $http.get(serverUrl + '/randomPhotoFlower');
+    this.getRandomPhotoFlower = function(size) {
+    	return $http.get(serverUrl + '/randomPhotoFlower?size=' + size);
     };
-    this.getRandomPhotoLandscape = function() {
-    	return $http.get(serverUrl + '/randomPhotoLandscape');
+    this.getRandomPhotoLandscape = function(size) {
+    	return $http.get(serverUrl + '/randomPhotoLandscape?size=' + size);
     };
 });
 
@@ -115,9 +115,9 @@ flora.controller('TreeCtrl', function ($scope, $http, FamiliasService, TreeServi
     $scope.my_tree_handler = function(branch) {
     	console.log("Event in branch " + branch);
     	
-    	PhotoService.getRandomPhotoFlower().
+    	PhotoService.getRandomPhotoFlower("MEDIUM").
 	  	  success(function(data, status, headers, config) {
-	  		  $scope.randomPhotoFlowerInTree = data.content;
+	  		  $scope.randomPhotoFlowerInTree = data;
 	  	  });    	
     };
     $scope.my_tree_handler();
@@ -142,17 +142,15 @@ flora.controller('TreeCtrl', function ($scope, $http, FamiliasService, TreeServi
 });
 
 flora.controller('MainCtrl', function ($scope, $http, PhotoService) {
-	PhotoService.getRandomPhotoLandscape().
+	PhotoService.getRandomPhotoLandscape("THUMBNAIL").
 	  success(function(data, status, headers, config) {
-		  $scope.randomPhotoLandscapeUrl = data.location;
-		  $scope.randomPhotoLandscape = data.content;
+		  $scope.randomPhotoLandscape = data;
 
 	  });
 	
-	PhotoService.getRandomPhotoFlower().
+	PhotoService.getRandomPhotoFlower("THUMBNAIL").
 	  success(function(data, status, headers, config) {
-		  $scope.randomPhotoFlowerUrl = data.location;
-		  $scope.randomPhotoFlower = data.content;
+		  $scope.randomPhotoFlower = data;
 
 	  });
 });
