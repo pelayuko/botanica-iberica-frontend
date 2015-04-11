@@ -43,8 +43,7 @@
 				<tr ng-repeat="especie in modelGenus.especies track by $index">
 					<td><span class="badge badge-info">{{$index+1}}</span></td>
 					<td>{{especie.nombre}}</td>
-					<td><a href ng-click="nav.searchSpecy(especie.nombre)"> Ver
-							taxon </a></td>
+					<td><a href ng-click="nav.searchSpecy(especie.nombre)"> Ver especie </a></td>
 
 				</tr>
 			</tbody>
