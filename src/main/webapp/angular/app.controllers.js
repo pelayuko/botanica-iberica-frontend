@@ -18,7 +18,7 @@ flora.controller('MainCtrl', function ($scope, $http, $location) {
 		    $scope.$label = $label;
 	          if ($item) {
 	        	  if ( $item.type.indexOf('ESPECIE') == 0 ) {
-	        		  $location.path('/specy').search('query=' + $item.taxon.taxon);
+	        		  $location.path('/specy').search('query=' + $item.taxon.nombre);
 	        	  } else if ($item.type == 'GENERO') {
 	        		  $location.path('/genus').search('query=' + $item.result);
 	        	  } else if ($item.type == 'FAMILIA') {
@@ -320,7 +320,7 @@ flora.controller('AdvancedSearchCtrl', function($scope, $http, $location) {
 		    $scope.$label = $label;
 	          if ($item) {
 	        	  if ( $item.type.indexOf('ESPECIE') == 0 ) {
-	        		  $location.path('/specy').search('query=' + $item.taxon.taxon);
+	        		  $location.path('/specy').search('query=' + $item.taxon.nombre);
 	        	  } else if ($item.type == 'GENERO') {
 	        		  $location.path('/genus').search('query=' + $item.result);
 	        	  } else if ($item.type == 'FAMILIA') {
