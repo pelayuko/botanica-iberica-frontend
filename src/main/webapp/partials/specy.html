@@ -2,32 +2,33 @@
 	<div class="row">
 		<div class="btn-group btn-group-vertical arrows">
 			<a text="???taxon.previous???" class="btn btn-mini"
-				href="javascript:;" data-target="'javascript:cargaAnteriorTaxon(\'' + {{modelSpecy.nombreTaxon.taxon}} + '\');'">
+				href="javascript:;" data-target="'javascript:cargaAnteriorTaxon(\'' + {{modelSpecy.datosTaxon.taxon}} + '\');'">
 				<i class="icon-arrow-up"></i>
 			</a> 
 			<a text="???taxon.next???"
 				class="btn btn-mini"
-				href="javascript:;" data-target="'javascript:cargaSiguienteTaxon(\'' + {{modelSpecy.nombreTaxon.taxon}} + '\');'">
+				href="javascript:;" data-target="'javascript:cargaSiguienteTaxon(\'' + {{modelSpecy.datosTaxon.taxon}} + '\');'">
 				<i class="icon-arrow-down"></i>
 			</a>
 		</div>
 		<div class="col-md-12">
 			<div id="titleContainer">
 				<div class="col-md-12" id="section_title">
-					Taxon: <span class="text-info">{{modelSpecy.nombreTaxon.taxon}}</span>
-					<small class="text-info">(Fam.: {{modelSpecy.nombreTaxon.familia}})</small>
-					
+					Taxon: <span class="text-info">{{modelSpecy.datosTaxon.nombre}}</span>
+					<small class="text-info">(Fam.: {{modelSpecy.datosTaxon.familia}})</small>
+					<div  style="float: right;">
 					<small>
-						<a  style="float: right;" href ng-click="nav.searchFamily(modelSpecy.nombreTaxon.familia)">
+						<a href ng-click="nav.searchFamily(modelSpecy.datosTaxon.familia)">
 							Familia
 						</a>
 					</small>
+					&nbsp;
 					<small>
-						<a  style="float: right;" href ng-click="nav.searchGenus(modelSpecy.nombreTaxon.familia)">
+						<a href ng-click="nav.searchGenus(modelSpecy.datosTaxon.genero)">
 							Género
 						</a>
 					</small>
-					
+					</div>
 				</div>
 				<div class="col-md-12">
 					<div id="links">
