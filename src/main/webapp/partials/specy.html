@@ -1,0 +1,314 @@
+<div class="row">
+	<div class="row">
+		<div class="btn-group btn-group-vertical arrows">
+			<a text="???taxon.previous???" class="btn btn-mini"
+				href="javascript:;" data-target="'javascript:cargaAnteriorTaxon(\'' + {{modelSpecy.nombreTaxon.taxon}} + '\');'">
+				<i class="icon-arrow-up"></i>
+			</a> 
+			<a text="???taxon.next???"
+				class="btn btn-mini"
+				href="javascript:;" data-target="'javascript:cargaSiguienteTaxon(\'' + {{modelSpecy.nombreTaxon.taxon}} + '\');'">
+				<i class="icon-arrow-down"></i>
+			</a>
+		</div>
+		<div class="col-md-12">
+			<div id="titleContainer">
+				<div class="col-md-12" id="section_title">
+					Taxon: <span class="text-info">{{modelSpecy.nombreTaxon.taxon}}</span>
+					<small class="text-info">(Fam.: {{modelSpecy.nombreTaxon.familia}})</small>
+					
+					<small>
+						<a  style="float: right;" href ng-click="nav.searchFamily(modelSpecy.nombreTaxon.familia)">
+							Familia
+						</a>
+					</small>
+					<small>
+						<a  style="float: right;" href ng-click="nav.searchGenus(modelSpecy.nombreTaxon.familia)">
+							Género
+						</a>
+					</small>
+					
+				</div>
+				<div class="col-md-12">
+					<div id="links">
+						<div class="row">
+						  <div ng-repeat="foto in modelSpecy.fotos|limitTo:6"  class="col-xs-6 col-md-2">
+						    <a href={{foto.original}} title={{foto.comentario}} data-gallery class="thumbnail">
+						    	<img src={{foto.thumbnail}} alt={{foto.comentario}}></img>
+						    </a>
+						  </div>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+	
+
+
+	<div class="row bs-docs-example">
+			<ul id="main_tabs" class="nav nav-tabs">
+				<li class="active"><a href="javascript:;" data-target="#distribTab" data-toggle="tab">Mapa Distribución</a></li>
+				<li><a href="javascript:;" data-target="#genusTab" data-toggle="tab">Listado citas</a></li>
+				<li><a href="javascript:;" data-target="#caractTab" data-toggle="tab">Características</a></li>
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane active" id="distribTab">
+					<div class="row rightSidebar">
+						<div class="col-md-8">
+							<div id="dvLoading">
+								<div class="well">
+									Cargando citas:
+									<div class="progress progress-striped active">
+										<div class="bar" style="width: 100%;"></div>
+									</div>
+								</div>
+							</div>
+
+							<div id="wrapper">
+
+								<div id="map_canvas"></div>
+								<!-- 					<div id="map_canvas" class="map_style"></div> -->
+								<div id="legend" style="visibility: hidden" class="legend_main"></div>
+								<div id="map_info" class="utm_search_taxon"></div>
+
+							</div>
+							<div id="fus_info"></div>
+
+							<div id="mapButtons">
+								<div class="btn-group">
+									<button id="hideCitationsBt"
+										class="btn btn-small citEnabled btn-info" type="button"
+										onclick="showUTMSquares()">Distribución de citas</button>
+								</div>
+
+								<div class="btn-group">
+									<button id="addGridBt" class="btn btn-small gridDisabled"
+										type="button" onclick="loadUTMGrid()">Cuadrícula UTM</button>
+									<button id="addSectorGridBt"
+										class="btn btn-small sectorGridDisabled" type="button"
+										onclick="loadSectorGrid( false )">Sectores</button>
+								</div>
+								<!--<button class="btn btn-small" type="button" onclick="loadUTMGrid()">Descarga KML</button>-->
+
+							</div>
+
+							<div id="legend_test"></div>
+
+						</div>
+						<div class="col-md-4">
+							
+							<b>Citas: </b> <span id="citationCount" class="badge badge-info">-</span>
+							<b> UTMs: </b> <span id="utmCount" class="badge badge-info">-</span>
+
+							<div id="chart_div" style="width: 355px; height: 20px"></div>
+
+							<div id="sectorTable">
+
+								<ul class="nav nav-pills">
+									<li class="disabled"><a href="javascript:;" data-target="#sectTitle"><h5>Sectores</h5></a>
+									</li>
+									<li class="divider"></li>
+									<li class="active"><a href="javascript:;" data-target="#sectCit" data-toggle="tab">Citas</a>
+									</li>
+									<li><a href="javascript:;" data-target="#sectUTM" data-toggle="tab">UTMs</a></li>
+								</ul>
+
+								<div class="tab-content">
+
+									<div class="tab-pane active" id="sectCit">
+										<table>
+											<tr>
+												<td>La Muela</td>
+												<td class="centerTd"><span id="sector_1"
+													class="badge badge_sector_1">0</span></td>
+												<td><span id="sector_1_p" class="label"></span></td>
+											</tr>
+											<tr>
+												<td>Campo de Borja</td>
+												<td class="centerTd"><span id="sector_2"
+													class="badge badge_sector_2">0</span></td>
+												<td><span id="sector_2_p" class="label"></span></td>
+											</tr>
+											<tr>
+												<td>La Sierra</td>
+												<td class="centerTd"><span id="sector_3"
+													class="badge badge_sector_3">0</span></td>
+												<td><span id="sector_3_p" class="label"></span></td>
+											</tr>
+											<tr>
+												<td>El Moncayo</td>
+												<td class="centerTd"><span id="sector_4"
+													class="badge badge_sector_4">0</span></td>
+												<td><span id="sector_4_p" class="label"></span></td>
+											</tr>
+											<tr>
+												<td>Somontano</td>
+												<td class="centerTd"><span id="sector_5"
+													class="badge badge_sector_5">0</span></td>
+												<td><span id="sector_5_p" class="label"></span></td>
+											</tr>
+											<tr>
+												<td>Magallón</td>
+												<td class="centerTd"><span id="sector_6"
+													class="badge badge_sector_6">0</span></td>
+												<td><span id="sector_6_p" class="label"></span></td>
+											</tr>
+										</table>
+
+									</div>
+									<div class="tab-pane" id="sectUTM">
+										<table>
+											<tr>
+												<td>La Muela</td>
+												<td class="centerTd"><span id="sector_1_utm"
+													class="badge badge_sector_1">0</span></td>
+												<td><span id="sector_1_p_utm" class="label"></span></td>
+											</tr>
+											<tr>
+												<td>Campo de Borja</td>
+												<td class="centerTd"><span id="sector_2_utm"
+													class="badge badge_sector_2">0</span></td>
+												<td><span id="sector_2_p_utm" class="label"></span></td>
+											</tr>
+											<tr>
+												<td>La Sierra</td>
+												<td class="centerTd"><span id="sector_3_utm"
+													class="badge badge_sector_3">0</span></td>
+												<td><span id="sector_3_p_utm" class="label"></span></td>
+											</tr>
+											<tr>
+												<td>El Moncayo</td>
+												<td class="centerTd"><span id="sector_4_utm"
+													class="badge badge_sector_4">0</span></td>
+												<td><span id="sector_4_p_utm" class="label"></span></td>
+											</tr>
+											<tr>
+												<td>Somontano</td>
+												<td class="centerTd"><span id="sector_5_utm"
+													class="badge badge_sector_5">0</span></td>
+												<td><span id="sector_5_p_utm" class="label"></span></td>
+											</tr>
+											<tr>
+												<td>Magallón</td>
+												<td class="centerTd"><span id="sector_6_utm"
+													class="badge badge_sector_6">0</span></td>
+												<td><span id="sector_6_p_utm" class="label"></span></td>
+											</tr>
+										</table>
+
+									</div>
+								</div>
+							</div>
+							
+							<div id="chart_div" style="width: 355px; height: 30px"></div>
+							
+							<div id="sinonimos">
+								<table class="table">
+									<thead>
+										<tr>
+											<td><b>Sinónimos</b></td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="nombre in modelSpecy.sinonimos track by $index">
+											<td>{{nombre}}</td>
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+							<div id="comunes">
+								<table class="table">
+									<thead>
+										<tr>
+											<td><b>Nombres Comunes</b></td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="ncomun in modelSpecy.comunes">
+											<td>{{ncomun}}</td>
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+
+					<h3>Imágenes:</h3>
+					<span id="photoCount" class="badge badge-info">{{modelSpecy.fotos.length}}</span>
+					
+					<div id="links">
+						<div class="row">
+						  <div ng-repeat="foto in modelSpecy.fotos"  class="col-xs-6 col-md-3">
+						    <a href={{foto.original}} title={{foto.comentario}} data-gallery class="thumbnail">
+						    	<img src={{foto.thumbnail}} alt={{foto.comentario}}></img>
+								<p class="text-info">
+									<small>{{foto.utm}}</small>
+								</p>
+						    </a>
+						  </div>
+						</div>
+					</div>
+					<ng-include src="'partials/gallery.html'"></ng-include>
+				</div>
+				<div class="tab-pane" id="genusTab">
+					<div id="commentList">
+						<table class="table">
+							<thead>
+								<tr>
+									<td><b>#</b></td>
+									<td><b>UTM</b></td>
+									<td><b>Fecha</b></td>
+									<td><b>Zona</b></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="cita in modelSpecy.citas track by $index">
+									<td><span class="badge badge-info">{{$index+1}}</span></td>
+									<td>{{cita.utm1x1}}</td>
+									<td>{{cita.laFecha}}</td>
+									<td><a ng-if="cita.laZona !== 'Indefinido'" href ng-click="searchZone(cita.laZona, cita.sector)" >{{cita.laZona}}</a></td>
+									<td>{{cita.elLugar}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<div class="tab-pane" id="caractTab">
+				
+   					<table id="tabla_caract" class="table table-striped table-bordered">
+       					<tbody>
+                  			<tr class="info">
+                  				<td class="col-md-3"><br/><span class="label label-info">Color</span></td>
+                  				<td class="col-md-3"><br/><span class="label label-info">Fitotipo</span></td>
+                  				<td class="col-md-3"><br/><span class="label label-info">Fitosubtipo</span></td>
+                  			</tr>
+			                <tr> 
+			                	<td>{{modelSpecy.info.color}}</td>
+								<td>{{modelSpecy.info.fitoTipo}}</td>
+								<td>{{modelSpecy.info.fitoSubtipo}}</td>
+							</tr>
+                  			<tr class="info">
+                  				<td class="col-md-4"><br/><span class="label label-info">Comentario</span><p></p></td>
+                  				<td class="col-md-3"><br/><span class="label label-info">Presencia (comarca)</span></td>
+                  				<td class="col-md-3"><br/><span class="label label-info">Frecuencia (comarca)</span></td>
+                  			</tr>
+			                <tr>
+								<td>{{modelSpecy.info.comentario}}</td>
+								<td>{{modelSpecy.info.presComarca}}</td>
+								<td>{{modelSpecy.info.frecComarca}}</td>
+							</tr>
+                  			
+			            </tbody>
+                	</table>
+				</div>
+			</div>
+
+
+		</div>
+</div>

@@ -22,38 +22,57 @@
 	<link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
 <!-- 	<link rel="stylesheet" href="vendor/css/bootstrap.paper.min.css" /> -->
 <!-- 	<link rel="stylesheet" href="vendor/css/bootstrap.simplex.min.css" /> -->
+<!-- 	<link rel="stylesheet" href="http://bootswatch.com/superhero/bootstrap.min.css" /> -->
+	<link rel="stylesheet" href="http://bootswatch.com/yeti/bootstrap.min.css" />
 
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" href="css/style.css" />
 	
-	<link rel="stylesheet" href="vendor/css/abn_tree.css" />
+<!-- START GALLERY -->
+	<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+	<link rel="stylesheet" href="imageGallery/css/bootstrap-image-gallery.min.css">
+<!-- END GALLERY -->
+	
+	<link href="maps/style.css" rel="stylesheet" type="text/css" />
+	
+	<link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-	<ng-include src="'template/navbar.html'"></ng-include>
-	
-	<div class="container" style="margin-top: 60px;">
-		<div ng-view></div>
+	<div id="wrap">
+		<ng-include src="'components/navbar.html'"></ng-include>
+		<div id="push"></div>
+		<div class="container">
+			<div ng-view></div>
+		</div>
+		<div id="push"></div>
 	</div>
 	
-	<script data-require="angular.js@1.3.9" data-semver="1.3.9" src="https://code.angularjs.org/1.3.9/angular.min.js"></script>
-    
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular-animate.min.js"></script>
+	<ng-include src="'partials/footer.html'"></ng-include>
+
+	<script data-require="angular.js@1.3.14" data-semver="1.3.14" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-animate.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
 	
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular-route.min.js"></script>
+	<script data-require="jquery@*" data-semver="2.1.3" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script data-require="bootstrap@3.3.4" data-semver="3.3.4" src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	
-	<script data-require="jquery@*" data-semver="2.1.3" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-	<script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	
-	<!-- Google Maps -->
-	<!-- 	<script src="http://maps.google.com/maps/api/js?sensor=false"></script> -->
+	<!-- Regular GMAPS integration -->
+	<!-- START -->
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+	
+	<script type="text/javascript" src="maps/js/markerwithlabel_packed.js"></script>
+	<script type="text/javascript" src="maps/js/jshashtable-2.1.js"></script>
+	<script type="text/javascript" src="maps/js/forms.js"></script>
+	<script type="text/javascript" src="maps/js/mapa.js"></script>
+	<script type="text/javascript" src="maps/js/utm_converter.js"></script>
+	<script type="text/javascript" src="maps/js/utm_grid.js"></script>
+	<script type="text/javascript" src="maps/js/map_viewer.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<!-- END -->
 	
 	<!-- angular-google-maps -->
 	<script src="vendor/js/lodash.underscore.min.js"></script>
 	<script src="vendor/js/angular-google-maps.min.js"></script>
-	
-	<!-- treeview -->
-	<script src="vendor/js/abn_tree_directive.js"></script>
 	
 	<script src="components/pagination/dirPagination.js"></script>
 
@@ -62,7 +81,18 @@
 	<script src="vendor/js/ui-bootstrap-tpls-0.12.0.js"></script>
 <!-- 	<script src="vendor/js/ui-bootstrap-tpls-0.12.0.min.js"></script> -->
 
-	<script src="app.js"></script>
+
+<!-- START GALLERY -->
+	<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+	<script src="imageGallery/js/bootstrap-image-gallery.js"></script>
+<!-- END GALLERY -->
+
+	<script src="angular/app.js"></script>
+	<script src="angular/app.config.js"></script>
+	<script src="angular/app.directive.js"></script>
+	<script src="angular/app.services.js"></script>
+	<script src="angular/app.controllers.js"></script>
+	
 </body>
-<ng-include src="'template/footer.html'"></ng-include>
+
 </html>

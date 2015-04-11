@@ -1,0 +1,60 @@
+<div class="row">
+	<div class="row">
+		<div class="col-md-12">
+			<div id="section_title">
+				Género: <span class="text-info">{{modelGenus.genero}}</span> <span
+					style="padding: 0 40px">&nbsp;</span> <small>Familia:</small> <small
+					class="text-info">{{modelGenus.familia}}</small>
+				<small><a style="float: right;" ng-href="{{modelGenus.refFloraIberica}}">Enlace Flora iberica</a></small>
+			</div>
+			
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+
+			<div class="row">					
+					<div id="links">
+						<div class="row">
+						  <div ng-repeat="foto in modelGenus.fotos|limitTo:4" class="col-xs-6 col-md-3">
+						    <a href="{{foto.original}}" title="{{foto.comentario}}" data-gallery="" class="thumbnail">
+						    	<img src="{{foto.thumbnail}}" alt="{{foto.comentario}}">
+								<p class="text-info">
+									<small>{{foto.descripcion}}</small>
+								</p>
+						    </a>
+						  </div>
+						</div>
+					</div>
+					<ng-include src="'partials/gallery.html'"></ng-include>
+				</div>
+		</div>
+	</div>
+	<div class="row bs-docs-example">
+		<table class="table">
+			<thead>
+				<tr>
+					<td><b>#</b></td>
+					<td><b>Nombre del Taxon</b></td>
+					<td><b>Mapa Distribución | Ficha biológica</b></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="especie in modelGenus.especies track by $index">
+					<td><span class="badge badge-info">{{$index+1}}</span></td>
+					<td>{{especie.taxon}}</td>
+					<td><a href ng-click="nav.searchSpecy(especie.taxon)"> Ver
+							taxon </a></td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+	    <object data="{{modelGenus.refFloraIberica}}" type="application/pdf">
+	        <embed src="{{modelGenus.refFloraIberica}}" type="application/pdf" />
+	    </object>
+	</div>
+	
+	
+</div>

@@ -1,11 +1,93 @@
-<div class="row">
-    <ui-gmap-google-map center="map.center"
-                zoom="map.zoom"
-                draggable="true"
-                options="map.options"
-                events="map.events"
-                control="map.control">
-        <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id" ></ui-gmap-marker>        
-    </ui-gmap-google-map>
-</div>	
+<div id="container">
+		<div class="white_box">
+				<div id="searchMapTab">
+					<div class="searchMap">
+						<div class="row">
+				<div class="col-md-8">
+					<div id="wrapper">
+						<div id="map_canvas" class="map_style"></div>
+						<div class="utm_search_mainpage" id="map_info"></div>
+					</div>
+					<div id="mapButtons">
+						<div class="btn-group">
+							<button id="addGridBt" class="btn btn-small gridDisabled"
+								type="button" onclick="loadUTMGrid()">Cuadrícula UTM</button>
+							<button id="addSectorGridBt"
+								class="btn btn-small sectorGridDisabled" type="button"
+								onclick="loadSectorGrid( true )">Sectores</button>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-4">
+					<h4><span class="label label-info"> Zonas </span></h4>
+					<p></p>
+						<div class="control-group" >Escoge una zona del sector elegido.</div>
+					<p></p>
+					<div class="btn-group" id="zonasSearchForm">
+						<button id="zonasearchButton" class="btn dropdown-toggle"
+							data-toggle="dropdown"
+							data-toggle="tooltip" data-placement="top" title="Escoge una zona del sector elegido">
+							<span class="text">LaMuela</span> <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li style="background-color: #e87587" id="A"><a href ng-click="loadZonesFromSector('A')">LaMuela</a></li>
+							<li style="background-color: #b9b8b7" id="B"><a href ng-click="loadZonesFromSector('B')">CampoBorja</a></li>
+							<li style="background-color: #e49247" id="C"><a href ng-click="loadZonesFromSector('C')">LaSierra</a></li>
+							<li style="background-color: #56e962" id="D"><a href ng-click="loadZonesFromSector('D')">Moncayo</a></li>
+							<li style="background-color: #43C6DB" id="E"><a href ng-click="loadZonesFromSector('E')">Somontano</a></li>
+							<li style="background-color: #e9e331" id="F"><a href ng-click="loadZonesFromSector('F')">Magallón</a></li>
+							<li style="background-color: #e49247" id="G"><a href ng-click="loadZonesFromSector('G')">Tarazona</a></li>
+							<li style="background-color: #e87587" id="H"><a href ng-click="loadZonesFromSector('H')">Ágreda</a></li>
+							<li id="Z"><a href ng-click="loadZonesFromSector('Z')">Otras</a></li>
+						</ul>
+					</div>
+					<!-- /btn-group -->
+					<br /> 
+					
+					<div id="zonasAlphaList" class="list-group">
+					  <div class="list-group-item"  ng-repeat="zone in zones track by $index">
+					  	<a href ng-click="searchZone(zone)" >{{zone}}</a>
+					  </div>
+					</div>
+				
+				<!-- 				<br />  -->
+				<span class="label label-info">Precisión UTM</span>
+				<p> </p>
+					<form id="utm_radio">
+						<label class="radio"> <input type="radio" name="utm"
+							value="10km" /> 10x10 km </label>
+						<label class="radio"> <input type="radio" name="utm"
+							value="1km" checked > 1x1 km </label>
+					</form>
+				</div>
+				
+				<div class="col-md-12">
+				<div class="row">
+					<div id="links">
+						<div class="row">
+						  <div ng-repeat="foto in fotos"  class="col-xs-6 col-md-3">
+						    <a href={{foto.original}} title={{foto.comentario}} data-gallery class="thumbnail">
+						    	<img src={{foto.thumbnail}} alt={{foto.comentario}}></img>
+								<p class="text-info">
+									<small>{{foto.utm}}</small>
+								</p>
+						    </a>
+						  </div>
+						</div>
+					</div>
+					<ng-include src="'partials/gallery.html'"></ng-include>
+					</div>
 	
+				</div>
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+		<p></p>
+
+
+</div>

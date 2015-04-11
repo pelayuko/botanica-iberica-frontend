@@ -3,11 +3,27 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="site-heading">
-                    <h1>Botánica Ibérica</h1>
+                    <h1>Flora de la comarca de Borja y el Moncayo</h1>
                     <hr class="small">
-                    <span class="subheading">Flora presente en el Moncayo</span>
+                    <span class="subheading">Paisajes y botánica de la comarca</span>
+				    <form role="form">
+				        <div class="row omnisearch">
+				            <div class="form-group">
+				                <input 
+				                	ng-model="searchModel" 
+				    				typeahead="res.label for res in getSearchResults($viewValue) | filter:$viewValue | limitTo:8" 
+				    				typeahead-loading="loadingEspecies"  
+				    				typeahead-on-select="onSelect($item, $model, $label)" 				                	
+				                	placeholder="Busca especies, géneros..." 
+				                	type="text" 
+				                	class="form-control input-lg">
+				                <i ng-show="loadingResults" class="glyphicon glyphicon-refresh"></i>
+				            </div>
+				        </div>
+				    </form>
                 </div>
             </div>
         </div>
     </div>
 </header>
+								

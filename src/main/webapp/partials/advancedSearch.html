@@ -1,0 +1,78 @@
+<div class="container">
+	<div id="searchTaxon">
+		<div class="row">
+			<div class="col-md-6 white_box" ng-controller="TreeCtrl">
+				<div class="tree" style="background-color: #F5F5F5">
+					<ul>
+						<li id="root"><a href="javascript:;" data-target="#">Grupos</a> 
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6" ng-controller="AdvancedSearchCtrl">
+				<div class="row white_box">
+					<div class="col-md-6">
+		    			<input type="text" ng-model="searchModel" 
+		    				typeahead="searchResult.simpleLabel for searchResult in getResults($viewValue) | filter:$viewValue | limitTo:8" 
+		    				typeahead-loading="loadingEspecies"  
+		    				typeahead-on-select="onSelect($item, $model, $label)" 
+		    				class="form-control">
+						<i ng-show="loadingEspecies" class="glyphicon glyphicon-refresh"></i>
+					</div>
+					<div class="col-md-6 btn-group" id="taxonSearchForm">
+						<button id="taxonSearchButton" data="Accepted" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						  Nombre aceptado <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" >
+							<li id="Accepted"><a href="javascript:;" data-target="#">Especie (Nombre aceptado)</a></li>
+							<li id="Todos"><a href="javascript:;" data-target="#">Especie (Con sinónimos)</a></li>
+							<li id="Comunes"><a href="javascript:;" data-target="#">Especie (Nombre común)</a></li>
+							<li id="Genus"><a href="javascript:;" data-target="#">Género</a></li>
+							<li id="Family"><a href="javascript:;" data-target="#">Familia</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="row white_box" id="letter_search" ng-controller="LetterCtrl">
+					<div class="col-md-12">
+						<a ng-repeat="letter in abecedario" href ng-click="loadLetter(letter)">{{letter | uppercase}} </a>
+					</div>
+					<div class="col-md-12">
+<!-- 						<select id="taxonAlphaList" multiple="multiple"> -->
+<!-- 							<option ng-click="nav.searchSpecy(res.taxon.nombre)" ng-repeat="res in species"> -->
+<!-- 								{{res.taxon.nombre}} -->
+<!-- 							</option> -->
+<!-- 						</select> -->
+						<div id="taxonAlphaList" class="list-group">
+						  <div class="list-group-item"  ng-repeat="res in species">
+						  	<a href ng-click="nav.searchSpecy(res.taxon.nombre)" >{{res.taxon.nombre}}</a>
+						  </div>
+						</div>						
+					</div>
+					<div class="col-md-12">
+						<a href ng-click="randomSpecy()" class="btn btn-info top-buffer" role="button">Una especie al azar</a>
+					</div>	
+				</div>			
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row">					
+					<div id="links">
+						<div class="row">
+						  <div ng-repeat="foto in fotos"  class="col-xs-6 col-md-3">
+						    <a href={{foto.original}} title={{foto.comentario}} data-gallery class="thumbnail">
+						    	<img src={{foto.thumbnail}} alt={{foto.comentario}}></img>
+								<p class="text-info">
+									<small>{{foto.descripcion}}</small>
+								</p>
+						    </a>
+						  </div>
+						</div>
+					</div>
+					<ng-include src="'partials/gallery.html'"></ng-include>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
