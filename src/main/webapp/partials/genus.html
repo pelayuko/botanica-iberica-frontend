@@ -5,7 +5,9 @@
 				Género: <span class="text-info">{{modelGenus.genero}}</span> <span
 					style="padding: 0 40px">&nbsp;</span> <small>Familia:</small> <small
 					class="text-info">{{modelGenus.familia}}</small>
-				<small><a style="float: right;" ng-href="{{modelGenus.refFloraIberica}}">Enlace Flora iberica</a></small>
+					
+<!-- 				<ng-include src="'partials/modalFloraIberica.html'"></ng-include> -->
+				<small><a style="float: right;" target="_blank" ng-href="{{modelGenus.refFloraIberica}}">Enlace Flora iberica</a></small>
 			</div>
 			
 		</div>
@@ -49,11 +51,4 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="row">
-	    <object data="{{modelGenus.refFloraIberica}}" type="application/pdf">
-	        <embed src="{{modelGenus.refFloraIberica}}" type="application/pdf" />
-	    </object>
-	</div>
-	
-	
 </div>

@@ -6,7 +6,10 @@
 			<span class="text-info">{{modelFamily.familia}}</span>
 			<span style="padding: 0 40px">&nbsp;</span> 
 			<small>Grupo:</small> 
-			<small class="text-info">{{modelFamily.grupo}}</small>
+			<small class="text-info">{{modelFamily.familia}}</small>
+			
+<!-- 			<ng-include src="'partials/modalFloraIberica.html'"></ng-include> -->
+			<small><a style="float: right;" target="_blank" ng-href="{{modelFamily.refFloraIberica}}">Enlace Flora iberica</a></small>
 		</div>
 		<div class="col-md-12">
 
@@ -48,7 +51,7 @@
 						Ver Especie
 					</a>
 					/
-					<a href ng-click="nav.searchGenus(especie.genero)">
+					<a href ng-click="nav.searchGenus(especie.taxon)">
 						Ver Género
 					</a>
 				</td>
