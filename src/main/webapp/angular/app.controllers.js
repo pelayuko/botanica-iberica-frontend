@@ -206,6 +206,7 @@ flora.controller('FamilyCtrl', function($scope, $http, $location, NavigationServ
 	      }
 	    }).then(function(response){
 	    	$scope.modelFamily = response.data;
+	    	$scope.refFloraIberica = $scope.modelFamily.refFloraIberica;
 
 	 });
 });
@@ -220,7 +221,7 @@ flora.controller('GenusCtrl', function($scope, $http, $location, NavigationServi
 	      }
 	    }).then(function(response){
 	    	$scope.modelGenus = response.data;
-
+	    	$scope.refFloraIberica = $scope.modelGenus.refFloraIberica;
 	 });
 });
 
