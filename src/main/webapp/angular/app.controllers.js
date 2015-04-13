@@ -168,12 +168,12 @@ flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, Navig
 		$location.path('/zone').search({zone : zoneParam, sector : sectorParam});
 	};
 	
-	$scope.loadGMap = function() {
+	$scope.loadGMap = function(especie) {
 		$timeout(function() {
 			$('#dvLoading').fadeOut(2000);
 			createMap("view", "map_canvas");
 			loadUTMGrid();
-			loadUTMsTaxon($location.search().query);
+			loadUTMsTaxon(especie); //$location.search().query);
 				// $scope.$apply();
 		  }, 0);		
 
@@ -186,12 +186,12 @@ flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, Navig
 			      }
 			    }).then(function(response){
 			    	$scope.modelSpecy = response.data;
-			    	$scope.loadGMap();
+			    	$scope.loadGMap($scope.modelSpecy.datosTaxon.nombre);
 			 });		  
 	  } else {
 			$http.get( serverUrl + "/datosDeEspecieRandom").then(function(response){
 			    	$scope.modelSpecy = response.data;
-			    	$scope.loadGMap();
+			    	$scope.loadGMap($scope.modelSpecy.datosTaxon.nombre);
 			 });		  
 	  }
 });
