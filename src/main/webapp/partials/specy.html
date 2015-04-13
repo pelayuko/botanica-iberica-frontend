@@ -14,24 +14,15 @@
 		<div class="col-md-12">
 			<div id="titleContainer">
 				<div id="section_title" class="row">
-					<div class="col-md-8">
-						Taxon: <span class="text-info">{{modelSpecy.datosTaxon.nombre}}</span>
-						<small class="text-info">(Fam.: {{modelSpecy.datosTaxon.familia}})</small>
-					</div>
-					<div class="col-xs-2">
-						<small>
-							<a  style="float: right;" href ng-click="nav.searchFamily(modelSpecy.datosTaxon.familia)">
-								Familia
-							</a>
-						</small>
-					</div>
-					<div class="col-xs-2">
-						<small>
-							<a  style="float: right;" href ng-click="nav.searchGenus(modelSpecy.datosTaxon.genero)">
-								Género
-							</a>
-						</small>
-					</div>
+					Especie: <span class="text-info">{{modelSpecy.datosTaxon.nombre}}</span>
+					<span style="padding: 0 40px">&nbsp;</span>
+					<small>Familia:</small>
+					<small>
+					<a href ng-click="nav.searchFamily(modelSpecy.datosTaxon.familia)">{{modelSpecy.datosTaxon.familia}}</a>
+					</small>
+					<small>
+						<a  style="float: right;" href ng-click="nav.searchGenus(modelSpecy.datosTaxon.genero)"> Género </a>
+					</small>
 				</div>
 				<div class="col-md-12">
 					<div id="links">

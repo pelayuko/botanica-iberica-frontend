@@ -2,11 +2,12 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div id="section_title">
-				Género: <span class="text-info">{{modelGenus.genero}}</span> <span
-					style="padding: 0 40px">&nbsp;</span> <small>Familia:</small> <small
-					class="text-info">{{modelGenus.familia}}</small>
-					
-<!-- 				<ng-include src="'partials/modalFloraIberica.html'"></ng-include> -->
+				Género: <span class="text-info">{{modelGenus.genero}}</span> 
+				<span style="padding: 0 40px">&nbsp;</span>
+				<small>Familia:</small>
+				<small>
+					<a href ng-click="nav.searchFamily(modelGenus.familia)">{{modelGenus.familia}}</a>
+				</small>
 				<small><a style="float: right;" target="_blank" ng-href="{{modelGenus.refFloraIberica}}">Enlace Flora iberica</a></small>
 			</div>
 			
