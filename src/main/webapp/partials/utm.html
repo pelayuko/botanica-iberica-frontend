@@ -20,7 +20,7 @@
 			<tbody>
 				<tr dir-paginate="taxon in taxonList | itemsPerPage: pageSize" current-page="currentPage" >
 					<td><span class="badge badge-info">{{(currentPage-1)*pageSize + $index+1}}</span></td>
-					<td>{{taxon.taxon}}</td>
+					<td>{{taxon.nombre}}</td>
 					<td>{{taxon.familia}}</td>
 					<td>
 						<a href ng-click="nav.searchSpecy(taxon.nombre)">

@@ -225,7 +225,7 @@
 							<tbody>
 								<tr dir-paginate="especie in modelZone.especies | filter:q | itemsPerPage: pageSize" current-page="currentPage" >
 									<td><span class="badge badge-info">{{(currentPage-1)*pageSize + $index+1}}</span></td>
-									<td >{{especie.taxon}}</td>
+									<td >{{especie.nombre}}</td>
 									<td>{{especie.familia}}</td>
 									<td>
 										<a href ng-click="nav.searchSpecy(especie.nombre)">
