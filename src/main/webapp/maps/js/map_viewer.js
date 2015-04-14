@@ -29,6 +29,54 @@ function CitationCount(){
 
 }
 
+function getColor(layer,utmString){
+	if(layer == 'Jaca') {
+		return {"color":"#FF0000","opacity":"0.20"};
+	}
+	else if(layer.indexOf("sector") == 0) {
+		if (layer.slice(-1) == "A") return {"color":"#E87587","opacity":"0.35"};
+		else if (layer.slice(-1) == "B") return {"color":"#A9A8A7","opacity":"0.35"};
+		else if (layer.slice(-1) == "C") return {"color":"#E49247","opacity":"0.35"};
+		else if (layer.slice(-1) == "D") return {"color":"#56E962","opacity":"0.35"};
+		else if (layer.slice(-1) == "E") return {"color":"#43C6DB","opacity":"0.35"};
+		else if (layer.slice(-1) == "F") return {"color":"#E9E331","opacity":"0.35"};
+		else if (layer.slice(-1) == "G") return {"color":"#E49247","opacity":"0.35"};
+		else if (layer.slice(-1) == "H") return {"color":"#E87587","opacity":"0.35"};	
+		else return {"color":"#0000FF","opacity":"0.35"};	
+	}
+
+	else if(layer=='view'){
+
+		return {"color":"#0000FF","opacity":"0.35"};
+
+	}
+//	else if(layer=='view_api'){
+//		return {"color":"#"+color,"opacity":"0.35"};
+//	}
+	else if(layer=='utm_search'){
+
+		return {"color":redGrid[parseInt(2)],"opacity":"0.55"};
+
+	}
+	else if(layer=='JacaGrid'){
+
+		return {"color":"#FF0000","opacity":"0.05"};
+
+	}
+	else{
+
+/*		count=utmCitationCount.utmList.get(utmString);
+		range=utmCitationCount.max-utmCitationCount.min;
+		step=parseInt((utmCitationCount.max-utmCitationCount.min)/5);
+		color = (count-1)/step;
+		if(color>5) color=5;
+		//console.log("Min: "+utmCitationCount.min+" Max: "+utmCitationCount.max+" Count: "+count+" Color: "+parseInt(color));
+		return {"color":redGrid[parseInt(color)],"opacity":"0.8","classe":parseInt(color)};
+*/
+		
+	}
+
+}
 
 function showUTMSquares(){ //llamada desde pagDeEspecie.html y pagDeZona.html
 
@@ -86,12 +134,26 @@ function loadUTMsZona(zona){  //llamada desde pagDeZona.html
 	loadUTMsComun("/listaCitasByUtmsZona?zona="+zona);
 }
 
-function loadUTMsTaxon(taxon){   //llamada desde pagDeEspecie.html
+function loadUTMsTaxon(taxon){  
+	$.getJSON(serverUrl + "/listaCitasJacaByUtmsTaxon?taxon="+taxon, function(data) {
+
+		var JacaCount=0;
+
+		$.each(data, function(entryIndex, entry){ 
+
+			utm1x1=entry['utm1x1'];
+			addUTM(utm1x1,map,entry['sector']); 
+			JacaCount++;
+
+		});       
+		$('#JacaCount').html(JacaCount);
+
+	});  
 	loadUTMsComun("/listaCitasByUtmsTaxon?taxon="+taxon)
 }
 
 // FIXME: move to angular!!
-function loadUTMsComun(consulta){   //llamada desde pagDeEspecie.html
+function loadUTMsComun(consulta){  
 	var that = this;
 	$.getJSON(serverUrl + consulta, function(data) {
 
@@ -130,6 +192,7 @@ function loadUTMsComun(consulta){   //llamada desde pagDeEspecie.html
 		selectUTMSquare();
 
 		citationCount=0;
+		utmTotalCount=0;
 
 //			if ($("#chart_div").length > 0) drawChart();
 
@@ -205,14 +268,17 @@ function addUTM(utm,map,sector){
 
 	}
 	else{
+		if(sector == "Jaca") drawUTMSquare(utm,map,sector);
+		else {
+			if(utm.length>=7) {
 
-		if(utm.length>=7) {
+				utmTotalCount++;
+				utmSectorsCount['sector_'+sector]=utmSectorsCount['sector_'+sector]+1;
 
-			utmTotalCount++;
-			utmSectorsCount['sector_'+sector]=utmSectorsCount['sector_'+sector]+1;
-
+			}
+			drawUTMSquare(utm,map,map.mode);  
 		}
-		MGRS2LatLong(utm,map,map.mode);  
+
 		map.utmListHash.put(utm,1);
 
 	}
@@ -220,7 +286,7 @@ function addUTM(utm,map,sector){
 }
 
 
-function MGRS2LatLong(utm,map,layer){
+function drawUTMSquare(utm,map,layer){
 
 	var prec=10000;
 
@@ -291,12 +357,12 @@ function MGRS2LatLong(utm,map,layer){
 
 	easting = easting + a7;
 
-	var utmSq=drawUTMSquare(zone, easting,northing,prec,false,utm,map,layer);
+	var utmSq=doDrawUTMSquare(zone, easting,northing,prec,false,utm,map,layer);
 
 
 }
 
-function drawUTMSquare(zone,easting, northing, acur,southernHemis,utmString,map,layer){
+function doDrawUTMSquare(zone,easting, northing, acur,southernHemis,utmString,map,layer){
 
 	var X_10x10=parseInt(easting);
 	var Y_10x10=parseInt(northing);
@@ -323,6 +389,10 @@ function drawUTMSquare(zone,easting, northing, acur,southernHemis,utmString,map,
 
 
 	var  colorObj=getColor(layer, utmString);
+	var nivel=1000;
+	if(layer.indexOf("sector") == 0) nivel = 1;
+	else if(layer == "JacaGrid") nivel = 2;
+	else if(layer == "Jaca") nivel = 3;
 
 	var UTMotherBlue = new google.maps.Polygon({
 
@@ -332,7 +402,8 @@ function drawUTMSquare(zone,easting, northing, acur,southernHemis,utmString,map,
 		strokeWeight: 1,
 		fillColor: colorObj.color,
 		fillOpacity: colorObj.opacity,
-		id: utmString
+		id: utmString,
+		zIndex: nivel
 
 	}); 
 
@@ -352,6 +423,7 @@ function drawUTMSquare(zone,easting, northing, acur,southernHemis,utmString,map,
 		$('#map_info').append("<br/>");*/
 
 	if(layer.indexOf("sector") == 0) utmSectorList.push(UTMotherBlue);
+	else if(layer=='JacaGrid') utmGridList.push(UTMotherBlue);
 	else if(layer=='utm_search') polygonSelection=UTMotherBlue;
 	else citationList.push(UTMotherBlue); // if(layer=='view' || layer=='view_api')
 
@@ -364,7 +436,7 @@ function drawUTMSquare(zone,easting, northing, acur,southernHemis,utmString,map,
 //				getAltitud(event, map);
 //				loadTaxonList(event.latLng);
 				var utm= UTMotherBlue.id; //convertLatLongToUTM(event.latLng.lat(),event.latLng.lng(),acur,UTMotherBlue,false);
-				window.open("/#/utm?utm="+utm.replace(/_/g, ""),'_self');
+				window.open("/datosDeUtm?utm="+utm.replace(/_/g, ""),'_self');
 				
 //				infowindow = new google.maps.InfoWindow();
 //				infowindow.setContent("<div id=\"infoWindow\"><p><span class=\"text-info\"><b>UTM:</b> </span>"+utmString+"</p> " +

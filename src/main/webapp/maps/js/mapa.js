@@ -646,8 +646,8 @@ function MapView(mapMode,divId){
 	this.mode=mapMode;
 
 	var mapOptions = {
-			center: new google.maps.LatLng(42.69,0.7841),
-			zoom: 7,
+			center: new google.maps.LatLng(41.76,-1.63),
+			zoom: 10,
 			mapTypeId: 'terrain' //google.maps.MapTypeId.ROADMAP
 	};
 
@@ -674,79 +674,6 @@ function setColor(colorParam){
 
 }
 
-
-function getColor(layer,utmString){
-	
-	if(layer.indexOf("sector") == 0) {
-		if (layer.slice(-1) == "A") return {"color":"#E87587","opacity":"0.35"};
-		else if (layer.slice(-1) == "B") return {"color":"#A9A8A7","opacity":"0.35"};
-		else if (layer.slice(-1) == "C") return {"color":"#E49247","opacity":"0.35"};
-		else if (layer.slice(-1) == "D") return {"color":"#56E962","opacity":"0.35"};
-		else if (layer.slice(-1) == "E") return {"color":"#43C6DB","opacity":"0.35"};
-		else if (layer.slice(-1) == "F") return {"color":"#E9E331","opacity":"0.35"};
-		else if (layer.slice(-1) == "G") return {"color":"#E49247","opacity":"0.35"};
-		else if (layer.slice(-1) == "H") return {"color":"#E87587","opacity":"0.35"};	
-		else return {"color":"#0000FF","opacity":"0.35"};	
-	}
-
-	if(layer=='view'){
-
-		return {"color":"#0000FF","opacity":"0.35"};
-
-	}
-	else if(layer=='view_api'){
-
-		return {"color":"#"+color,"opacity":"0.35"};
-
-	}
-	else if(layer=='utm_search'){
-
-		return {"color":redGrid[parseInt(2)],"opacity":"0.55"};
-
-	}
-	else if(layer=='utm_high'){
-
-		return {"color":redGrid[parseInt(5)],"opacity":"0.75"};
-
-	}
-	else if(layer=='stats_norm'){
-
-		var count=utmCitationCount.utmList.get(utmString);
-
-		var range=(utmCitationCount.maxNorm-utmCitationCount.minNorm)/utmCitationCount.classes;
-
-		var countNorm= Math.log(count);
-
-		if(countNorm==utmCitationCount.maxNorm) color=5;
-		else color=(countNorm-utmCitationCount.minNorm)/(range);
-
-		//console.log("Classes("+utmCitationCount.classes+") "+(countNorm*utmCitationCount.classes)+"  Min: "+utmCitationCount.min+"{"+utmCitationCount.minNorm+"}"+" Max: "+utmCitationCount.max+"{"+utmCitationCount.maxNorm+"}"+" [range:"+range+"] Count (Norm): "+Math.log(count)+" Count: (((["+count+"]))) Color: "+parseInt(color));
-		//console.log("Count (Norm): "+Math.log(count)+" Count: (((["+count+"]))) Color: "+parseInt(color));
-
-
-		return {"color":redGrid[parseInt(color)],"opacity":"0.8","classe":parseInt(color)};
-
-	}
-//	else if(layer=='chrono'){}
-	else{
-
-		count=utmCitationCount.utmList.get(utmString);
-
-		range=utmCitationCount.max-utmCitationCount.min;
-
-		step=parseInt((utmCitationCount.max-utmCitationCount.min)/5);
-
-		color = (count-1)/step;
-
-		if(color>5) color=5;
-
-		//console.log("Min: "+utmCitationCount.min+" Max: "+utmCitationCount.max+" Count: "+count+" Color: "+parseInt(color));
-
-		return {"color":redGrid[parseInt(color)],"opacity":"0.8","classe":parseInt(color)};
-	}
-
-
-}
 
 function createMap(mapMode,divId) {
 	var that = this;
