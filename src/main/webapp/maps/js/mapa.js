@@ -15,16 +15,9 @@ var marker1;
 var gridLayer;
 var sectorGridLayer;
 
-var altitudeArray={'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0,
-		'11':0,'12':0,'13':0,'14':0,'15':0,'16':0,'17':0,'18':0,'19':0};
-
-var altidudeLimits={'max':0,'min':-1,'maxReg':'','minReg':''};
-
 var sectorsCount={'sector_1':0,'sector_2':0,'sector_3':0,'sector_4':0,'sector_5':0,'sector_6':0};
 
 var utmSectorsCount={'sector_1':0,'sector_2':0,'sector_3':0,'sector_4':0,'sector_5':0,'sector_6':0};
-
-var altitudeCount=0;
 
 var redGrid={'5':'#DC0014','4':'#FF3C14','3':'#FF7814','2':'#FFB414','1':'#FFF014','0':'#F0FF78'};
 //var cronoGrid={'old':'#F0FF78','0':'#DC0014','empty':'#BEBEBE','1':'#FF3C14','2':'#FF7814','3':'#FFB414','4':'#FFF014','5':'#F0FF78'};
@@ -33,265 +26,6 @@ var color="0000FF";
 
 var offsetLeft;
 var offsetTop;
-
-/*
- * LatLonToUTMXY
- *
- * Converts a latitude/longitude pair to x and y coordinates in the
- * Universal Transverse Mercator projection.
- *
- * Inputs:
- *   lat - Latitude of the point, in radians.
- *   lon - Longitude of the point, in radians.
- *   zone - UTM zone to be used for calculating values for x and y.
- *          If zone is less than 1 or greater than 60, the routine
- *          will determine the appropriate zone from the value of lon.
- *
- * Outputs:
- *   xy - A 2-element array where the UTM x and y values will be stored.
- *
- * Returns:
- *   The UTM zone used for calculating the values of x and y.
- *
- */
-function LatLonToUTMXY (lat, lon, zone, xy)
-{
-	MapLatLonToXY (lat, lon, UTMCentralMeridian (zone), xy);
-
-	/* Adjust easting and northing for UTM system. */
-	xy[0] = xy[0] * UTMScaleFactor + 500000.0;
-	xy[1] = xy[1] * UTMScaleFactor;
-	if (xy[1] < 0.0)
-		xy[1] = xy[1] + 10000000.0;
-
-	return zone;
-}
-
-
-
-/*
- * UTMXYToLatLon
- *
- * Converts x and y coordinates in the Universal Transverse Mercator
- * projection to a latitude/longitude pair.
- *
- * Inputs:
- *	x - The easting of the point, in meters.
- *	y - The northing of the point, in meters.
- *	zone - The UTM zone in which the point lies.
- *	southhemi - True if the point is in the southern hemisphere;
- *               false otherwise.
- *
- * Outputs:
- *	latlon - A 2-element array containing the latitude and
- *            longitude of the point, in radians.
- *
- * Returns:
- *	The function does not return a value.
- *
- */
-function UTMXYToLatLon (x, y, zone, southhemi, latlon)
-{
-	var cmeridian;
-
-	x -= 500000.0;
-	x /= UTMScaleFactor;
-
-	/* If in southern hemisphere, adjust y accordingly. */
-	if (southhemi)
-		y -= 10000000.0;
-
-	y /= UTMScaleFactor;
-
-	cmeridian = UTMCentralMeridian (zone);
-	MapXYToLatLon (x, y, cmeridian, latlon);
-
-	return;
-}
-
-
-function convertLatLongToUTM(lat,lng,acur,square,showUTM1x1)
-{
-	var xy = new Array(2);
-
-	if (isNaN (parseFloat (lng))) {
-		alert ("Please enter a valid longitude in the lon field.");
-		return false;
-	}
-
-	lon = parseFloat (lng);
-
-	if ((lon < -180.0) || (180.0 <= lon)) {
-		alert ("The longitude you entered is out of range.  " +
-		"Please enter a number in the range [-180, 180).");
-		return false;
-	}
-
-	if (isNaN (parseFloat (lat))) {
-		alert ("Please enter a valid latitude in the lat field.");
-		return false;
-	}
-
-	lat = parseFloat (lat);
-
-	if ((lat < -90.0) || (90.0 < lat)) {
-		alert ("The latitude you entered is out of range.  " +
-		"Please enter a number in the range [-90, 90].");
-		return false;
-	}
-
-	// Compute the UTM zone.
-	zone = Math.floor ((lon + 180.0) / 6) + 1;
-
-	zone = LatLonToUTMXY (DegToRad (lat), DegToRad (lon), zone, xy,acur);
-
-	var x= getDigraphEast(zone,xy[0]);
-	var y= getDigraphNorth(zone,xy[1]);
-
-	var xNum=getX_num(xy[0],acur,showUTM1x1);
-	var yNum=getY_num(xy[1],acur,showUTM1x1);
-
-	var utmCoords = createUTMSquare(zone, xy, acur, isSouthernHem(lat), square);
-
-	isZoneLimit(zone, xy[0], xy[1], acur, isSouthernHem(lat), square, utmCoords);
-
-	if (labelOn)
-		infoUTM.set('labelContent', zone + getLatZone(lat) + "_" + x + y + "_" + xNum + yNum);
-
-	return zone + getLatZone(lat) + x + y + xNum + yNum;
-
-	//if(pretty)return (zone+determineLetter(y,yNum)+" "+x+y+" "+xNum+yNum);
-	//else return (zone+determineLetter(y,yNum)+"_"+x+y+"_"+xNum+yNum);
-
-	//  if (lat < 0)
-	// Set the S button.
-	//        alert("Hemisferi sud");
-	//else
-	// Set the N button.
-	//      alert("Hemisferi Nord");
-
-}
-
-function getX_num(x,acur,showUTM1x1){
-
-	if(acur==10000){  // || !showUTM1x1
-
-		return parseInt(x/acur)%10;
-	}   
-	else{
-
-		return pad2(parseInt(x/acur)%100);
-	}
-
-}
-
-function pad2(number) {
-
-	return (number < 10 ? '0' : '') + number
-
-}
-
-function getY_num(y,acur,showUTM1x1){
-
-	if(acur==10000){ // || !showUTM1x1
-
-		return parseInt(((y/acur)%100)%10);
-	}   
-	else{
-
-		return pad2(parseInt(((y/1000)%100)));
-	}
-
-}
-
-function LatLongToUTM_info(lat,lng,acur)
-{
-	var xy = new Array(2);
-
-	if (isNaN (parseFloat (lng))) {
-		alert ("Please enter a valid longitude in the lon field.");
-		return false;
-	}
-
-	lon = parseFloat (lng);
-
-	if ((lon < -180.0) || (180.0 <= lon)) {
-		alert ("The longitude you entered is out of range.  " +
-		"Please enter a number in the range [-180, 180).");
-		return false;
-	}
-
-	if (isNaN (parseFloat (lat))) {
-		alert ("Please enter a valid latitude in the lat field.");
-		return false;
-	}
-
-	lat = parseFloat (lat);
-
-	if ((lat < -90.0) || (90.0 < lat)) {
-		alert ("The latitude you entered is out of range.  " +
-		"Please enter a number in the range [-90, 90].");
-		return false;
-	}
-
-	// Compute the UTM zone.
-	zone = Math.floor ((lon + 180.0) / 6) + 1;
-
-	zone = LatLonToUTMXY (DegToRad (lat), DegToRad (lon), zone, xy,acur);
-
-	//var x= assignLetterX(parseInt(xy[0]/100000),zone);
-	//var y=assignLetterY(parseInt(xy[1]/100000));
-
-	var x= getDigraphEast(zone,xy[0]);
-
-	var y= getDigraphNorth(zone,xy[1]);
-
-	var xNum=getX_num(xy[0],acur,true); //parseInt(xy[0]/acur)%10;
-	var yNum=getY_num(xy[1],acur,true); //parseInt(((xy[1]/acur)%100)%10);
-
-	return zone+getLatZone(lat)+x+y+xNum+yNum;
-
-}
-
-
-function changeMarkerPositionRad(marker,latlon_left) {
-
-	var latlng = new google.maps.LatLng(RadToDeg(latlon_left[0]),RadToDeg(latlon_left[1]));
-	marker.setPosition(latlng);
-
-}
-
-function changeMarkerPositionDeg(marker,lat,lon) {
-
-	var latlng = new google.maps.LatLng(lat,lon);
-	marker.setPosition(latlng);
-
-}	
-
-function getMGRSLabelTextAndSquare(location,UTMsquare) {
-
-	return convertLatLongToUTM(location.lat(),location.lng(),acur,UTMsquare,true);
-
-}
-
-function getMGRSLabelText(location) {
-
-	return LatLongToUTM_info(location.lat(),location.lng(),acur);
-
-}
-
-
-function getLatLngByOffset( map, offsetX, offsetY ){
-
-	var currentBounds = map.getBounds();
-	var topLeftLatLng = new google.maps.LatLng( currentBounds.getNorthEast().lat(),
-			currentBounds.getSouthWest().lng());
-	var point = map.getProjection().fromLatLngToPoint( topLeftLatLng );
-	point.x += offsetX / ( 1<<map.getZoom() );
-	point.y += offsetY / ( 1<<map.getZoom() );
-	return map.getProjection().fromPointToLatLng( point );
-
-}
 
 function loadTaxonList(clickLatLng){
 
@@ -306,71 +40,6 @@ function changeAccuracy(){
 
 	if(selected_value=="10km") acur=10000;
 	else acur=1000;
-
-}
-
-function setMapUTM(utm,utmPrec){
-
-
-	$('#utm_value').val(utm);
-
-	// checkUTM(utm)
-
-	utmPrec=checkUTM(utm);
-
-
-	$('input:radio[name=utm]').val([utmPrec]);
-	changeAccuracy();
-
-	if(utmPrec!=''){
-
-		if(polygonSelection!=null) polygonSelection.setMap(null);
-
-		MGRS2LatLong(utm,map,"utm_search");
-
-		centerSquare(utmPrec);
-
-		google.maps.event.addListener(map.map, "tilesloaded", function() {
-
-			if($('#checkUTM').hasClass( "success" )){
-
-				if(UTMsquare!=null) UTMsquare.setMap(null);
-
-			} });
-
-	}
-	else{
-
-		$('#labelCheckUTM').show().delay(4000).fadeOut();
-
-	}
-
-	/* if(isUTM(utm,utmPrec)){
-
-            MGRS2LatLong(utm,map,"utm_search");
-
-
-            centerSquare(utmPrec);
-
-             google.maps.event.addListener(map.map, "tilesloaded", function() {
-
-                        if($('#checkUTM').hasClass( "success" )){
-
-                            UTMsquare.setMap(null);
-
-                        }
-            });
-
-           if(UTMsquare!=null) UTMsquare.setMap(null);  
-
-        }
-        else{
-
-               $('#checkUTM').addClass('warning');
-               $('#checkUTM').removeClass('success');
-               $('#btResetUTM').hide();
-
-        }*/
 
 }
 
@@ -577,6 +246,115 @@ function setMapViewMode(UTMsquare){
 
 }
 
+function loadAllUTMsSector(sector){  //llamada desde loadSectorGrid()
+	$.getJSON(serverUrl + "/utmSector", function(data) {
+		for (var i = 0; i < data.length; i++) {
+			// FIXME: solve 30T --> backend or db??
+			drawUTMSquare('30T' + data[i]['utm'], map, "sector:"+data[i]['sector']);     
+		}	});       
+}
+
+function borraUTMList(){   //llamada desde loadSectorGrid()
+	utmSectorList.forEach(function(item,index){
+//		console.log("borrando")
+//		utmSectorList.getAt(index).setMap(null);
+		utmSectorList.pop();
+	}); 
+}
+
+function loadUTMsZona(zona){  //llamada desde pagDeZona.html
+	loadUTMsComun("/listaCitasByUtmsZona?zona="+zona);
+}
+
+function loadUTMsTaxon(taxon){  
+	$.getJSON(serverUrl + "/listaCitasJacaByUtmsTaxon?taxon="+taxon, function(data) {
+
+		var JacaCount=0;
+
+		$.each(data, function(entryIndex, entry){ 
+
+			utm1x1=entry['utm1x1'];
+			addUTM(utm1x1,map,entry['sector']); 
+			JacaCount++;
+
+		});       
+		$('#JacaCount').html(JacaCount);
+
+	});  
+	loadUTMsComun("/listaCitasByUtmsTaxon?taxon="+taxon)
+}
+
+// FIXME: move to angular!!
+function loadUTMsComun(consulta){  
+	var that = this;
+	$.getJSON(serverUrl + consulta, function(data) {
+
+		var count=0;
+
+		$.each(data, function(entryIndex, entry){ 
+
+			utm1x1=entry['utm1x1'];
+			utm1x1=$.trim(utm1x1);
+
+			if(!utm1x1 || utm1x1.indexOf("*")>= 0 ) ;//addUTM(entry['utm'],map,entry['sector']);  
+			else {
+
+				addUTM(utm1x1,map,entry['sector']); 
+//				addUTM(entry['utm'],map,entry['sector']);
+
+			}
+
+			count++;
+			citationCount++;
+			if (entry['sector'] <= "6") {
+				sectorsCount['sector_'+entry['sector']]=sectorsCount['sector_'+entry['sector']] + 1;
+			}            
+
+		});
+
+		count=0;
+
+		$('#'+map.div).fadeTo("slow",1);
+
+		$('#dvLoading').fadeOut(2000);
+
+		$('#citationCount').html(citationCount);
+		$('#utmCount').html(utmTotalCount);
+
+		selectUTMSquare();
+
+		citationCount=0;
+		utmTotalCount=0;
+
+//			if ($("#chart_div").length > 0) drawChart();
+
+		if ($("#sectorTable").length > 0) loadSectorCount();           
+
+	});       
+}
+
+function selectUTMSquare(){
+
+	utm=getURLParameter("utm"); 
+
+	if(utm){
+
+		citationList.forEach(function(item,index){
+
+			square=citationList.getAt(index);
+
+			if(square.id==utm){
+
+				colorObj=getColor('utm_high',utm);
+
+				square.strokeColor=colorObj.color;
+				square.fillColor=colorObj.color;
+				square.fillOpacity=colorObj.opacity;
+			}
+			
+		});
+	}
+}
 
 function loadSectorGrid( showAllUTM ){
 	if($('#addSectorGridBt').is('.sectorGridDisabled')){
@@ -677,8 +455,6 @@ function setColor(colorParam){
 
 function createMap(mapMode,divId) {
 	var that = this;
-	global_codi_e_poc=getURLParameter("codi_e_poc").replace(/\s+/g, '+');;
-
 
 	try {
 		map=new MapView(mapMode,divId);

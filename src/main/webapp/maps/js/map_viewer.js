@@ -7,28 +7,6 @@ var utmSectorList = new google.maps.MVCArray();
 
 var polygonSelection;
 
-var utmCitationCount=new CitationCount();
-
-
-
-function CitationCount(){
-
-	this.max=0;
-	this.min=-1;
-
-	this.utmList = new Hashtable(); 
-
-//	this.synonims=0;
-
-	this.maxNorm=0;
-	this.minNorm=0; 
-
-	this.pasNorm=0;
-
-	this.classes=6;
-
-}
-
 function getColor(layer,utmString){
 	if(layer == 'Jaca') {
 		return {"color":"#FF0000","opacity":"0.20"};
@@ -114,115 +92,7 @@ function showUTMSquares(){ //llamada desde pagDeEspecie.html y pagDeZona.html
 
 }
 
-function loadAllUTMsSector(sector){  //llamada desde loadSectorGrid()
-	$.getJSON(serverUrl + "/utmSector", function(data) {
-		for (var i = 0; i < data.length; i++) {
-			// FIXME: solve 30T --> backend or db??
-			MGRS2LatLong('30T' + data[i]['utm'], map, "sector:"+data[i]['sector']);     
-		}	});       
-}
 
-function borraUTMList(){   //llamada desde loadSectorGrid()
-	utmSectorList.forEach(function(item,index){
-//		console.log("borrando")
-//		utmSectorList.getAt(index).setMap(null);
-		utmSectorList.pop();
-	}); 
-}
-
-function loadUTMsZona(zona){  //llamada desde pagDeZona.html
-	loadUTMsComun("/listaCitasByUtmsZona?zona="+zona);
-}
-
-function loadUTMsTaxon(taxon){  
-	$.getJSON(serverUrl + "/listaCitasJacaByUtmsTaxon?taxon="+taxon, function(data) {
-
-		var JacaCount=0;
-
-		$.each(data, function(entryIndex, entry){ 
-
-			utm1x1=entry['utm1x1'];
-			addUTM(utm1x1,map,entry['sector']); 
-			JacaCount++;
-
-		});       
-		$('#JacaCount').html(JacaCount);
-
-	});  
-	loadUTMsComun("/listaCitasByUtmsTaxon?taxon="+taxon)
-}
-
-// FIXME: move to angular!!
-function loadUTMsComun(consulta){  
-	var that = this;
-	$.getJSON(serverUrl + consulta, function(data) {
-
-		var count=0;
-
-		$.each(data, function(entryIndex, entry){ 
-
-			utm1x1=entry['utm1x1'];
-			utm1x1=$.trim(utm1x1);
-
-			if(!utm1x1 || utm1x1.indexOf("*")>= 0 ) ;//addUTM(entry['utm'],map,entry['sector']);  
-			else {
-
-				addUTM(utm1x1,map,entry['sector']); 
-//				addUTM(entry['utm'],map,entry['sector']);
-
-			}
-
-			count++;
-			citationCount++;
-			if (entry['sector'] <= "6") {
-				sectorsCount['sector_'+entry['sector']]=sectorsCount['sector_'+entry['sector']] + 1;
-			}            
-
-		});
-
-		count=0;
-
-		$('#'+map.div).fadeTo("slow",1);
-
-		$('#dvLoading').fadeOut(2000);
-
-		$('#citationCount').html(citationCount);
-		$('#utmCount').html(utmTotalCount);
-
-		selectUTMSquare();
-
-		citationCount=0;
-		utmTotalCount=0;
-
-//			if ($("#chart_div").length > 0) drawChart();
-
-		if ($("#sectorTable").length > 0) loadSectorCount();           
-
-	});       
-}
-
-function selectUTMSquare(){
-
-	utm=getURLParameter("utm"); 
-
-	if(utm){
-
-		citationList.forEach(function(item,index){
-
-			square=citationList.getAt(index);
-
-			if(square.id==utm){
-
-				colorObj=getColor('utm_high',utm);
-
-				square.strokeColor=colorObj.color;
-				square.fillColor=colorObj.color;
-				square.fillOpacity=colorObj.opacity;
-			}
-			
-		});
-	}
-}
 
 function loadSectorCount(){
 
@@ -261,7 +131,6 @@ function updateSectorCounter(sectorId,count,count_utm){
 
 }
 
-
 function addUTM(utm,map,sector){
 
 	if(map.utmListHash.get(utm)){
@@ -284,7 +153,6 @@ function addUTM(utm,map,sector){
 	}
 
 }
-
 
 function drawUTMSquare(utm,map,layer){
 
