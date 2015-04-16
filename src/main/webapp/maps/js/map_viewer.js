@@ -304,7 +304,7 @@ function doDrawUTMSquare(zone,easting, northing, acur,southernHemis,utmString,ma
 //				getAltitud(event, map);
 //				loadTaxonList(event.latLng);
 				var utm= UTMotherBlue.id; //convertLatLongToUTM(event.latLng.lat(),event.latLng.lng(),acur,UTMotherBlue,false);
-				window.open("/datosDeUtm?utm="+utm.replace(/_/g, ""),'_self');
+				window.open("/#/utm?utm="+utm.replace(/_/g, ""),'_self');
 				
 //				infowindow = new google.maps.InfoWindow();
 //				infowindow.setContent("<div id=\"infoWindow\"><p><span class=\"text-info\"><b>UTM:</b> </span>"+utmString+"</p> " +
