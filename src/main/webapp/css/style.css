@@ -4,6 +4,18 @@
 	height: 400px;
 }
 
+/* BOOTSTRAP OVERRIDES */
+
+.form-control {
+  border-radius: 3px;
+}
+
+.btn {
+  border-radius: 3px;
+}
+
+/**/
+
 html, body {
 	height: 100%;
 	/* The html and body elements cannot have any padding or margin. */
@@ -144,4 +156,6 @@ html, body {
 }
 
 .top-buffer { margin-top:20px; }
+
+
 

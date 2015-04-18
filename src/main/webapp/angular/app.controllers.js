@@ -161,6 +161,7 @@ flora.controller('PageCtrl', function (/* $scope, $location, $http */) {
 
 
 flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, NavigationService) {
+	$("#top-search").val('');
 	$scope.nav = NavigationService;
 	$scope.modelSpecy = {};
 	
@@ -180,7 +181,12 @@ flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, Navig
 	  };
 	
 	  if ( $location.search().query ) {
-			$http.get( serverUrl + "/datosDeEspecie" , {
+		  	var suffix = "";
+		  	if ($location.search().relative){
+		  		suffix = $location.search().relative;
+		  	}
+		  
+			$http.get( serverUrl + "/datosDeEspecie" + suffix, {
 			      params: {
 			    	  ident: $location.search().query
 			      }
@@ -197,6 +203,7 @@ flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, Navig
 });
 
 flora.controller('FamilyCtrl', function($scope, $http, $location, NavigationService) {
+	$("#top-search").val('');
 	$scope.nav = NavigationService;
 	$scope.modelFamily = {};
 	
@@ -212,6 +219,7 @@ flora.controller('FamilyCtrl', function($scope, $http, $location, NavigationServ
 });
 
 flora.controller('GenusCtrl', function($scope, $http, $location, NavigationService) {
+	$("#top-search").val('');
 	$scope.nav = NavigationService;
 	$scope.modelGenus = {};
 	
@@ -226,6 +234,7 @@ flora.controller('GenusCtrl', function($scope, $http, $location, NavigationServi
 });
 
 flora.controller('ZoneCtrl', function($scope, $http, $location, $timeout, NavigationService) {
+	$("#top-search").val('');
 	$scope.nav = NavigationService;
 	$scope.modelZone = {};
 	
