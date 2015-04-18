@@ -20,7 +20,7 @@ flora.service('PhotoService', function($http) {
     };
 });
 
-flora.service('NavigationService', function($location) {
+flora.service('NavigationService', function($location, $http) {
     this.searchSpecy = function(val) {
     	return $location.path('/specy').search('query=' + val);
     };
@@ -29,6 +29,14 @@ flora.service('NavigationService', function($location) {
     }; 
     this.searchFamily = function(val) {
     	return $location.path('/family').search('query=' + val);
+    };
+    
+    this.previousSpecy = function(val) {
+    	return $location.path('/specy').search({query : val, relative : 'Prev'});
+    };
+    
+    this.nextSpecy = function(val) {
+    	return $location.path('/specy').search({query : val, relative : 'Next'});
     };
 });
 

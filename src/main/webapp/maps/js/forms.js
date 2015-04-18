@@ -34,14 +34,6 @@ function loadMap(taxon){
 }
 */
 
-function cargaAnteriorTaxon(elActual){
-	window.location = "/datosDeEspecie?ident=anterior&actual='"+elActual+"'";
-}
-
-function cargaSiguienteTaxon(elActual){
-	window.location = "/datosDeEspecie?ident=siguiente&actual='"+elActual+"'";
-}
-
 function getCookie(name) {
 	var prop = name + "=";
 	var plen = prop.length;

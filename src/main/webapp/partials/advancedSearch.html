@@ -60,8 +60,8 @@
 					<div id="links">
 						<div class="row">
 						  <div ng-repeat="foto in fotos"  class="col-xs-6 col-md-3">
-						    <a href={{foto.original}} title={{foto.comentario}} data-gallery class="thumbnail">
-						    	<img src={{foto.thumbnail}} alt={{foto.comentario}}></img>
+						    <a href={{foto.originalURL}} title={{foto.comentario}} data-gallery class="thumbnail">
+						    	<img src={{foto.small240URL}} alt={{foto.comentario}}></img>
 								<p class="text-info">
 									<small>{{foto.descripcion}}</small>
 								</p>

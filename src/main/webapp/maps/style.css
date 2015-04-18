@@ -203,20 +203,22 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
 
 /* Echo out a label for the example */
 #section_title {
-  
-  font-style: italic;
-  padding: 15px 18px 15px 18px;
-  font-size: 20px;
-  font-weight: bold;
+  padding: 15px 18px 15px 12px;
   background-color: #ffffff;
   border: 1px solid #ddd;
-  color: #9da0a4;
   
   margin-bottom: 8px;
   
   -webkit-border-radius: 4px 0 4px 0;
      -moz-border-radius: 4px 0 4px 0;
           border-radius: 4px 0 4px 0;
+}
+
+.section-title-column {
+	font-style: italic;
+	font-size: 20px;
+	font-weight: bold;
+	color: #9da0a4;
 }
 
 .tab-pane{
