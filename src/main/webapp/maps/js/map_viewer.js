@@ -131,6 +131,46 @@ function updateSectorCounter(sectorId,count,count_utm){
 
 }
 
+
+function createUTMSquare(zone, xy, acur, southernHemis, square){
+	
+	var X_10x10=parseInt(xy[0]/acur)*acur;
+	var Y_10x10=parseInt(xy[1]/acur)*acur;
+	
+	var latlon_left_bottom= new Array(2);
+	var latlon_left_top= new Array(2);
+	var latlon_right_top= new Array(2);	
+	var latlon_right_bottom= new Array(2);
+	
+	var latlon_center= new Array(2);
+
+        
+	UTMXYToLatLon (X_10x10,Y_10x10, zone, southernHemis, latlon_left_bottom);
+	UTMXYToLatLon (X_10x10,Y_10x10+acur, zone, southernHemis, latlon_left_top);
+	UTMXYToLatLon (X_10x10+acur,Y_10x10+acur, zone, southernHemis, latlon_right_top);
+	UTMXYToLatLon (X_10x10+acur,Y_10x10, zone, southernHemis, latlon_right_bottom);
+	
+	
+	UTMXYToLatLon (X_10x10+acur/2,Y_10x10+acur/2, zone, southernHemis, latlon_center);
+
+
+	var utmCoords = [
+			new google.maps.LatLng(RadToDeg(latlon_left_top[0]), RadToDeg(latlon_left_top[1])),
+			new google.maps.LatLng(RadToDeg(latlon_right_top[0]),  RadToDeg(latlon_right_top[1])),
+			new google.maps.LatLng(RadToDeg(latlon_right_bottom[0]), RadToDeg(latlon_right_bottom[1])),
+			new google.maps.LatLng(RadToDeg(latlon_left_bottom[0]), RadToDeg(latlon_left_bottom[1]))
+			
+	];	
+  
+	square.setPath(utmCoords);
+  
+  	infoUTM.setPosition(new google.maps.LatLng(RadToDeg(latlon_center[0]),RadToDeg(latlon_center[1])));
+	infoUTM.setVisible(true);
+  
+	return utmCoords;
+  
+}
+	
 function addUTM(utm,map,sector){
 
 	if(map.utmListHash.get(utm)){
@@ -279,8 +319,7 @@ function doDrawUTMSquare(zone,easting, northing, acur,southernHemis,utmString,ma
 	UTMotherBlue.setMap(map.map);
 
 
-
-	isZoneLimit(zone,X_10x10,Y_10x10,acur,southernHemis,UTMotherBlue,utmCoords);
+//	isZoneLimit(zone,X_10x10,Y_10x10,acur,southernHemis,UTMotherBlue,utmCoords);
 
 	/*$('#map_info').append(group+"; "+utmString+"; \n");
 		$('#map_info').append(utmCoords[0].lng()+", "+utmCoords[0].lat()+" \n");

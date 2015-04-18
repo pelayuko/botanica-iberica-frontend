@@ -9,9 +9,6 @@ var elevator;
 var bounds;
 var current_year;
 
-var marker0;
-var marker1;
-
 var gridLayer;
 var sectorGridLayer;
 
@@ -191,6 +188,31 @@ function codeLatLng(lat, lng) {
 
 	});
 }
+
+
+	function getMGRSLabelTextAndSquare(location,UTMsquare) {
+
+		return convertLatLongToUTM(location.lat(),location.lng(),acur,UTMsquare,true);
+
+	}
+
+	function getMGRSLabelText(location) {
+
+		return LatLongToUTM_info(location.lat(),location.lng(),acur);
+
+	}
+
+	function getLatLngByOffset( map, offsetX, offsetY ){
+
+		var currentBounds = map.getBounds();
+		var topLeftLatLng = new google.maps.LatLng( currentBounds.getNorthEast().lat(),
+				currentBounds.getSouthWest().lng());
+		var point = map.getProjection().fromLatLngToPoint( topLeftLatLng );
+		point.x += offsetX / ( 1<<map.getZoom() );
+		point.y += offsetY / ( 1<<map.getZoom() );
+		return map.getProjection().fromPointToLatLng( point );
+
+	}
 
 function setMapSearchMode(UTMsquare){
 

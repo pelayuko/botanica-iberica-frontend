@@ -42,10 +42,10 @@ flora.controller('MapAngularCtrl', function ($scope, uiGmapGoogleMapApi) {
     uiGmapGoogleMapApi.then(function(maps) {
     	$scope.map = {
     			center: {
-    				latitude: 41.76106872528615, 
-    				longitude: -1.218109130859375
+    				latitude: 41.76, 
+    				longitude: -1.63
     			}, 
-    			zoom: 9,
+    			zoom: 10,
     			options : {
     				scrollwheel: false
     			},

@@ -249,8 +249,6 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
     }
 
 
-
-
     /*
     * RadToDeg
     *
@@ -261,9 +259,6 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
     {
         return (rad / pi * 180.0)
     }
-
-
-
 
     /*
     * ArcLengthOfMeridian
@@ -348,7 +343,6 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
     }
 
 
-
     /*
     * FootpointLatitude
     *
@@ -404,7 +398,6 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
 
         return result;
     }
-
 
 
     /*
@@ -606,8 +599,7 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
         return;
     }
     
-    			
-   
+
    	function LatLongToUTM(lat,lng,acur){
 		
 
@@ -724,7 +716,24 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
 
    		return;
    	}
-
+   	
+   	
+	function UTMObject (zone,xy,accuracy) {
+		
+		this.zone = zone;
+		this.x = xy[0]
+        this.y = xy[1]
+        
+        this.xLetter = getDigraphEast(zone,this.x);
+		this.yLetter = getDigraphNorth(zone,this.y);
+		
+		this.xNum=parseInt(xy[0]/accuracy)%10;
+		this.yNum=parseInt(((xy[1]/accuracy)%100)%10);
+		
+		//this.digraph=determineLetter(this.yLetter,this.yNum);
+				
+	}	
+	
    	function convertLatLongToUTM(lat,lng,acur,square,showUTM1x1)
    	{
    		var xy = new Array(2);
@@ -768,7 +777,7 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
 
    		var utmCoords = createUTMSquare(zone, xy, acur, isSouthernHem(lat), square);
 
-   		isZoneLimit(zone, xy[0], xy[1], acur, isSouthernHem(lat), square, utmCoords);
+//   		isZoneLimit(zone, xy[0], xy[1], acur, isSouthernHem(lat), square, utmCoords);
 
    		if (labelOn)
    			infoUTM.set('labelContent', zone + getLatZone(lat) + "_" + x + y + "_" + xNum + yNum);
@@ -865,45 +874,5 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
    		var yNum=getY_num(xy[1],acur,true); //parseInt(((xy[1]/acur)%100)%10);
 
    		return zone+getLatZone(lat)+x+y+xNum+yNum;
-
-   	}
-
-
-   	function changeMarkerPositionRad(marker,latlon_left) {
-
-   		var latlng = new google.maps.LatLng(RadToDeg(latlon_left[0]),RadToDeg(latlon_left[1]));
-   		marker.setPosition(latlng);
-
-   	}
-
-   	function changeMarkerPositionDeg(marker,lat,lon) {
-
-   		var latlng = new google.maps.LatLng(lat,lon);
-   		marker.setPosition(latlng);
-
-   	}	
-
-   	function getMGRSLabelTextAndSquare(location,UTMsquare) {
-
-   		return convertLatLongToUTM(location.lat(),location.lng(),acur,UTMsquare,true);
-
-   	}
-
-   	function getMGRSLabelText(location) {
-
-   		return LatLongToUTM_info(location.lat(),location.lng(),acur);
-
-   	}
-
-
-   	function getLatLngByOffset( map, offsetX, offsetY ){
-
-   		var currentBounds = map.getBounds();
-   		var topLeftLatLng = new google.maps.LatLng( currentBounds.getNorthEast().lat(),
-   				currentBounds.getSouthWest().lng());
-   		var point = map.getProjection().fromLatLngToPoint( topLeftLatLng );
-   		point.x += offsetX / ( 1<<map.getZoom() );
-   		point.y += offsetY / ( 1<<map.getZoom() );
-   		return map.getProjection().fromPointToLatLng( point );
 
    	}

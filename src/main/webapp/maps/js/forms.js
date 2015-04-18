@@ -11,7 +11,7 @@ var rangeYears={'ca_ES':'Anys','es_ES':'AÃ±os','es_EU':'Urteak','fr_FR':'AnnÃ
 var photoSource={'ca_ES':'Font','es_ES':'Fuente','es_EU':'Jatorria','fr_FR':'Source'};
 var level_trans={'grupo':'Gr.','family':'Fam.','genus':'Gen.','species':'Sp.','subspecies':'Subsp.'};
 
-
+/*
 $(function() { 
 
 	$('ul.nav-pills li a').on('click',function() {           
@@ -26,7 +26,8 @@ $(function() {
 		return e.keyCode != 13;
 	});
 
-}); 
+});
+*/
 
 /*
 function loadMap(taxon){
