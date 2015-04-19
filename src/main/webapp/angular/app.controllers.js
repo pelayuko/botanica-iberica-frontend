@@ -111,6 +111,12 @@ flora.controller('DenomListController', function DenomListController($scope, $ht
 flora.controller('MapCtrl', function ($scope, $location, $http, $timeout) {
 	$scope.zones = [];
 	
+	  $(".dropdown-menu li a").click(function(){
+		  var selText = $(this).text();
+//		  $("#zonasearchButton").attr("data", $(this).closest("li").attr("id"));
+		  $("#zonasearchButton").css("background-color", $(this).closest("li").css("background-color"));
+		  $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+'<span class="caret"></span>');
+		});
 	
 	  $scope.loadZonesFromSector = function(sector) {
 		  $scope.selectedSector = sector;

@@ -1,4 +1,32 @@
 
+function getURLParameter(name) {
+	return decodeURIComponent(
+			(location.search.match(RegExp("[?|&]"+name+'=(.+?)(&|$)'))||[,null])[1]
+	);  
+}
+
+function selectUTMSquare(){
+
+	utm=getURLParameter("utm"); 
+
+	if(utm){
+
+		citationList.forEach(function(item,index){
+
+			square=citationList.getAt(index);
+
+			if(square.id==utm){
+
+				colorObj=getColor('utm_high',utm);
+
+				square.strokeColor=colorObj.color;
+				square.fillColor=colorObj.color;
+				square.fillOpacity=colorObj.opacity;
+			}
+			
+		});
+	}
+}
 
    	function changeMarkerPositionRad(marker,latlon_left) {
 

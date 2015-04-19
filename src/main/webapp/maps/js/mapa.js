@@ -343,7 +343,7 @@ function loadUTMsComun(consulta){
 		$('#citationCount').html(citationCount);
 		$('#utmCount').html(utmTotalCount);
 
-		selectUTMSquare();
+//		selectUTMSquare();
 
 		citationCount=0;
 		utmTotalCount=0;
@@ -353,29 +353,6 @@ function loadUTMsComun(consulta){
 		if ($("#sectorTable").length > 0) loadSectorCount();           
 
 	});       
-}
-
-function selectUTMSquare(){
-
-	utm=getURLParameter("utm"); 
-
-	if(utm){
-
-		citationList.forEach(function(item,index){
-
-			square=citationList.getAt(index);
-
-			if(square.id==utm){
-
-				colorObj=getColor('utm_high',utm);
-
-				square.strokeColor=colorObj.color;
-				square.fillColor=colorObj.color;
-				square.fillOpacity=colorObj.opacity;
-			}
-			
-		});
-	}
 }
 
 function loadSectorGrid( showAllUTM ){

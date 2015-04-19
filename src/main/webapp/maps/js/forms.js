@@ -1,8 +1,5 @@
 var global_lang;
 
-//var taxonSearch="all";
-//var zonasSearch="A";
-
 var utmCount={'ca_ES':'Quantitat','es_ES':'Cantidad','es_EU':'Zenbatekoa','fr_FR':'QuantitÃ©'};
 var utmClass={'ca_ES':'Classe','es_ES':'Clase','es_EU':'Klase','fr_FR':'Classe'};
 var utmYear={'ca_ES':'Any','es_ES':'AÃ±o','es_EU':'Urtea','fr_FR':'AnnÃ©e'};
@@ -11,29 +8,6 @@ var rangeYears={'ca_ES':'Anys','es_ES':'AÃ±os','es_EU':'Urteak','fr_FR':'AnnÃ
 var photoSource={'ca_ES':'Font','es_ES':'Fuente','es_EU':'Jatorria','fr_FR':'Source'};
 var level_trans={'grupo':'Gr.','family':'Fam.','genus':'Gen.','species':'Sp.','subspecies':'Subsp.'};
 
-/*
-$(function() { 
-
-	$('ul.nav-pills li a').on('click',function() {           
-
-	});
-
-	$('ul.nav-pills li a[data-toggle="tab"]').on('shown', function (e) {
-		updateOffset('map_canvas'); 
-	})
-
-	$("form :input").on("keypress", function(e) {
-		return e.keyCode != 13;
-	});
-
-});
-*/
-
-/*
-function loadMap(taxon){
-	window.location = "/datosDeEspecie?ident="+taxon;
-}
-*/
 
 function getCookie(name) {
 	var prop = name + "=";
@@ -67,12 +41,6 @@ function setCookie (name, value) {
 									((path==null) ? "" : (";path=" + path)) +
 									((domain==null) ? "" : ("; domain=" + domain)) +
 									((secure==true) ? "; secure" : "");
-}
-
-function getURLParameter(name) {
-	return decodeURIComponent(
-			(location.search.match(RegExp("[?|&]"+name+'=(.+?)(&|$)'))||[,null])[1]
-	);  
 }
 
 
