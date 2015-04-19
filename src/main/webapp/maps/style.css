@@ -602,7 +602,7 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
 }  
    
    
-   .tree li {
+.tree li {
     margin: 0px 0;
     list-style-type: none;
     position: relative;
@@ -652,7 +652,7 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
 /*Time for some hover effects*/
 
 /*We will apply the hover effect the the lineage of the element also*/
- .tree li a:hover, .tree li a:hover+ul li a {
+ .tree li a:hover, .tree li a:hover+ul li a  {
     background: #3a87ad;
     color: #fff;
     border: 1px solid #3a87ad;

@@ -79,29 +79,16 @@ function getURLParameter(name) {
 function triggerTaxonTreeEvent(level,parent){
 
 	console.log("Trigger: "+level+" "+parent+" Class: "+$('#'+parent).attr('class'));
-	if(level==='subspecies_last'){
-		window.location = "Citation?action=info&codi_e_poc="+parent.replace(/_/g, "+");   
-	}
-	else{
-		console.log("else");
-		var children = $('#'+parent).children();
-		console.log("\t L: "+level+" P:"+parent+" --> C: ");
-		if(children.length<=1){
-			console.log("(1)");
-			loadTaxonTree(level, parent);
-		}
-		else{
-			children = $('#'+parent).find('> ul > li');
-			if($('#'+parent).attr('class')==='subspecies' && children.is(":visible")){
-				console.log("(2)");
-				window.location = "Citation?action=info&codi_e_poc="+parent.replace(/_/g, "+");   
-			}
-			else{
-				console.log("(3)");
-				if (children.is(":visible")) children.hide('fast');
-				else children.show('fast');
-			}
-		}
+	var children = $('#'+parent).children();
+	console.log("\t L: "+level+" P:"+parent+" --> C: ");
+	if(children.length<=2){
+		console.log("(1)");
+		loadTaxonTree(level, parent);
+	} else {
+		children = $('#'+parent).find('> ul > li');
+		console.log("(3)");
+		if (children.is(":visible")) children.hide('fast');
+		else children.show('fast');
 	}
 }
 
@@ -115,6 +102,7 @@ function loadTaxonTree(level, parent){
 		window.location = "/#/specy?query="+parent.replace(/_/g, "+");   
 		return;
 	}
+	
 	try {
 		$.ajax({
 			type: "GET",
@@ -125,12 +113,32 @@ function loadTaxonTree(level, parent){
 				var ul_ = $('<ul class=\"'+level+'\"></ul>');
 				$.each (taxon_array, function (taxonLeaf) {
 					//console.log (taxon_array[taxonLeaf].children);
-					var a_ =$('<a data-target=\"#\"><span class=\"label label-info\">'+level_trans[level]+'</span> '  + taxon_array[taxonLeaf].code + '</a>').on('click', function(){
+					var a_ =$('<span><a class=\"view-leaf\" href=\"javascript:;\"  data-target=\"#\"><span class=\"label label-info\">'+level_trans[level]+'</span> '  + taxon_array[taxonLeaf].code + '</a></span>').on('click', function(){
 						triggerTaxonTreeEvent($(this).closest('li').attr('class'),$(this).closest('li').attr('id'));
 					});
-	
+					
 					var li_=$("<li class=\""+taxon_array[taxonLeaf].nextLevel+"\" id=\""+taxon_array[taxonLeaf].code+"\"></li>");	
+					
 					$(li_).append(a_);	
+					
+					if ( parent !== "root" ){
+						var a2_ = $("<a class=\"view-info\" href=\"javascript:;\" data-target=\"" + "#" + "\"><span class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\"></span></a>").on('click', function(){
+							var nl = $(this).closest('li').attr('class');
+							var par = $(this).closest('li').attr('id').replace(/_/g, "+");
+							if( nl==='subspecies' ){
+								window.location = "/#/specy?query="+par;   
+								return;
+							} else if( nl==='species' ){
+								window.location = "/#/genus?query="+par;   
+								return;
+							} else {
+								window.location = "/#/family?query="+par;   
+								return;
+							}						
+						});
+						$(li_).append(a2_);					
+					}
+					
 					$(ul_).append(li_);
 				});
 				$("#"+parent).append(ul_);
