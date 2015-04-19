@@ -7,11 +7,11 @@
 /* BOOTSTRAP OVERRIDES */
 
 .form-control {
-  border-radius: 3px;
+  border-radius: 7px;
 }
 
 .btn {
-  border-radius: 3px;
+  border-radius: 7px;
 }
 
 /**/
