@@ -6,7 +6,7 @@ var utmYear={'ca_ES':'Any','es_ES':'AÃ±o','es_EU':'Urtea','fr_FR':'AnnÃ©e'};
 var unknownYear={'ca_ES':'Sense data','es_ES':'Sin fecha','es_EU':'Urtea','fr_FR':'AnnÃ©e'};
 var rangeYears={'ca_ES':'Anys','es_ES':'AÃ±os','es_EU':'Urteak','fr_FR':'AnnÃ©es'};
 var photoSource={'ca_ES':'Font','es_ES':'Fuente','es_EU':'Jatorria','fr_FR':'Source'};
-var level_trans={'grupo':'Gr.','family':'Fam.','genus':'Gen.','species':'Sp.','subspecies':'Subsp.'};
+var level_trans={'grupo':'Gr.','family':'Fam.','subfamily':'Subf.','tribu':'Trib.','genus':'Gen.','species':'Sp.','subspecies':'Subsp.'};
 
 
 function getCookie(name) {
@@ -49,14 +49,14 @@ function triggerTaxonTreeEvent(level,parent){
 	console.log("Trigger: "+level+" "+parent+" Class: "+$('#'+parent).attr('class'));
 	var children = $('#'+parent).children();
 	console.log("\t L: "+level+" P:"+parent+" --> C: ");
-	if(children.length<=2){
-		console.log("(1)");
-		loadTaxonTree(level, parent);
-	} else {
+	if(children.length > 2){
 		children = $('#'+parent).find('> ul > li');
 		console.log("(3)");
 		if (children.is(":visible")) children.hide('fast');
 		else children.show('fast');
+	} else {
+		console.log("(1)");
+		loadTaxonTree(level, parent);
 	}
 }
 
@@ -89,8 +89,12 @@ function loadTaxonTree(level, parent){
 					
 					$(li_).append(a_);	
 					
-					if ( parent !== "root" ){
-						var a2_ = $("<a class=\"view-info\" href=\"javascript:;\" data-target=\"" + "#" + "\"><span class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\"></span></a>").on('click', function(){
+					if ( level == "subfamily" || level == "tribu"){
+						var a2_ = $("<a class=\"view-info\" href=\"javascript:;\" data-target=\"" + "#" + "\"><span class=\"glyphicon glyphicon glyphicon-eye-close\" aria-hidden=\"true\"></span></a>")
+						$(li_).append(a2_);					
+					}
+					else if ( ! (level == "grupo")){
+						var a2_ = $("<a class=\"view-info\" href=\"javascript:;\" data-target=\"" + "#" + "\"><span class=\"glyphicon glyphicon glyphicon-eye-open\" aria-hidden=\"true\"></span></a>").on('click', function(){
 							var nl = $(this).closest('li').attr('class');
 							var par = $(this).closest('li').attr('id').replace(/_/g, "+");
 							if( nl==='subspecies' ){
