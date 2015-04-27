@@ -284,11 +284,13 @@ function borraUTMList(){   //llamada desde loadSectorGrid()
 	}); 
 }
 
-function loadUTMsZona(zona){  //llamada desde pagDeZona.html
+function loadUTMsZona(zona){
+	citationList.clear();
 	loadUTMsComun("/listaCitasByUtmsZona?zona="+zona);
 }
 
 function loadUTMsTaxon(taxon){  
+	citationList.clear();
 	$.getJSON(serverUrl + "/listaCitasJacaByUtmsTaxon?taxon="+taxon, function(data) {
 
 		var JacaCount=0;

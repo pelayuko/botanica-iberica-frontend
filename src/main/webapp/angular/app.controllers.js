@@ -4,8 +4,8 @@ flora.controller('MainCtrl', function ($scope, $http, $location) {
 	  $scope.getSearchResults = function(val) {
 		    return $http.get( serverUrl + "/searchAll" , {
 		      params: {
-		    	  nombre: val.replace(/ /g, "+"),
-		    	  limit: $scope.limit || 8
+		    	  nombre: val, //.replace(/ /g, "+"),
+		    	  limit: $scope.limit || 10
 		      }
 		    }).then(function(response){
 		      return response.data;
@@ -322,8 +322,8 @@ flora.controller('AdvancedSearchCtrl', function($scope, $http, $location) {
 	  $scope.getResults = function(val) {
 		    return $http.get( serverUrl + "/search" +  $("#taxonSearchButton").attr("data") , {
 		      params: {
-		    	  nombre: val.replace(/ /g, "+"),
-		    	  limit: $scope.limit || 8
+		    	  nombre: val, //.replace(/ /g, "+"),
+		    	  limit: $scope.limit || 10
 		      }
 		    }).then(function(response){
 		      return response.data;
