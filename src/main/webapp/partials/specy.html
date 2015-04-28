@@ -3,11 +3,7 @@
 		<div class="col-md-12">
 			<div id="titleContainer">
 				<div id="section_title" class="row">
-					<div class="col-md-2">
-					    <a href  title={{modelSpecy.fotos[0].comentario}} class="thumbnail">
-					    	<img src={{modelSpecy.fotos[0].small240URL}} alt={{modelSpecy.fotos[0].comentario}}></img>
-					    </a>
-				    </div>
+					
 				    <div class="section-title-column col-md-4">
 				    	<div class="row">				
 							Especie: <span class="text-info">{{modelSpecy.datosTaxon.nombre}}</span>
@@ -34,12 +30,27 @@
 							</a>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<b>Citas: </b> <span id="citationCount" class="badge badge-info">-</span>
-							<b> UTMs: </b> <span id="utmCount" class="badge badge-info">-</span>							
-							<b> HerbarioJaca: </b> <span id="JacaCount" class="badge badge_Jaca">-</span>
-						</div>
+					<div class="col-md-5">
+<!-- 						<div class="row"> -->
+<!-- 							<b>Citas: </b> <span id="citationCount" class="badge badge-info">-</span> -->
+<!-- 							<b> UTMs: </b> <span id="utmCount" class="badge badge-info">-</span>							 -->
+<!-- 							<b> HerbarioJaca: </b> <span id="JacaCount" class="badge badge_Jaca">-</span> -->
+<!-- 						</div> -->
+						<table id="tabla_caract" class="table">
+	       					<tbody>
+		                  		<tr class="info">
+	                  				<td class="col-md-3"><span class="label label-info">Fitotipo</span></td>
+	                  				<td class="col-md-3"><span class="label label-info">Fitosubtipo</span></td>
+	                  				<td class="col-md-6"><span class="label label-info">Color (Flor)</span></td>
+	                  			</tr>
+				                <tr> 
+									<td>{{modelSpecy.info.fitoTipo}}</td>
+									<td>{{modelSpecy.info.fitoSubtipo}}</td>
+				                	<td>{{modelSpecy.info.color}}</td>
+								</tr>
+								
+				            </tbody>
+		                </table>
 						<div class="row">
 							<div class="col-md-6" id="sinonimos">
 								<table class="table">
@@ -73,6 +84,13 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="col-md-3" ng-show="modelSpecy.fotos.length">
+					    <a href  title={{modelSpecy.fotos[0].comentario}} class="thumbnail">
+					    	<img src={{modelSpecy.fotos[0].small240URL}} alt={{modelSpecy.fotos[0].comentario}}></img>
+					    </a>
+				    </div>
+					
 				</div>
 			</div>
 		</div>
@@ -82,13 +100,13 @@
 			<ul id="main_tabs" class="nav nav-tabs">
 				<li class="active"><a href="javascript:;" data-target="#distribTab" data-toggle="tab">Mapa Distribución</a></li>
 				<li><a href="javascript:;" data-target="#genusTab" data-toggle="tab">Listado citas</a></li>
-				<li><a href="javascript:;" data-target="#caractTab" data-toggle="tab">Características</a></li>
+<!-- 				<li><a href="javascript:;" data-target="#caractTab" data-toggle="tab">Características</a></li> -->
 			</ul>
 
 			<div class="tab-content">
 				<div class="tab-pane active" id="distribTab">
 					<div class="row rightSidebar">
-						<div class="col-md-12">
+						<div class="col-md-8">
 							<div id="dvLoading">
 								<div class="well">
 									Cargando citas:
@@ -129,25 +147,44 @@
 							<div id="legend_test"></div>
 
 						</div>
-					</div>
-
-
-					<h3>Imágenes:</h3>
-					<span id="photoCount" class="badge badge-info">{{modelSpecy.fotos.length}}</span>
-					
-					<div id="links">
-						<div class="row">
-						  <div ng-repeat="foto in modelSpecy.fotos"  class="col-xs-6 col-md-3">
-						    <a href={{foto.originalURL}} title={{foto.comentario}} data-gallery class="thumbnail">
-						    	<img src={{foto.small240URL}} alt={{foto.comentario}}></img>
-								<p class="text-info">
-									<small>{{foto.utm}}</small>
-								</p>
-						    </a>
-						  </div>
+						<div class="col-md-4">
+							<div class="row">
+								<b>Citas: </b> <span id="citationCount" class="badge badge-info">-</span>
+								<b> UTMs: </b> <span id="utmCount" class="badge badge-info">-</span>							
+								<b> HerbarioJaca: </b> <span id="JacaCount" class="badge badge_Jaca">-</span>
+							</div>
+							<div id="chart_div" style="width: 355px; height: 20px"></div>
+							
+							<table id="tabla_caract" class="table">
+		       					<tbody>
+		                  			<tr class="info">
+		                  				<td class="col-md-2"><span class="label label-info">Presencia (comarca)</span></td>
+		                  				<td class="col-md-2"><span class="label label-info">Frecuencia (comarca)</span></td>
+		                  			</tr>
+					                <tr>
+										<td>{{modelSpecy.info.presComarca}}</td>
+										<td>{{modelSpecy.info.frecComarca}}</td>
+									</tr>
+									
+					            </tbody>
+		                	</table>
+		                	<table id="tabla_caract" class="table">
+		       					<tbody>
+		                  
+		                  			<tr class="info">
+		                  				<td class="col-md-4"><span class="label label-info">Comentario</span></td>
+		                  			</tr>
+					                <tr>
+										<td>{{modelSpecy.info.comentario}}</td>
+									</tr>
+									
+					            </tbody>
+		                	</table>
 						</div>
 					</div>
-					<ng-include src="'partials/gallery.html'"></ng-include>
+
+
+					
 				</div>
 				<div class="tab-pane" id="genusTab">
 					<div id="commentList">
@@ -173,36 +210,58 @@
 					</div>
 				</div>
 				
-				<div class="tab-pane" id="caractTab">
+<!-- 				<div class="tab-pane" id="caractTab"> -->
 				
-   					<table id="tabla_caract" class="table">
-       					<tbody>
-                  			<tr class="info">
-                  				<td class="col-md-3"><br/><span class="label label-info">Color</span></td>
-                  				<td class="col-md-3"><br/><span class="label label-info">Fitotipo</span></td>
-                  				<td class="col-md-3"><br/><span class="label label-info">Fitosubtipo</span></td>
-                  			</tr>
-			                <tr> 
-			                	<td>{{modelSpecy.info.color}}</td>
-								<td>{{modelSpecy.info.fitoTipo}}</td>
-								<td>{{modelSpecy.info.fitoSubtipo}}</td>
-							</tr>
-                  			<tr class="info">
-                  				<td class="col-md-4"><br/><span class="label label-info">Comentario</span><p></p></td>
-                  				<td class="col-md-3"><br/><span class="label label-info">Presencia (comarca)</span></td>
-                  				<td class="col-md-3"><br/><span class="label label-info">Frecuencia (comarca)</span></td>
-                  			</tr>
-			                <tr>
-								<td>{{modelSpecy.info.comentario}}</td>
-								<td>{{modelSpecy.info.presComarca}}</td>
-								<td>{{modelSpecy.info.frecComarca}}</td>
-							</tr>
+<!--    					<table id="tabla_caract" class="table"> -->
+<!--        					<tbody> -->
+<!--                   			<tr class="info"> -->
+<!--                   				<td class="col-md-3"><br/><span class="label label-info">Color</span></td> -->
+<!--                   				<td class="col-md-3"><br/><span class="label label-info">Fitotipo</span></td> -->
+<!--                   				<td class="col-md-3"><br/><span class="label label-info">Fitosubtipo</span></td> -->
+<!--                   			</tr> -->
+<!-- 			                <tr>  -->
+<!-- 			                	<td>{{modelSpecy.info.color}}</td> -->
+<!-- 								<td>{{modelSpecy.info.fitoTipo}}</td> -->
+<!-- 								<td>{{modelSpecy.info.fitoSubtipo}}</td> -->
+<!-- 							</tr> -->
+<!--                   			<tr class="info"> -->
+<!--                   				<td class="col-md-4"><br/><span class="label label-info">Comentario</span><p></p></td> -->
+<!--                   				<td class="col-md-3"><br/><span class="label label-info">Presencia (comarca)</span></td> -->
+<!--                   				<td class="col-md-3"><br/><span class="label label-info">Frecuencia (comarca)</span></td> -->
+<!--                   			</tr> -->
+<!-- 			                <tr> -->
+<!-- 								<td>{{modelSpecy.info.comentario}}</td> -->
+<!-- 								<td>{{modelSpecy.info.presComarca}}</td> -->
+<!-- 								<td>{{modelSpecy.info.frecComarca}}</td> -->
+<!-- 							</tr> -->
                   			
-			            </tbody>
-                	</table>
-				</div>
+<!-- 			            </tbody> -->
+<!--                 	</table> -->
+<!-- 				</div> -->
 			</div>
 
+		</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Imágenes:</h3>
+			<span id="photoCount" class="badge badge-info">{{modelSpecy.fotos.length}}</span>
+
+			<div id="links">
+				<div class="row">
+					<div ng-repeat="foto in modelSpecy.fotos" class="col-xs-6 col-md-3">
+						<a href={{foto.originalURL}} title={{foto.comentario}}
+							data-gallery class="thumbnail"> <img src={{foto.small240URL}}
+							alt={{foto.comentario}}></img>
+							<p class="text-info">
+								<small>{{foto.utm}}</small>
+							</p>
+						</a>
+					</div>
+				</div>
+			</div>
+			<ng-include src="'partials/gallery.html'"></ng-include>
 
 		</div>
+	</div>
+
 </div>
