@@ -24,7 +24,7 @@
 <!-- 					<td><span class="badge badge-info">{{(currentPage-1)*pageSize + $index+1}}</span></td> -->
 					<td>
 						<a href ng-click="nav.searchSpecy(taxon.nombre)" title={{taxon.foto.comentario}} > 
-							<img ng-src={{taxon.foto.smallSquareURL}} alt={{taxon.foto.comentario}}></img>
+							<img ng-src={{taxon.foto.thumbnailURL}} alt={{taxon.foto.comentario}}></img>
 						</a>					
 					</td>
 					
@@ -34,15 +34,15 @@
 							{{taxon.familia}}
 						</a>
 					</td>
-				<td>
-					<a href ng-click="nav.searchSpecy(taxon.nombre)">
-						Ver Especie
-					</a>
-					/
-					<a href ng-click="nav.searchGenus(taxon.genero)">
-						Ver Género
-					</a>
-				</td>
+					<td>
+						<a href ng-click="nav.searchSpecy(taxon.nombre)">
+							Ver Especie
+						</a>
+						/
+						<a href ng-click="nav.searchGenus(taxon.genero)">
+							Ver Género
+						</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>
