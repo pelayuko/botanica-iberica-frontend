@@ -6,21 +6,32 @@
 						Zona: <span class="text-info" >{{modelZone.nombreZona}}</span>
 					</div>
 				</div>
-				<div class="row">
-					<div id="links">
-						<div class="row">
-						  <div ng-repeat="foto in modelZone.fotos|limitTo:6"  class="col-xs-6 col-md-2">
-						    <a href={{foto.originalURL}} title={{foto.comentario}} data-gallery class="thumbnail">
-						    	<img ng-src={{foto.small240URL}} alt={{foto.comentario}}></img>
-						    </a>
-						  </div>
-						</div>
-					</div>
-					<ng-include src="'partials/gallery.html'"></ng-include>
-				</div>
 			</div>
 		</div>
-		<div class="bs-docs-example">
+		<div ng-if="modelZone.fotos.length > 0" class="row bs-docs-example" style="height: 225px; overflow: auto;">
+			<div class="col-md-12">
+	<!-- 			<h3>Imágenes:</h3> -->
+	<!-- 			<span id="photoCount" class="badge badge-info">{{modelSpecy.fotos.length}}</span> -->
+	
+				<div id="links">
+					<div class="row">
+						<div ng-repeat="foto in modelZone.fotos" class="col-xs-6 col-md-3">
+							<a href={{foto.originalURL}} title={{foto.comentario}}
+								data-gallery class="thumbnail"> <img ng-src={{foto.small240URL}}
+								alt={{foto.comentario}}></img>
+								<p class="text-info">
+									<small>{{foto.utm}}</small>
+								</p>
+							</a>
+						</div>
+					</div>
+				</div>
+				<ng-include src="'partials/gallery.html'"></ng-include>
+	
+			</div>
+		</div>		
+		
+		<div class="row bs-docs-example">
 			<ul id="main_tabs" class="nav nav-tabs">
 				<li class="active"><a href="javascript:;" data-target="#distribTab" data-toggle="tab">Mapa
 						Distribución</a></li>
@@ -190,24 +201,6 @@
 						</div>
 					</div>
 					
-					<div class="row">
-						<h3>Imágenes:</h3>
-						<span id="photoCount" class="badge badge-info">{{modelZone.fotos.length}}</span>
-						
-						<div id="links">
-							<div class="row">
-							  <div ng-repeat="foto in modelZone.fotos"  class="col-xs-6 col-md-3">
-							    <a href={{foto.originalURL}} title={{foto.comentario}} data-gallery class="thumbnail">
-							    	<img ng-src={{foto.small240URL}} alt={{foto.comentario}}></img>
-									<p class="text-info">
-										<small>{{foto.utm}}</small>
-									</p>
-							    </a>
-							  </div>
-							</div>
-						</div>
-						<ng-include src="'partials/gallery.html'"></ng-include>
-					</div>
 				</div>
 				<div class="tab-pane" id="genusTab">
 					<div id="commentList">
@@ -217,7 +210,8 @@
 						<table class="table table-striped table-hover">
 							<thead>
 								<tr>
-									<td><b>{{modelZone.especies.length}}</b></td>
+									<td></td>
+<!-- 									<td><b>{{modelZone.especies.length}}</b></td> -->
 									<td><b>Nombre del Taxon</b></td>
 									<td><b>Familia</b></td>
 									<td><b>Mapa Distribución | Ficha biológica</b></td>
@@ -225,7 +219,12 @@
 							</thead>
 							<tbody>
 								<tr dir-paginate="especie in modelZone.especies | filter:q | itemsPerPage: pageSize" current-page="currentPage" >
-									<td><span class="badge badge-info">{{(currentPage-1)*pageSize + $index+1}}</span></td>
+<!-- 									<td><span class="badge badge-info">{{(currentPage-1)*pageSize + $index+1}}</span></td> -->
+									<td>
+										<a href ng-click="nav.searchSpecy(especie.nombre)" title={{especie.foto.comentario}} > 
+											<img ng-src={{especie.foto.thumbnailURL}} alt={{especie.foto.comentario}}></img>
+										</a>					
+									</td>
 									<td >{{especie.nombre}}</td>
 									<td>{{especie.familia}}</td>
 									<td>
