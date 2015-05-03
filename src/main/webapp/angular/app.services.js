@@ -44,6 +44,7 @@ flora.service('NavigationService', function($location, $http, $route) {
     	console.log('Estoy en ' + path);
     	if ( path == '/specy') {
         	console.log('Reload');
+        	$location.path('/specy').search({});
     		return $route.reload();
     	} else {
         	console.log('Redirect');

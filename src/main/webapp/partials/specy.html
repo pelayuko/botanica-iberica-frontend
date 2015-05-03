@@ -46,7 +46,7 @@
 	<!-- 							<b> HerbarioJaca: </b> <span id="JacaCount" class="badge badge_Jaca">-</span> -->
 	<!-- 						</div> -->
 							<div class="row">
-								<div class="col-md-6" id="sinonimos">
+								<div class="col-md-6" id="sinonimos"  style="height: 180px; overflow: auto;">
 									<table class="table">
 										<thead>
 											<tr>
@@ -94,7 +94,7 @@
 		</div>
 	</div>
 	
-	<div class="row bs-docs-example" style="height: 220px; overflow: auto;">
+	<div ng-if="modelSpecy.fotos.length > 0" class="row bs-docs-example" style="height: 260px; overflow: auto;">
 		<div class="col-md-12">
 <!-- 			<h3>Imágenes:</h3> -->
 <!-- 			<span id="photoCount" class="badge badge-info">{{modelSpecy.fotos.length}}</span> -->
