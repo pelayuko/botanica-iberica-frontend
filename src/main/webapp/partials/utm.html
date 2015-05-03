@@ -2,7 +2,8 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div id="section_title">
-				Lista de taxones de la cuadrícula UTM: 
+				<b>{{taxonList.length}} </b>
+				 especies en la cuadrícula UTM: 
 				<span class="text-info">{{utm}}</span>
 			</div>
 		</div>
@@ -11,15 +12,22 @@
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<td><b>{{taxonList.length}}</b></td>
-					<td><b>Nombre del Taxon</b></td>
+<!-- 					<td><b></b></td> -->
+					<td></td>
+					<td><b>Especie</b></td>
 					<td><b>Familia</b></td>
 					<td><b>Mapa Distribución | Ficha biológica</b></td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr dir-paginate="taxon in taxonList | itemsPerPage: pageSize" current-page="currentPage" >
-					<td><span class="badge badge-info">{{(currentPage-1)*pageSize + $index+1}}</span></td>
+<!-- 					<td><span class="badge badge-info">{{(currentPage-1)*pageSize + $index+1}}</span></td> -->
+					<td>
+						<a href ng-click="nav.searchSpecy(taxon.nombre)" title={{taxon.foto.comentario}} > 
+							<img src={{taxon.foto.smallSquareURL}} alt={{taxon.foto.comentario}}></img>
+						</a>					
+					</td>
+					
 					<td>{{taxon.nombre}}</td>
 					<td>
 						<a href ng-click="nav.searchFamily(taxon.familia)">
