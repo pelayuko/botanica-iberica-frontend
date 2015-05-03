@@ -3,96 +3,117 @@
 		<div class="col-md-12">
 			<div id="titleContainer">
 				<div id="section_title" class="row">
-					
-				    <div class="section-title-column col-md-4">
-				    	<div class="row">				
-							Especie: <span class="text-info">{{modelSpecy.datosTaxon.nombre}}</span>
-							<span style="padding: 0 40px">&nbsp;</span>
-						</div>
-						<div class="row">
-							<small>Familia:</small>
-							<small>
-							<a href ng-click="nav.searchFamily(modelSpecy.datosTaxon.familia)">{{modelSpecy.datosTaxon.familia}}</a>
-							</small>
-						</div>
-						<div class="row">
-							<small>Género:</small>
-							<small>
-							<a href ng-click="nav.searchGenus(modelSpecy.datosTaxon.genero)">{{modelSpecy.datosTaxon.genero}}</a>
-							</small>
-						</div>
-						<div class="row">
-							<a href ng-click="nav.previousSpecy(modelSpecy.datosTaxon.nombre)">
-								<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-							</a>
-							<a href ng-click="nav.nextSpecy(modelSpecy.datosTaxon.nombre)">		
-								<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-							</a>
-						</div>
-					</div>
-					<div class="col-md-5">
-<!-- 						<div class="row"> -->
-<!-- 							<b>Citas: </b> <span id="citationCount" class="badge badge-info">-</span> -->
-<!-- 							<b> UTMs: </b> <span id="utmCount" class="badge badge-info">-</span>							 -->
-<!-- 							<b> HerbarioJaca: </b> <span id="JacaCount" class="badge badge_Jaca">-</span> -->
-<!-- 						</div> -->
-						<table id="tabla_caract" class="table">
-	       					<tbody>
-		                  		<tr class="info">
-	                  				<td class="col-md-3"><span class="label label-info">Fitotipo</span></td>
-	                  				<td class="col-md-3"><span class="label label-info">Fitosubtipo</span></td>
-	                  				<td class="col-md-6"><span class="label label-info">Color (Flor)</span></td>
-	                  			</tr>
-				                <tr> 
-									<td>{{modelSpecy.info.fitoTipo}}</td>
-									<td>{{modelSpecy.info.fitoSubtipo}}</td>
-				                	<td>{{modelSpecy.info.color}}</td>
-								</tr>
-								
-				            </tbody>
-		                </table>
-						<div class="row">
-							<div class="col-md-6" id="sinonimos">
-								<table class="table">
-									<thead>
-										<tr>
-											<td><b>Sinónimos</b></td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr ng-repeat="nombre in modelSpecy.sinonimos track by $index">
-											<td>{{nombre}}</td>
-										</tr>
-	
-									</tbody>
-								</table>
+					<div class="row section-title-row">
+					    <div class="section-title-column col-md-5">
+					    	<div class="row">				
+								Especie: <span class="text-info">{{modelSpecy.datosTaxon.nombre}}</span>
+								<span style="padding: 0 40px">&nbsp;</span>
 							</div>
-							<div class="col-md-6" id="comunes">
-								<table class="table">
-									<thead>
-										<tr>
-											<td><b>Nombres Comunes</b></td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr ng-repeat="ncomun in modelSpecy.comunes">
-											<td>{{ncomun}}</td>
-										</tr>
-	
-									</tbody>
-								</table>
+							<div class="row">
+								<small>Familia:</small>
+								<small>
+								<a href ng-click="nav.searchFamily(modelSpecy.datosTaxon.familia)">{{modelSpecy.datosTaxon.familia}}</a>
+								</small>
+							</div>
+							<div class="row">
+								<small>Género:</small>
+								<small>
+								<a href ng-click="nav.searchGenus(modelSpecy.datosTaxon.genero)">{{modelSpecy.datosTaxon.genero}}</a>
+								</small>
 							</div>
 						</div>
+						<div class="col-md-3">
+							<table id="tabla_caract" class="table">
+		       					<tbody>
+			                  		<tr class="info">
+		                  				<td class="col-md-3"><span class="label label-info">Fitotipo</span></td>
+		                  				<td class="col-md-3"><span class="label label-info">Fitosubtipo</span></td>
+		                  				<td class="col-md-6"><span class="label label-info">Color (Flor)</span></td>
+		                  			</tr>
+					                <tr> 
+										<td>{{modelSpecy.info.fitoTipo}}</td>
+										<td>{{modelSpecy.info.fitoSubtipo}}</td>
+					                	<td>{{modelSpecy.info.color}}</td>
+									</tr>
+									
+					            </tbody>
+			                </table>
+					    </div>
+						<div class="col-md-4">
+	<!-- 						<div class="row"> -->
+	<!-- 							<b>Citas: </b> <span id="citationCount" class="badge badge-info">-</span> -->
+	<!-- 							<b> UTMs: </b> <span id="utmCount" class="badge badge-info">-</span>							 -->
+	<!-- 							<b> HerbarioJaca: </b> <span id="JacaCount" class="badge badge_Jaca">-</span> -->
+	<!-- 						</div> -->
+							<div class="row">
+								<div class="col-md-6" id="sinonimos">
+									<table class="table">
+										<thead>
+											<tr>
+												<td><b>Sinónimos</b></td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="nombre in modelSpecy.sinonimos track by $index">
+												<td>{{nombre}}</td>
+											</tr>
+		
+										</tbody>
+									</table>
+								</div>
+								<div class="col-md-6" id="comunes" style="height: 180px; overflow: auto;">
+									<table class="table">
+										<thead>
+											<tr>
+												<td><b>Nombres Comunes</b></td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="ncomun in modelSpecy.comunes">
+												<td>{{ncomun}}</td>
+											</tr>
+		
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
 					</div>
-					
-					<div class="col-md-3" ng-show="modelSpecy.fotos.length">
-					    <a href  title={{modelSpecy.fotos[0].comentario}} class="thumbnail">
-					    	<img src={{modelSpecy.fotos[0].small240URL}} alt={{modelSpecy.fotos[0].comentario}}></img>
-					    </a>
-				    </div>
-					
+					<div class="row section-title-row">
+						<a href ng-click="nav.previousSpecy(modelSpecy.datosTaxon.nombre)" class="btn btn-primary btn-xs">	
+							<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Anterior
+						</a>
+						<a href ng-click="nav.randomSpecy()" class="btn btn-info btn-xs" role="button">Al azar</a>
+						<a href ng-click="nav.nextSpecy(modelSpecy.datosTaxon.nombre)" class="btn btn-primary btn-xs">		
+							Siguiente <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+						</a>					
+					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	
+	<div class="row bs-docs-example" style="height: 220px; overflow: auto;">
+		<div class="col-md-12">
+<!-- 			<h3>Imágenes:</h3> -->
+<!-- 			<span id="photoCount" class="badge badge-info">{{modelSpecy.fotos.length}}</span> -->
+
+			<div id="links">
+				<div class="row">
+					<div ng-repeat="foto in modelSpecy.fotos" class="col-xs-6 col-md-3">
+						<a href={{foto.originalURL}} title={{foto.comentario}}
+							data-gallery class="thumbnail"> <img src={{foto.small240URL}}
+							alt={{foto.comentario}}></img>
+							<p class="text-info">
+								<small>{{foto.utm}}</small>
+							</p>
+						</a>
+					</div>
+				</div>
+			</div>
+			<ng-include src="'partials/gallery.html'"></ng-include>
+
 		</div>
 	</div>
 	
@@ -241,27 +262,5 @@
 			</div>
 
 		</div>
-	<div class="row">
-		<div class="col-md-12">
-			<h3>Imágenes:</h3>
-			<span id="photoCount" class="badge badge-info">{{modelSpecy.fotos.length}}</span>
-
-			<div id="links">
-				<div class="row">
-					<div ng-repeat="foto in modelSpecy.fotos" class="col-xs-6 col-md-3">
-						<a href={{foto.originalURL}} title={{foto.comentario}}
-							data-gallery class="thumbnail"> <img src={{foto.small240URL}}
-							alt={{foto.comentario}}></img>
-							<p class="text-info">
-								<small>{{foto.utm}}</small>
-							</p>
-						</a>
-					</div>
-				</div>
-			</div>
-			<ng-include src="'partials/gallery.html'"></ng-include>
-
-		</div>
-	</div>
 
 </div>

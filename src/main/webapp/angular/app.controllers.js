@@ -300,10 +300,6 @@ flora.controller('TreeCtrl', function($scope, $http, $location, $timeout) {
 
 flora.controller('AdvancedSearchCtrl', function($scope, $http, $location) {
 	
-	$scope.randomSpecy = function ($item, $model, $label) {
-		$location.path('/specy');
-	};
-	
 	$http.get( serverUrl + "/datosDeInicioEsp" , {
 	      params: {
 	      }
