@@ -162,4 +162,12 @@ html, body {
 .top-buffer { margin-top:20px; }
 
 
+.transformable {
+    -webkit-transition: height 100ms linear;
+    -moz-transition: height 100ms linear;
+    -o-transition: height 100ms linear;
+    -ms-transition: height 100ms linear;
+    transition: height 100ms linear;
+
+}
 

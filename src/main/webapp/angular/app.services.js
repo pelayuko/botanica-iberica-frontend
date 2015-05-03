@@ -53,3 +53,29 @@ flora.service('NavigationService', function($location, $http, $route) {
 	};
 });
 
+flora.service('UtilService', function($location, $http, $route) {
+//    this.verTodas = function(val) {
+//    	console.log('Valor es ' + val);
+//    	console.log('height ' + $("#photoContainer").css('height'));
+//    	if (val != $("#photoContainer").css('height')) {	
+//        	$("#photoContainer").css('height', val);
+//        	$("#verTodasSwitcher").text('Expandir');   
+//    	} else {
+//        	$("#photoContainer").css('height', 'auto');
+//        	$("#verTodasSwitcher").text('Colapsar');     	
+//    	}
+//    };
+    
+	this.photoLimit=4;
+	this.imageToggleText="Ver más";
+	
+	this.changePhotoLimit = function () {
+		if (this.photoLimit == 4) {
+			this.imageToggleText="Ver menos";
+			this.photoLimit=100;
+		} else {
+			this.imageToggleText="Ver más";
+			this.photoLimit=4;
+		}
+	};    
+});

@@ -77,14 +77,14 @@
 		</div>
 	</div>
 	
-	<div ng-if="modelSpecy.fotos.length > 0" class="row bs-docs-example" style="height: 260px; overflow: auto;">
-		<div class="col-md-12">
-<!-- 			<h3>Imágenes:</h3> -->
-<!-- 			<span id="photoCount" class="badge badge-info">{{modelSpecy.fotos.length}}</span> -->
-
-			<div id="links">
-				<div class="row">
-					<div ng-repeat="foto in modelSpecy.fotos" class="col-xs-6 col-md-3">
+	<div id="photoContainer" ng-if="modelSpecy.fotos.length > 0" class="transformable row bs-docs-example" >
+		
+			<div class="col-md-12">
+				<div id="links" class="row">
+					<a href ng-click="util.changePhotoLimit()" class="btn btn-info btn-xs" role="button">{{util.imageToggleText}}</a>
+				</div>
+				<div id="links" class="row">
+					<div ng-repeat="foto in modelSpecy.fotos | limitTo:util.photoLimit" class="col-xs-6 col-md-3">
 						<a href={{foto.originalURL}} title={{foto.comentario}}
 							data-gallery class="thumbnail"> <img ng-src={{foto.small240URL}}
 							alt={{foto.comentario}}></img>
@@ -94,10 +94,8 @@
 						</a>
 					</div>
 				</div>
+				<ng-include src="'partials/gallery.html'"></ng-include>
 			</div>
-			<ng-include src="'partials/gallery.html'"></ng-include>
-
-		</div>
 	</div>
 	
 	<div class="row bs-docs-example">

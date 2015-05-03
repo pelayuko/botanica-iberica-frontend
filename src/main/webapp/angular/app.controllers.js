@@ -166,9 +166,10 @@ flora.controller('PageCtrl', function (/* $scope, $location, $http */) {
 });
 
 
-flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, NavigationService) {
+flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, NavigationService, UtilService) {
 	$("#top-search").val('');
 	$scope.nav = NavigationService;
+	$scope.util = UtilService;
 	$scope.modelSpecy = {};
 	
 	$scope.searchZone = function (zoneParam, sectorParam) {
@@ -239,9 +240,10 @@ flora.controller('GenusCtrl', function($scope, $http, $location, NavigationServi
 	 });
 });
 
-flora.controller('ZoneCtrl', function($scope, $http, $location, $timeout, NavigationService) {
+flora.controller('ZoneCtrl', function($scope, $http, $location, $timeout, NavigationService, UtilService) {
 	$("#top-search").val('');
 	$scope.nav = NavigationService;
+	$scope.util = UtilService;
 	$scope.modelZone = {};
 	
 	  $scope.currentPage = 1;

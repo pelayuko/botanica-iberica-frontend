@@ -8,22 +8,20 @@
 				</div>
 			</div>
 		</div>
-		<div ng-if="modelZone.fotos.length > 0" class="row bs-docs-example" style="height: 225px; overflow: auto;">
+		<div id="photoContainer" ng-if="modelZone.fotos.length > 0" class="transformable row bs-docs-example">
 			<div class="col-md-12">
-	<!-- 			<h3>Imágenes:</h3> -->
-	<!-- 			<span id="photoCount" class="badge badge-info">{{modelSpecy.fotos.length}}</span> -->
-	
-				<div id="links">
-					<div class="row">
-						<div ng-repeat="foto in modelZone.fotos" class="col-xs-6 col-md-3">
-							<a href={{foto.originalURL}} title={{foto.comentario}}
-								data-gallery class="thumbnail"> <img ng-src={{foto.small240URL}}
-								alt={{foto.comentario}}></img>
-								<p class="text-info">
-									<small>{{foto.utm}}</small>
-								</p>
-							</a>
-						</div>
+				<div id="links" class="row">
+					<a href ng-click="util.changePhotoLimit()" class="btn btn-info btn-xs" role="button">{{util.imageToggleText}}</a>
+				</div>
+				<div id="links" class="row">
+					<div ng-repeat="foto in modelZone.fotos | limitTo:util.photoLimit" class="col-xs-6 col-md-3">
+						<a href={{foto.originalURL}} title={{foto.comentario}}
+							data-gallery class="thumbnail"> <img ng-src={{foto.small240URL}}
+							alt={{foto.comentario}}></img>
+							<p class="text-info">
+								<small>{{foto.utm}}</small>
+							</p>
+						</a>
 					</div>
 				</div>
 				<ng-include src="'partials/gallery.html'"></ng-include>
