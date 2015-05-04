@@ -10,10 +10,13 @@
 								<span style="padding: 0 40px">&nbsp;</span>
 							</div>
 							<div class="row">
-								<small>Familia:</small>
+								<small>
+								<a href ng-click="filtrarPorFamilia(modelSpecy.datosTaxon.familia)">Familia:</a>
+								</small>
 								<small>
 								<a href ng-click="nav.searchFamily(modelSpecy.datosTaxon.familia)">{{modelSpecy.datosTaxon.familia}}</a>
 								</small>
+								<small> <span id="iconFiltro" class="glyphicon glyphicon-pushpin"></span> </small>
 							</div>
 							<div class="row">
 								<small>Género:</small>
