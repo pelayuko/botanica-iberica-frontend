@@ -66,14 +66,15 @@
 				<div class="row">
 					<div id="links">
 						<div class="row">
-						  <div ng-repeat="foto in fotos"  class="col-xs-6 col-md-3">
-						    <a href={{foto.originalURL}} title={{foto.comentario}} data-gallery class="thumbnail">
-						    	<img ng-src={{foto.small240URL}} alt={{foto.comentario}}></img>
+							<div ng-repeat="foto in fotos"  class="col-xs-6 col-md-3">
+							    <a href={{foto.originalURL}} title={{foto.comentario}} data-gallery class="thumbnail">
+							    	<img ng-src={{foto.small240URL}} alt={{foto.comentario}}></img>	    	
+							    </a>
 								<p class="text-info">
-									<small>{{foto.utm}}</small>
+									<a href ng-click="searchZoneSect(foto.zona,foto.descripcion)"><small>{{foto.utm}}</small> </a>
 								</p>
-						    </a>
-						  </div>
+							 </div>
+						  
 						</div>
 					</div>
 					<ng-include src="'partials/gallery.html'"></ng-include>

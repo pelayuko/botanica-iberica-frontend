@@ -133,6 +133,14 @@ flora.controller('MapCtrl', function ($scope, $location, $http, $timeout) {
 		$location.path('/zone').search({zone : zoneParm, sector : $scope.selectedSector});
 	};
 	
+	$scope.searchZoneSect = function (zoneParm, sectorParm) {
+		$location.path('/zone').search({zone : zoneParm, sector : sectorParm});
+	};
+	
+	$scope.searchZoneFromUTM = function (utmParm) {
+		$location.path('/zone').search({utm : utmParm, sector : $scope.selectedSector});
+	};
+	
     $scope.loadSearchMapTab = function() {
     	$scope.loadZonesFromSector('A');
 		$timeout(function() {
@@ -179,7 +187,7 @@ flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, Navig
 	
 	$scope.loadGMap = function(especie) {
 		$timeout(function() {
-			$('#dvLoading').fadeOut(2000);
+			$('#dvLoading').fadeOut(1000);
 			createMap("view", "map_canvas");
 			loadUTMGrid();
 			loadUTMsTaxon(especie); //$location.search().query);
@@ -193,12 +201,38 @@ flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, Navig
 				  method: "GET",
 				  url: serverUrl +  "/filtroByFamilia?familia="+familia,
 				  success: function (r1) {
-					  if (r1 == "") $("#iconFiltro").hide();
-					  else $("#iconFiltro").show();
+					  if (r1 == "") $("#iconFiltroFam").hide();
+					  else {
+						  $("#iconFiltroFam").show()
+						  $("#iconFiltroGen").hide();
+					  }
 				  }
 			});	
 
-	  };
+	};
+	  
+	$scope.filtrarPorGenero = function(genero) {
+		$.ajax({
+			  method: "GET",
+			  url: serverUrl +  "/filtroByGenero?genero="+genero,
+			  success: function (r1) {
+				  if (r1 == "") $("#iconFiltroGen").hide();
+				  else {
+					  $("#iconFiltroFam").hide()
+					  $("#iconFiltroGen").show();
+				  }
+					 
+			  }
+		});	
+
+	};
+	
+	$scope.gestionaIconFiltros = function() {
+		$("#iconFiltroFam").hide();
+		$("#iconFiltroGen").hide();
+		if ($scope.modelSpecy.filtro.indexOf("genero") === 0) $("#iconFiltroGen").show();
+		else if ($scope.modelSpecy.filtro.indexOf("familia") === 0) $("#iconFiltroFam").show();
+	};
 
 	  if ( $location.search().query ) {
 		  	var suffix = "";
@@ -213,16 +247,17 @@ flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, Navig
 			    }).then(function(response){
 			    	$scope.modelSpecy = response.data;
 			    	$scope.loadGMap($scope.modelSpecy.datosTaxon.nombre);
-			    	if ($scope.modelSpecy.filtro == "") $("#iconFiltro").hide();
-			    	else $("#iconFiltro").show();
-//			    	$scope.ocultarFiltro = ($scope.modelSpecy.filtro == "");
+			    	$scope.gestionaIconFiltros();
+//			    	if ($scope.modelSpecy.filtro == "") $("#iconFiltro").hide();
+//			    	else $("#iconFiltro").show();
 			 });		  
 	  } else {
 			$http.get( serverUrl + "/datosDeEspecieRandom").then(function(response){
 			    	$scope.modelSpecy = response.data;
 			    	$scope.loadGMap($scope.modelSpecy.datosTaxon.nombre);
-			    	if ($scope.modelSpecy.filtro == "") $("#iconFiltro").hide();
-			    	else $("#iconFiltro").show();
+			    	$scope.gestionaIconFiltros();
+//			    	if ($scope.modelSpecy.filtro == "") $("#iconFiltro").hide();
+//			    	else $("#iconFiltro").show();
 			 });		  
 	  }
 });
@@ -283,16 +318,30 @@ flora.controller('ZoneCtrl', function($scope, $http, $location, $timeout, Naviga
 				// $scope.$apply();
 		  }, 0);
 	  };
+
+	  if ( $location.search().utm ) {
+		  
+			$http.get( serverUrl + "/datosDeZonaFromUTM", {
+			      params: {
+			    	  utm: $location.search().utm,
+			    	  sector: $location.search().sector
+			      }
+			    }).then(function(response){
+			    	$scope.modelZone = response.data;
+			    	$scope.loadGMap();
+			 });		  
+	  } else {
+		  $http.get( serverUrl + "/datosDeZona" , {
+		      params: {
+		    	  zona: $location.search().zone,
+		    	  sector: $location.search().sector
+		      }
+		    }).then(function(response){
+		    	$scope.modelZone = response.data;
+		    	$scope.loadGMap();
+		 });		  
+	  }
 	
-	$http.get( serverUrl + "/datosDeZona" , {
-	      params: {
-	    	  zona: $location.search().zone,
-	    	  sector: $location.search().sector
-	      }
-	    }).then(function(response){
-	    	$scope.modelZone = response.data;
-	    	$scope.loadGMap();
-	 });
 	
 });
 
@@ -318,7 +367,8 @@ flora.controller('TreeCtrl', function($scope, $http, $location, $timeout) {
 	
 });
 
-flora.controller('AdvancedSearchCtrl', function($scope, $http, $location) {
+flora.controller('AdvancedSearchCtrl', function($scope, $http, $location, NavigationService) {
+	$scope.nav = NavigationService;
 	
 	$http.get( serverUrl + "/datosDeInicioEsp" , {
 	      params: {

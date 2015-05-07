@@ -61,11 +61,11 @@
 						<div class="row">
 						  <div ng-repeat="foto in fotos"  class="col-xs-6 col-md-3">
 						    <a href={{foto.originalURL}} title={{foto.comentario}} data-gallery class="thumbnail">
-						    	<img ng-src={{foto.small240URL}} alt={{foto.comentario}}></img>
-								<p class="text-info">
-									<small>{{foto.descripcion}}</small>
-								</p>
+						    	<img ng-src={{foto.small240URL}} alt={{foto.comentario}}></img>	    	
 						    </a>
+							<p class="text-info">
+								<a href ng-click="nav.searchSpecy(foto.descripcion)"><small>{{foto.descripcion}}</small> </a>
+							</p>
 						  </div>
 						</div>
 					</div>

@@ -279,9 +279,10 @@ function loadAllUTMsSector(sector){  //llamada desde loadSectorGrid()
 function borraUTMList(){   //llamada desde loadSectorGrid()
 	utmSectorList.forEach(function(item,index){
 //		console.log("borrando")
-//		utmSectorList.getAt(index).setMap(null);
-		utmSectorList.pop();
+		utmSectorList.getAt(index).setMap(null);
+//		utmSectorList.pop();
 	}); 
+	utmSectorList.clear();
 }
 
 function loadUTMsZona(zona){
@@ -340,7 +341,7 @@ function loadUTMsComun(consulta){
 
 		$('#'+map.div).fadeTo("slow",1);
 
-		$('#dvLoading').fadeOut(2000);
+//		$('#dvLoading').fadeOut(2000);
 
 		$('#citationCount').html(citationCount);
 		$('#utmCount').html(utmTotalCount);

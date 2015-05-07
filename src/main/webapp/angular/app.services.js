@@ -21,6 +21,7 @@ flora.service('PhotoService', function($http) {
 });
 
 flora.service('NavigationService', function($location, $http, $route) {
+
     this.searchSpecy = function(val) {
     	return $location.path('/specy').search('query=' + val);
     };

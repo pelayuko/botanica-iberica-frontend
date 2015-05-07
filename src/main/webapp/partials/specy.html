@@ -16,13 +16,16 @@
 								<small>
 								<a href ng-click="nav.searchFamily(modelSpecy.datosTaxon.familia)">{{modelSpecy.datosTaxon.familia}}</a>
 								</small>
-								<small> <span id="iconFiltro" class="glyphicon glyphicon-pushpin"></span> </small>
+								<small> <span id="iconFiltroFam" class="glyphicon glyphicon-pushpin"></span> </small>
 							</div>
 							<div class="row">
-								<small>Género:</small>
+								<small>
+								<a href ng-click="filtrarPorGenero(modelSpecy.datosTaxon.genero)">Género:</a>
+								</small>
 								<small>
 								<a href ng-click="nav.searchGenus(modelSpecy.datosTaxon.genero)">{{modelSpecy.datosTaxon.genero}}</a>
 								</small>
+								<small> <span id="iconFiltroGen" class="glyphicon glyphicon-pushpin"></span> </small>
 							</div>
 						</div>
 						<div class="col-md-5">
@@ -83,7 +86,7 @@
 	<div id="photoContainer" ng-if="modelSpecy.fotos.length > 0" class="transformable row bs-docs-example" >
 		
 			<div class="col-md-12">
-				<div id="links" class="row">
+				<div id="links" ng-if="modelSpecy.fotos.length > 4" class="row">
 					<a href ng-click="util.changePhotoLimit()" class="btn btn-info btn-xs" role="button">{{util.imageToggleText}}</a>
 				</div>
 				<div id="links" class="row">
@@ -230,34 +233,6 @@
 					</div>
 				</div>
 				
-<!-- 				<div class="tab-pane" id="caractTab"> -->
-				
-<!--    					<table id="tabla_caract" class="table"> -->
-<!--        					<tbody> -->
-<!--                   			<tr class="info"> -->
-<!--                   				<td class="col-md-3"><br/><span class="label label-info">Color</span></td> -->
-<!--                   				<td class="col-md-3"><br/><span class="label label-info">Fitotipo</span></td> -->
-<!--                   				<td class="col-md-3"><br/><span class="label label-info">Fitosubtipo</span></td> -->
-<!--                   			</tr> -->
-<!-- 			                <tr>  -->
-<!-- 			                	<td>{{modelSpecy.info.color}}</td> -->
-<!-- 								<td>{{modelSpecy.info.fitoTipo}}</td> -->
-<!-- 								<td>{{modelSpecy.info.fitoSubtipo}}</td> -->
-<!-- 							</tr> -->
-<!--                   			<tr class="info"> -->
-<!--                   				<td class="col-md-4"><br/><span class="label label-info">Comentario</span><p></p></td> -->
-<!--                   				<td class="col-md-3"><br/><span class="label label-info">Presencia (comarca)</span></td> -->
-<!--                   				<td class="col-md-3"><br/><span class="label label-info">Frecuencia (comarca)</span></td> -->
-<!--                   			</tr> -->
-<!-- 			                <tr> -->
-<!-- 								<td>{{modelSpecy.info.comentario}}</td> -->
-<!-- 								<td>{{modelSpecy.info.presComarca}}</td> -->
-<!-- 								<td>{{modelSpecy.info.frecComarca}}</td> -->
-<!-- 							</tr> -->
-                  			
-<!-- 			            </tbody> -->
-<!--                 	</table> -->
-<!-- 				</div> -->
 			</div>
 
 		</div>
