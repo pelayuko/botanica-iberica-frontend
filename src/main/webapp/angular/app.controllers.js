@@ -179,7 +179,7 @@ flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, Navig
 	$scope.nav = NavigationService;
 	$scope.util = UtilService;
 	$scope.modelSpecy = {}
-//	$scope.ocultarFiltro = true;
+//	$scope.elFiltro = "";
 	
 	$scope.searchZone = function (zoneParam, sectorParam) {
 		$location.path('/zone').search({zone : zoneParam, sector : sectorParam});
@@ -197,41 +197,34 @@ flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, Navig
 	};
 
 	$scope.filtrarPorFamilia = function(familia) {
-			$.ajax({
-				  method: "GET",
-				  url: serverUrl +  "/filtroByFamilia?familia="+familia,
-				  success: function (r1) {
-					  if (r1 == "") $("#iconFiltroFam").hide();
-					  else {
-						  $("#iconFiltroFam").show()
-						  $("#iconFiltroGen").hide();
-					  }
-				  }
-			});	
-
+		if ($("#iconFiltroFam").is(":visible")) {
+			UtilService.elFiltro = "";
+			$("#iconFiltroFam").hide();
+		}
+		else {
+			UtilService.elFiltro = " and Familia = '" + familia + "'";
+			$("#iconFiltroFam").show();
+			$("#iconFiltroGen").hide();
+		}
 	};
 	  
 	$scope.filtrarPorGenero = function(genero) {
-		$.ajax({
-			  method: "GET",
-			  url: serverUrl +  "/filtroByGenero?genero="+genero,
-			  success: function (r1) {
-				  if (r1 == "") $("#iconFiltroGen").hide();
-				  else {
-					  $("#iconFiltroFam").hide()
-					  $("#iconFiltroGen").show();
-				  }
-					 
-			  }
-		});	
-
+		if ($("#iconFiltroGen").is(":visible")) {
+			UtilService.elFiltro = "";
+			$("#iconFiltroGen").hide();
+		}
+		else {
+			UtilService.elFiltro = " and Género = '" + genero + "'";
+			$("#iconFiltroGen").show();
+			$("#iconFiltroFam").hide();
+		}
 	};
 	
 	$scope.gestionaIconFiltros = function() {
 		$("#iconFiltroFam").hide();
 		$("#iconFiltroGen").hide();
-		if ($scope.modelSpecy.filtro.indexOf("genero") === 0) $("#iconFiltroGen").show();
-		else if ($scope.modelSpecy.filtro.indexOf("familia") === 0) $("#iconFiltroFam").show();
+		if (UtilService.elFiltro.indexOf("Género") === 5) $("#iconFiltroGen").show();
+		else if (UtilService.elFiltro.indexOf("Familia") === 5) $("#iconFiltroFam").show();
 	};
 
 	  if ( $location.search().query ) {
@@ -239,25 +232,29 @@ flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, Navig
 		  	if ($location.search().relative){
 		  		suffix = $location.search().relative;
 		  	}
-		  
+		  	else {
+		  		UtilService.elFiltro = "";
+		  	}
+		  	 
 			$http.get( serverUrl + "/datosDeEspecie" + suffix, {
 			      params: {
-			    	  ident: $location.search().query
+			    	  ident: $location.search().query,
+			    	  filtro: UtilService.elFiltro
 			      }
 			    }).then(function(response){
 			    	$scope.modelSpecy = response.data;
 			    	$scope.loadGMap($scope.modelSpecy.datosTaxon.nombre);
 			    	$scope.gestionaIconFiltros();
-//			    	if ($scope.modelSpecy.filtro == "") $("#iconFiltro").hide();
-//			    	else $("#iconFiltro").show();
 			 });		  
 	  } else {
-			$http.get( serverUrl + "/datosDeEspecieRandom").then(function(response){
+			$http.get( serverUrl + "/datosDeEspecieRandom", {
+			      params: {
+			    	  filtro: UtilService.elFiltro
+			      }
+			    }).then(function(response){
 			    	$scope.modelSpecy = response.data;
 			    	$scope.loadGMap($scope.modelSpecy.datosTaxon.nombre);
 			    	$scope.gestionaIconFiltros();
-//			    	if ($scope.modelSpecy.filtro == "") $("#iconFiltro").hide();
-//			    	else $("#iconFiltro").show();
 			 });		  
 	  }
 });

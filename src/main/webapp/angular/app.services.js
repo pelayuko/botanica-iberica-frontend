@@ -78,5 +78,7 @@ flora.service('UtilService', function($location, $http, $route) {
 			this.imageToggleText="Ver más";
 			this.photoLimit=4;
 		}
-	};    
+	};   
+	
+	this.elFiltro="";
 });
