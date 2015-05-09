@@ -19,13 +19,15 @@
 			<div class="row">					
 					<div id="links">
 						<div class="row">
-						  <div ng-repeat="foto in modelGenus.fotos|limitTo:4" class="col-xs-6 col-md-3">
-						    <a href="{{foto.originalURL}}" title="{{foto.comentario}}" data-gallery="" class="thumbnail">
+						  <div ng-repeat="foto in modelGenus.fotos|limitTo:4" class="col-xs-6 col-md-3 thumbnail">
+						    <a href="{{foto.originalURL}}" title="{{foto.comentario}}" data-gallery="">
 						    	<img ng-src="{{foto.small240URL}}" alt="{{foto.comentario}}">
-								<p class="text-info">
-									<small>{{foto.descripcion}}</small>
-								</p>
 						    </a>
+						    <div class="center-text">
+								<a href ng-click="nav.searchSpecy(foto.descripcion)">
+									<small>{{foto.descripcion}}</small>
+								</a>
+							</div>						    
 						  </div>
 						</div>
 					</div>
