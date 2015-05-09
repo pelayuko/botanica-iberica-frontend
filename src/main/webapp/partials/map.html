@@ -46,7 +46,7 @@
 					<br /> 
 					
 					<div id="zonasAlphaList" class="list-group">
-					  <div class="list-group-item"  ng-repeat="zone in zones track by $index">
+					  <div class="list-group-item"  ng-repeat="zone in zones track by $index" ng-animate="'animate'">
 					  	<a href ng-click="searchZone(zone)" >{{zone}}</a>
 					  </div>
 					</div>

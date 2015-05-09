@@ -14,7 +14,7 @@
 					<a href ng-click="util.changePhotoLimit()" class="btn btn-info btn-xs" role="button">{{util.imageToggleText}}</a>
 				</div>
 				<div id="links" class="row">
-					<div ng-repeat="foto in modelZone.fotos | limitTo:util.photoLimit" class="col-xs-6 col-md-3">
+					<div data-ng-repeat="foto in modelZone.fotos | limitTo:util.photoLimit"  ng-animate="'animate'" class="col-xs-6 col-md-3">
 						<a href={{foto.originalURL}} title={{foto.comentario}}
 							data-gallery class="thumbnail"> <img ng-src={{foto.small240URL}}
 							alt={{foto.comentario}}></img>
@@ -216,7 +216,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr dir-paginate="especie in modelZone.especies | filter:q | itemsPerPage: pageSize" current-page="currentPage" >
+								<tr ng-animate=" 'animate' " dir-paginate="especie in modelZone.especies | filter:q | itemsPerPage: pageSize" current-page="currentPage" >
 <!-- 									<td><span class="badge badge-info">{{(currentPage-1)*pageSize + $index+1}}</span></td> -->
 									<td>
 										<a href ng-click="nav.searchSpecy(especie.nombre)" title={{especie.foto.comentario}} > 
