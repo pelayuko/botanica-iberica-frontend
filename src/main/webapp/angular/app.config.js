@@ -1,6 +1,7 @@
 // TO CFG!!
 //var serverUrl = "http://192.168.1.111:8080";
-var serverUrl = "http://192.168.1.16:8080";
+//var serverUrl = "http://192.168.1.16:8080";
+var serverUrl = "https://botanica-moncayo-backend.herokuapp.com";
 
 /**
  * Configure the Routes
