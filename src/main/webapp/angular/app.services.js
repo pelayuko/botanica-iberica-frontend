@@ -31,6 +31,9 @@ flora.service('NavigationService', function($location, $http, $route) {
     this.searchFamily = function(val) {
     	return $location.path('/family').search('query=' + val);
     };
+    this.searchUTM = function(val) {
+    	return $location.path('/utm').search('utm=' + val);
+    };
     
     this.previousSpecy = function(val) {
     	return $location.path('/specy').search({query : val, relative : 'Prev'});

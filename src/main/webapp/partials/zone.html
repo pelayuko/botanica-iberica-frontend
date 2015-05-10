@@ -10,18 +10,20 @@
 		</div>
 		<div id="photoContainer" ng-if="modelZone.fotos.length > 0" class="transformable row bs-docs-example">
 			<div class="col-md-12">
-				<div id="links" class="row">
+				<div id="links" ng-if="modelZone.fotos.length > 4" class="row">
 					<a href ng-click="util.changePhotoLimit()" class="btn btn-info btn-xs" role="button">{{util.imageToggleText}}</a>
 				</div>
 				<div id="links" class="row">
-					<div data-ng-repeat="foto in modelZone.fotos | limitTo:util.photoLimit"  ng-animate="'animate'" class="col-xs-6 col-md-3">
+					<div data-ng-repeat="foto in modelZone.fotos | limitTo:util.photoLimit" class="col-xs-6 col-md-3 thumbnail">
 						<a href={{foto.originalURL}} title={{foto.comentario}}
-							data-gallery class="thumbnail"> <img ng-src={{foto.small240URL}}
+							data-gallery> <img ng-src={{foto.small240URL}}
 							alt={{foto.comentario}}></img>
-							<p class="text-info">
-								<small>{{foto.utm}}</small>
-							</p>
 						</a>
+						<div class="center-text">
+							<a href ng-click="nav.searchUTM('30T'+foto.utm)" title={{foto.comentario}} >
+									<small>{{foto.utm}}</small>
+							</a>
+						</div>
 					</div>
 				</div>
 				<ng-include src="'partials/gallery.html'"></ng-include>

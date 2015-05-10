@@ -90,14 +90,16 @@
 					<a href ng-click="util.changePhotoLimit()" class="btn btn-info btn-xs" role="button">{{util.imageToggleText}}</a>
 				</div>
 				<div id="links" class="row">
-					<div ng-repeat="foto in modelSpecy.fotos | limitTo:util.photoLimit" class="col-xs-6 col-md-3">
+					<div ng-repeat="foto in modelSpecy.fotos | limitTo:util.photoLimit" class="col-xs-6 col-md-3 thumbnail">
 						<a href={{foto.originalURL}} title={{foto.comentario}}
-							data-gallery class="thumbnail"> <img ng-src={{foto.small240URL}}
+							data-gallery> <img ng-src={{foto.small240URL}}
 							alt={{foto.comentario}}></img>
-							<p class="text-info">
-								<small>{{foto.utm}}</small>
-							</p>
 						</a>
+						<div class="center-text">
+							<a href ng-click="nav.searchUTM('30T'+foto.utm)" title={{foto.comentario}} >
+									<small>{{foto.utm}}</small>
+							</a>
+						</div>
 					</div>
 				</div>
 				<ng-include src="'partials/gallery.html'"></ng-include>
