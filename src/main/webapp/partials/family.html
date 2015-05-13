@@ -33,17 +33,23 @@
 		</div>
 	</div>
 </div>
-<div class="bs-docs-example">
-	<table class="table">
+	<div class="bs-docs-example">
+		<div class="form-group">
+			<input ng-model="q" id="search" class="form-control" placeholder="Escribe para buscar">
+		</div>					
+		<table class="table table-striped table-hover">
 		<thead>
 			<tr>
-				<td><b></b></td>
-				<td><b>Nombre del Taxon</b></td>
-				<td><b>Mapa Distribución | Ficha biológica</b></td>
+				<td><b>Nº Especies: {{modelFamily.especies.length}}</b></td>
+				<td><b>Especie</b></td>
+				<td><b>Género</b></td>
+				<td><b>Fitotipo</b></td>
+				<td><b>Subtipo</b></td>
+				<td><b>Color (flor)</b></td>
 			</tr>
 		</thead>
 		<tbody>
-			<tr data-ng-repeat="especie in modelFamily.especies track by $index" data-ng-animate="'animate'" >
+			<tr ng-animate=" 'animate' " dir-paginate="especie in modelFamily.especies | filter:q | itemsPerPage: pageSize" current-page="currentPage" >
 <!-- 				<td> -->
 <!-- 					<span class="badge badge-info">{{$index+1}}</span> -->
 <!-- 				</td> -->
@@ -52,19 +58,22 @@
 						<img ng-src={{especie.foto.thumbnailURL}} alt={{especie.foto.comentario}}></img>
 					</a>					
 				</td>					
-				<td>{{especie.nombre}}</td>
 				<td>
 					<a href ng-click="nav.searchSpecy(especie.nombre)">
-						Ver Especie
-					</a>
-					/
-					<a href ng-click="nav.searchGenus(especie.genero)">
-						Ver Género
+					{{especie.nombre}}
 					</a>
 				</td>
-
+				<td>
+					<a href ng-click="nav.searchGenus(especie.nombre)">
+					{{util.getGenus(especie.nombre)}}
+					</a>
+				</td>
+				<td>{{especie.fitotipo}}</td>
+				<td>{{especie.fitosubtipo}}</td>
+				<td>{{especie.colorflor}}</td>
 			</tr>
 		</tbody>
 	</table>
-</div>
+		<dir-pagination-controls boundary-links="true" template-url="components/pagination/dirPagination.tpl.html"></dir-pagination-controls>
+	</div>
 </div>

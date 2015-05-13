@@ -26,6 +26,7 @@ flora.service('NavigationService', function($location, $http, $route) {
     	return $location.path('/specy').search('query=' + val);
     };
     this.searchGenus = function(val) {
+    	if (val.indexOf(" ") > 0) val = val.substr(0,val.indexOf(" ")); //admite nombres de especie
     	return $location.path('/genus').search('query=' + val);
     }; 
     this.searchFamily = function(val) {
@@ -70,6 +71,10 @@ flora.service('UtilService', function($location, $http, $route) {
 //    	}
 //    };
     
+	this.getGenus = function(val) {
+	    return val.substr(0,val.indexOf(" "));
+	};
+	
 	this.photoLimit=4;
 	this.imageToggleText="Ver más";
 	

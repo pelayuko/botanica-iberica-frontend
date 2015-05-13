@@ -9,40 +9,44 @@
 		</div>
 	</div>
 	<div class="bs-docs-example">
+		<div class="form-group">
+			<input ng-model="q" id="search" class="form-control" placeholder="Escribe para buscar">
+		</div>					
+	
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
 <!-- 					<td><b></b></td> -->
 					<td></td>
 					<td><b>Especie</b></td>
+					<td><b>Género</b></td>
 					<td><b>Familia</b></td>
-					<td><b>Mapa Distribución | Ficha biológica</b></td>
 				</tr>
 			</thead>
 			<tbody>
-				<tr dir-paginate="taxon in taxonList | itemsPerPage: pageSize" current-page="currentPage" >
+				<tr dir-paginate="taxon in taxonList | filter:q | itemsPerPage: pageSize" current-page="currentPage" >
 <!-- 					<td><span class="badge badge-info">{{(currentPage-1)*pageSize + $index+1}}</span></td> -->
 					<td>
 						<a href ng-click="nav.searchSpecy(taxon.nombre)" title={{taxon.foto.comentario}} > 
 							<img ng-src={{taxon.foto.thumbnailURL}} alt={{taxon.foto.comentario}}></img>
 						</a>					
 					</td>
-					
-					<td>{{taxon.nombre}}</td>
-					<td>
-						<a href ng-click="nav.searchFamily(taxon.familia)">
-							{{taxon.familia}}
-						</a>
-					</td>
 					<td>
 						<a href ng-click="nav.searchSpecy(taxon.nombre)">
-							Ver Especie
-						</a>
-						/
-						<a href ng-click="nav.searchGenus(taxon.genero)">
-							Ver Género
+						{{taxon.nombre}}
 						</a>
 					</td>
+					<td>
+						<a href ng-click="nav.searchGenus(taxon.genero)">
+						{{taxon.genero}}
+						</a>
+					</td>
+					<td>
+						<a href ng-click="nav.searchFamily(taxon.familia)">
+						{{taxon.familia}}
+						</a>
+					</td>
+					
 				</tr>
 			</tbody>
 		</table>
