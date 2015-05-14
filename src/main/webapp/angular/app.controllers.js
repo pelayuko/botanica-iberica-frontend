@@ -361,7 +361,7 @@ flora.controller('UTMCtrl', function($scope, $http, $location, NavigationService
 	    	  utm: $scope.utm
 	      }
 	    }).then(function(response){
-	    	$scope.taxonList = response.data;
+	    	$scope.modelUTM = response.data;
 	 });
 });
 

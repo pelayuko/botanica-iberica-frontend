@@ -2,9 +2,10 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div id="section_title">
-				<b>{{taxonList.length}} </b>
+				<b>{{modelUTM.especies.length}} </b>
 				 especies en la cuadrícula UTM: 
 				<span class="text-info">{{utm}}</span>
+				<small><span style="float: right;">Sector: <b>{{modelUTM.elSector}}</b></span></small>
 			</div>
 		</div>
 	</div>
@@ -21,10 +22,13 @@
 					<td><b>Especie</b></td>
 					<td><b>Género</b></td>
 					<td><b>Familia</b></td>
+					<td><b>Fitotipo</b></td>
+					<td><b>Subtipo</b></td>
+					<td><b>Color (flor)</b></td>
 				</tr>
 			</thead>
 			<tbody>
-				<tr dir-paginate="taxon in taxonList | filter:q | itemsPerPage: pageSize" current-page="currentPage" >
+				<tr dir-paginate="taxon in modelUTM.especies | filter:q | itemsPerPage: pageSize" current-page="currentPage" >
 <!-- 					<td><span class="badge badge-info">{{(currentPage-1)*pageSize + $index+1}}</span></td> -->
 					<td>
 						<a href ng-click="nav.searchSpecy(taxon.nombre)" title={{taxon.foto.comentario}} > 
@@ -46,7 +50,9 @@
 						{{taxon.familia}}
 						</a>
 					</td>
-					
+					<td>{{taxon.fitotipo}}</td>
+					<td>{{taxon.fitosubtipo}}</td>
+					<td>{{taxon.colorflor}}</td>
 				</tr>
 			</tbody>
 		</table>
