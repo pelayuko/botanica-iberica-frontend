@@ -12,7 +12,6 @@ flora.config(['$routeProvider', function ($routeProvider) {
     .when("/", {templateUrl: "partials/main.html", controller: "MainCtrl"})
     // Pages
     .when("/denom", {templateUrl: "partials/list.html", controller: "DenomListController"})
-    .when("/mapAngular", {templateUrl: "partials/mapAngular.html", controller: "MapAngularCtrl"})
     .when("/map", {templateUrl: "partials/map.html", controller: "MapCtrl"})
     .when("/specy", {templateUrl: "partials/specy.html", controller: "SpecyCtrl"})
     .when("/genus", {templateUrl: "partials/genus.html", controller: "GenusCtrl"})
@@ -24,15 +23,6 @@ flora.config(['$routeProvider', function ($routeProvider) {
     // else 404
     .otherwise("/404", {templateUrl: "partials/404.html", controller: "PageCtrl"});
 }]);
-
-flora.config(function(uiGmapGoogleMapApiProvider) {
-    uiGmapGoogleMapApiProvider.configure({
-        //    key: 'your api key',
-        v: '3.17',
-        libraries: 'weather,geometry,visualization'
-    });
-});
-
 
 flora.config(function(paginationTemplateProvider) {
     paginationTemplateProvider.setPath('components/pagination/dirPagination.tpl.html');

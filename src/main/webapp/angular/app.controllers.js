@@ -32,55 +32,6 @@ flora.controller('MainCtrl', function ($scope, $http, $location) {
 		};
 });
 
-flora.controller('MapAngularCtrl', function ($scope, uiGmapGoogleMapApi) {
-    // Do stuff with your $scope.
-    // Note: Some of the directives require at least something to be defined originally!
-    // e.g. $scope.markers = []
-
-    // uiGmapGoogleMapApi is a promise.
-    // The "then" callback function provides the google.maps object.
-    uiGmapGoogleMapApi.then(function(maps) {
-    	$scope.map = {
-    			center: {
-    				latitude: 41.76, 
-    				longitude: -1.63
-    			}, 
-    			zoom: 10,
-    			options : {
-    				scrollwheel: false
-    			},
-    			control: {},
-    			events: {
-    				//This turns of events and hits against scope from gMap events this does speed things up
-    				// adding a blacklist for watching your controller scope should even be better
-    				// blacklist: ['drag', 'dragend','dragstart','zoom_changed', 'center_changed'],
-			        tilesloaded: function (map, eventName, originalEventArgs) {
-			        	//console.log( 'Titles loaded' );
-			        },
-			        click: function (mapModel, eventName, originalEventArgs) {
-			        	console.log( 'Click!' );
-			        	 var e = originalEventArgs[0];
-			             var lat = e.latLng.lat(),
-			               lon = e.latLng.lng();
-			    	    console.log( lat + ', ' + lon );
-			        }
-    			}
-    	};
-    	$scope.marker = {
-    			id: 0,
-    			coords: {
-    				latitude: 40.454018,
-    				longitude: -3.509205
-    			},
-    			options: {
-    				draggable: true
-    			}
-    	};
-    	
-    });	 
-});
-
-
 flora.controller('DenomListController', function DenomListController($scope, $http, CitasService) {
 
     $scope.citasList = [];
