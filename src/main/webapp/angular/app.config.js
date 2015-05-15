@@ -12,7 +12,6 @@ flora.config(['$routeProvider', function ($routeProvider) {
     .when("/", {templateUrl: "partials/main.html", controller: "MainCtrl"})
     // Pages
     .when("/denom", {templateUrl: "partials/list.html", controller: "DenomListController"})
-    .when("/mapAngular", {templateUrl: "partials/mapAngular.html", controller: "MapAngularCtrl"})
     .when("/map", {templateUrl: "partials/map.html", controller: "MapCtrl"})
     .when("/specy", {templateUrl: "partials/specy.html", controller: "SpecyCtrl"})
     .when("/genus", {templateUrl: "partials/genus.html", controller: "GenusCtrl"})
