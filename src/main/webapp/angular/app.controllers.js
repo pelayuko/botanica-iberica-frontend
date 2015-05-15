@@ -210,10 +210,14 @@ flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, Navig
 	  }
 });
 
-flora.controller('FamilyCtrl', function($scope, $http, $location, NavigationService) {
+flora.controller('FamilyCtrl', function($scope, $http, $location, NavigationService, UtilService) {
 	$("#top-search").val('');
 	$scope.nav = NavigationService;
+	$scope.util = UtilService;
 	$scope.modelFamily = {};
+
+	  $scope.currentPage = 1;
+	  $scope.pageSize = 10;
 	
 	$http.get( serverUrl + "/datosDeFamilia" , {
 	      params: {
@@ -230,7 +234,10 @@ flora.controller('GenusCtrl', function($scope, $http, $location, NavigationServi
 	$("#top-search").val('');
 	$scope.nav = NavigationService;
 	$scope.modelGenus = {};
-	
+
+	  $scope.currentPage = 1;
+	  $scope.pageSize = 10;
+
 	$http.get( serverUrl + "/datosDeGenero" , {
 	      params: {
 	    	  genus: $location.search().query
@@ -305,7 +312,7 @@ flora.controller('UTMCtrl', function($scope, $http, $location, NavigationService
 	    	  utm: $scope.utm
 	      }
 	    }).then(function(response){
-	    	$scope.taxonList = response.data;
+	    	$scope.modelUTM = response.data;
 	 });
 });
 

@@ -88,103 +88,6 @@
 
 							<div id="chart_div" style="width: 355px; height: 20px"></div>
 
-							<!-- <div id="sectorTable">
-
-								<ul class="nav nav-pills">
-									<li class="disabled"><a href="javascript:;" data-target="#sectTitle"><h5>Sectores</h5></a>
-									</li>
-									<li class="divider"></li>
-									<li class="active"><a href="javascript:;" data-target="#sectCit" data-toggle="tab">Citas</a>
-									</li>
-									<li><a href="javascript:;" data-target="#sectUTM" data-toggle="tab">UTMs</a></li>
-								</ul>
-
-								<div class="tab-content">
-									<div class="tab-pane active" id="sectCit">
-										<table>
-											<tr>
-												<td>La Muela</td>
-												<td class="centerTd"><span id="sector_1"
-													class="badge badge_sector_1">0</span></td>
-												<td><span id="sector_1_p" class="label"></span></td>
-											</tr>
-											<tr>
-												<td>Campo de Borja</td>
-												<td class="centerTd"><span id="sector_2"
-													class="badge badge_sector_2">0</span></td>
-												<td><span id="sector_2_p" class="label"></span></td>
-											</tr>
-											<tr>
-												<td>La Sierra</td>
-												<td class="centerTd"><span id="sector_3"
-													class="badge badge_sector_3">0</span></td>
-												<td><span id="sector_3_p" class="label"></span></td>
-											</tr>
-											<tr>
-												<td>El Moncayo</td>
-												<td class="centerTd"><span id="sector_4"
-													class="badge badge_sector_4">0</span></td>
-												<td><span id="sector_4_p" class="label"></span></td>
-											</tr>
-											<tr>
-												<td>Somontano</td>
-												<td class="centerTd"><span id="sector_5"
-													class="badge badge_sector_5">0</span></td>
-												<td><span id="sector_5_p" class="label"></span></td>
-											</tr>
-											<tr>
-												<td>Magallón</td>
-												<td class="centerTd"><span id="sector_6"
-													class="badge badge_sector_6">0</span></td>
-												<td><span id="sector_6_p" class="label"></span></td>
-											</tr>
-										</table>
-
-									</div>
-									<div class="tab-pane" id="sectUTM">
-										<table>
-											<tr>
-												<td>La Muela</td>
-												<td class="centerTd"><span id="sector_1_utm"
-													class="badge badge_sector_1">0</span></td>
-												<td><span id="sector_1_p_utm" class="label"></span></td>
-											</tr>
-											<tr>
-												<td>Campo de Borja</td>
-												<td class="centerTd"><span id="sector_2_utm"
-													class="badge badge_sector_2">0</span></td>
-												<td><span id="sector_2_p_utm" class="label"></span></td>
-											</tr>
-											<tr>
-												<td>La Sierra</td>
-												<td class="centerTd"><span id="sector_3_utm"
-													class="badge badge_sector_3">0</span></td>
-												<td><span id="sector_3_p_utm" class="label"></span></td>
-											</tr>
-											<tr>
-												<td>El Moncayo</td>
-												<td class="centerTd"><span id="sector_4_utm"
-													class="badge badge_sector_4">0</span></td>
-												<td><span id="sector_4_p_utm" class="label"></span></td>
-											</tr>
-											<tr>
-												<td>Somontano</td>
-												<td class="centerTd"><span id="sector_5_utm"
-													class="badge badge_sector_5">0</span></td>
-												<td><span id="sector_5_p_utm" class="label"></span></td>
-											</tr>
-											<tr>
-												<td>Magallón</td>
-												<td class="centerTd"><span id="sector_6_utm"
-													class="badge badge_sector_6">0</span></td>
-												<td><span id="sector_6_p_utm" class="label"></span></td>
-											</tr>
-										</table>
-
-									</div>
-								</div>
-							</div>
-							<br /> -->
 							<table>
 								<tbody>
 									<tr>
@@ -210,11 +113,13 @@
 						<table class="table table-striped table-hover">
 							<thead>
 								<tr>
-									<td></td>
-<!-- 									<td><b>{{modelZone.especies.length}}</b></td> -->
-									<td><b>Nombre del Taxon</b></td>
+									<td><b>Nº Especies: {{modelZone.especies.length}}</b></td>
+									<td><b>Especie</b></td>
+									<td><b>Género</b></td>
 									<td><b>Familia</b></td>
-									<td><b>Mapa Distribución | Ficha biológica</b></td>
+									<td><b>Fitotipo</b></td>
+									<td><b>Subtipo</b></td>
+									<td><b>Color (flor)</b></td>
 								</tr>
 							</thead>
 							<tbody>
@@ -225,12 +130,24 @@
 											<img ng-src={{especie.foto.thumbnailURL}} alt={{especie.foto.comentario}}></img>
 										</a>					
 									</td>
-									<td >{{especie.nombre}}</td>
-									<td>{{especie.familia}}</td>
 									<td>
 										<a href ng-click="nav.searchSpecy(especie.nombre)">
-										Ver especie
-									</a></td>
+										{{especie.nombre}}
+										</a>
+									</td>
+									<td>
+										<a href ng-click="nav.searchGenus(especie.nombre)">
+										{{util.getGenus(especie.nombre)}}
+										</a>
+									</td>
+									<td>
+										<a href ng-click="nav.searchFamily(especie.familia)">
+										{{especie.familia}}
+										</a>
+									</td>
+									<td>{{especie.fitotipo}}</td>
+									<td>{{especie.fitosubtipo}}</td>
+									<td>{{especie.colorflor}}</td>
 								</tr>
 							</tbody>
 						</table>
