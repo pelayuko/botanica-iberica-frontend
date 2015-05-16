@@ -56,6 +56,10 @@ flora.service('NavigationService', function($location, $http, $route) {
     		return $location.path('/specy');   		
     	}
 	};
+	
+	this.searchZoneSect = function (zoneParm, sectorParm) {
+		$location.path('/zone').search({zone : zoneParm, sector : sectorParm});
+	};	
 });
 
 flora.service('UtilService', function($location, $http, $route) {

@@ -1,6 +1,8 @@
 
 
-flora.controller('MainCtrl', function ($scope, $http, $location) {
+flora.controller('MainCtrl', function ($scope, $http, $location, NavigationService) {
+	$scope.nav = NavigationService;
+	
 	  $scope.getSearchResults = function(val) {
 		    return $http.get( serverUrl + "/searchAll" , {
 		      params: {
@@ -30,6 +32,43 @@ flora.controller('MainCtrl', function ($scope, $http, $location) {
 	        	  }
 	          }
 		};
+		
+		$http.get( serverUrl + "/numeroEspecies" , {
+		      params: {
+		      }
+		    }).then(function(response){
+		    	$scope.numeroEspecies = response.data;
+		 });
+		
+		$http.get( serverUrl + "/numeroCitas" , {
+		      params: {
+		      }
+		    }).then(function(response){
+		    	$scope.numeroCitas = response.data;
+		 });
+		
+		$http.get( serverUrl + "/numeroZonas" , {
+		      params: {
+		      }
+		    }).then(function(response){
+		    	$scope.numeroZonas = response.data;
+		 });
+		
+		$http.get( serverUrl + "/datosDeInicioZon" , {
+		      params: {
+		    	  count: 2
+		      }
+		    }).then(function(response){
+		    	$scope.fotosZona = response.data;
+		 });
+		
+		$http.get( serverUrl + "/datosDeInicioEsp" , {
+		      params: {
+		    	  count: 2
+		      }
+		    }).then(function(response){
+		    	$scope.fotosEspecie = response.data;
+		 });
 });
 
 flora.controller('DenomListController', function DenomListController($scope, $http, CitasService) {
@@ -59,7 +98,9 @@ flora.controller('DenomListController', function DenomListController($scope, $ht
  
 });
 
-flora.controller('MapCtrl', function ($scope, $location, $http, $timeout) {
+flora.controller('MapCtrl', function ($scope, $location, $http, $timeout, NavigationService) {
+	$scope.nav = NavigationService;
+	
 	$scope.zones = [];
 	
 	  $(".dropdown-menu li a").click(function(){
@@ -82,10 +123,6 @@ flora.controller('MapCtrl', function ($scope, $location, $http, $timeout) {
 	  
 	$scope.searchZone = function (zoneParm) {
 		$location.path('/zone').search({zone : zoneParm, sector : $scope.selectedSector});
-	};
-	
-	$scope.searchZoneSect = function (zoneParm, sectorParm) {
-		$location.path('/zone').search({zone : zoneParm, sector : sectorParm});
 	};
 	
 	$scope.searchZoneFromUTM = function (utmParm) {
