@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=$PORT -jar target/botanica-frontend-0.0.1-SNAPSHOT.war
+web: java $JAVA_OPTS  -Dnewrelic.enable.java.8 -Dserver.port=$PORT -jar target/botanica-frontend-0.0.1-SNAPSHOT.war
