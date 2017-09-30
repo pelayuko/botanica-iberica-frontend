@@ -7,4 +7,4 @@ oc new-app codecentric/springboot-maven3-centos~https://github.com/pelayuko/bota
 
 Add Maven environment variable
 MVN_ARGS spring-boot:run
-APP_TARGET app.war
+APP_TARGET target/app.war

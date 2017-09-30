@@ -6,7 +6,7 @@
 	<groupId>org.pelayo</groupId>
 	<artifactId>botanica-frontend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>botanica-frontend</name>
 	<description>botanica-frontend</description>
