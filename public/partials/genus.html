@@ -1,0 +1,80 @@
+<div class="row">
+	<div class="row">
+		<div class="col-md-12">
+			<div id="section_title" class="section-title-column">
+				Género: <span class="text-info">{{modelGenus.genero}}</span> 
+				<span style="padding: 0 40px">&nbsp;</span>
+				<small>Familia:</small>
+				<small>
+					<a href ng-click="nav.searchFamily(modelGenus.familia)">{{modelGenus.familia}}</a>
+				</small>
+				<small><a style="float: right;" target="_blank" ng-href="{{modelGenus.refFloraIberica}}">Enlace Flora iberica</a></small>
+			</div>
+			
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+
+			<div class="row">					
+					<div id="links">
+						<div class="row">
+						  <div ng-repeat="foto in modelGenus.fotos|limitTo:4" class="col-xs-6 col-md-3 thumbnail">
+						    <a href="{{foto.originalURL}}" title="{{foto.comentario}}" data-gallery="">
+						    	<img ng-src="{{foto.small240URL}}" alt="{{foto.comentario}}">
+						    </a>
+						    <div class="center-text">
+								<a href ng-click="nav.searchSpecy(foto.descripcion)">
+									<small>{{foto.descripcion}}</small>
+								</a>
+							</div>						    
+						  </div>
+						</div>
+					</div>
+					<ng-include src="'partials/gallery.html'"></ng-include>
+				</div>
+		</div>
+	</div>
+	<div class="row bs-docs-example">
+		<div class="form-group">
+			<input ng-model="q" id="search" class="form-control" placeholder="Escribe para buscar">
+		</div>					
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<td><b>Nº Especies: {{modelGenus.especies.length}}</b></td>
+					<td><b>Especie</b></td>
+					<td><b>Familia</b></td>
+					<td><b>Fitotipo</b></td>
+					<td><b>Subtipo</b></td>
+					<td><b>Color (flor)</b></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-animate=" 'animate' " dir-paginate="especie in modelGenus.especies | filter:q | itemsPerPage: pageSize" current-page="currentPage" >
+<!-- 					<tr ng-repeat="especie in modelGenus.especies track by $index"> -->
+<!-- 					<td><span class="badge badge-info">{{$index+1}}</span></td> -->
+					<td>
+						<a href ng-click="nav.searchSpecy(especie.nombre)" title={{especie.foto.comentario}} > 
+							<img ng-src={{especie.foto.thumbnailURL}} alt={{especie.foto.comentario}}></img>
+						</a>					
+					</td>									
+					<td>
+						<a href ng-click="nav.searchSpecy(especie.nombre)">
+						{{especie.nombre}}
+						</a>
+					</td>
+					<td>
+						<a href ng-click="nav.searchFamily(especie.familia)">
+						{{especie.familia}}
+						</a>
+					</td>
+					<td>{{especie.fitotipo}}</td>
+					<td>{{especie.fitosubtipo}}</td>
+					<td>{{especie.colorflor}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<dir-pagination-controls boundary-links="true" template-url="components/pagination/dirPagination.tpl.html"></dir-pagination-controls>
+	</div>
+</div>

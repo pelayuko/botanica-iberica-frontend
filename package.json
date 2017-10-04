@@ -1,0 +1,13 @@
+{
+  "name"         : "botanica-iberia-frontend",
+  "version"      : "0.0.0",
+  "description"  : "botanica iberia frontend",
+  "main"         : "server.js",
+  "author"       : "Javier Pelayo",
+  "dependencies" : {
+    "express"    : "~4.7.2",
+    "morgan"     : "~1.2.2",
+    "body-parser": "~1.5.2",
+    "method-override": "~2.1.2"
+    }
+}

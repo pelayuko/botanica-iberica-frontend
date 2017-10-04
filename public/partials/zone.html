@@ -1,0 +1,164 @@
+	<div id="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row" id="titleContainer">
+					<div id="section_title" class="section-title-column">
+						Zona: <span class="text-info" >{{modelZone.nombreZona}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="photoContainer" ng-if="modelZone.fotos.length > 0" class="transformable row bs-docs-example">
+			<div class="col-md-12">
+				<div id="links" ng-if="modelZone.fotos.length > 4" class="row">
+					<a href ng-click="util.changePhotoLimit()" class="btn btn-info btn-xs" role="button">{{util.imageToggleText}}</a>
+				</div>
+				<div id="links" class="row">
+					<div data-ng-repeat="foto in modelZone.fotos | limitTo:util.photoLimit" class="col-xs-6 col-md-3 thumbnail">
+						<a href={{foto.originalURL}} title={{foto.comentario}}
+							data-gallery> <img ng-src={{foto.small240URL}}
+							alt={{foto.comentario}}></img>
+						</a>
+						<div class="center-text">
+							<a href ng-click="nav.searchUTM('30T'+foto.utm)" title={{foto.comentario}} >
+									<small>{{foto.utm}}</small>
+							</a>
+						</div>
+					</div>
+				</div>
+				<ng-include src="'partials/gallery.html'"></ng-include>
+	
+			</div>
+		</div>		
+		
+		<div class="row bs-docs-example">
+			<ul id="main_tabs" class="nav nav-tabs">
+				<li class="active"><a href="javascript:;" data-target="#distribTab" data-toggle="tab">Mapa
+						Distribución</a></li>
+				<li><a href="javascript:;" data-target="#genusTab" data-toggle="tab">Listado especies</a></li>
+				
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="distribTab">
+					<div class="row rightSidebar">
+						<div class="col-md-8">
+							<div id="dvLoading">
+								<div class="well">
+									Cargando citas:
+									<div class="progress progress-striped active">
+										<div class="bar" style="width: 100%;"></div>
+									</div>
+								</div>
+							</div>
+
+							<div id="wrapper">
+
+								<div id="map_canvas"></div>
+								<div id="legend" style="visibility: hidden" class="legend_main"></div>
+								<div id="map_info" class="utm_search_taxon"></div>
+
+							</div>
+							<div id="fus_info"></div>
+
+							<div id="mapButtons">
+								<div class="btn-group">
+									<button id="hideCitationsBt"
+										class="btn btn-small citEnabled btn-info" type="button"
+										onclick="showUTMSquares()">Distribución de citas</button>
+
+								</div>
+			
+								<div class="btn-group">
+									<button id="addGridBt" class="btn btn-small gridDisabled"
+										type="button" onclick="loadUTMGrid()">Cuadrícula UTM</button>
+									<button id="addSectorGridBt"
+										class="btn btn-small sectorGridDisabled" type="button"
+										onclick="loadSectorGrid( false )">Sectores</button>
+								</div>
+
+							</div>
+
+							<div id="legend_test"></div>
+
+						</div>
+						<div class="col-md-4">
+						
+							<b>Citas: </b> <span id="citationCount" class="badge badge-info">-</span>
+							<b> UTMs: </b> <span id="utmCount" class="badge badge-info">-</span>
+
+							<div id="chart_div" style="width: 355px; height: 20px"></div>
+
+							<table>
+								<tbody>
+									<tr>
+										<td class="fontNormal"><span class="text-info"><strong>Descripción:</strong></span></td>
+									</tr>
+									<tr>
+										<td class="fontNormal" align="justify"><span
+											class="fontComentarios"> {{modelZone.descripcion}} </span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+					
+				</div>
+				<div class="tab-pane" id="genusTab">
+					<div id="commentList">
+						<div class="form-group">
+							<input ng-model="q" id="search" class="form-control" placeholder="Escribe para buscar">
+						</div>					
+						<table class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<td><b>Nº Especies: {{modelZone.especies.length}}</b></td>
+									<td><b>Especie</b></td>
+									<td><b>Género</b></td>
+									<td><b>Familia</b></td>
+									<td><b>Fitotipo</b></td>
+									<td><b>Subtipo</b></td>
+									<td><b>Color (flor)</b></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-animate=" 'animate' " dir-paginate="especie in modelZone.especies | filter:q | itemsPerPage: pageSize" current-page="currentPage" >
+<!-- 									<td><span class="badge badge-info">{{(currentPage-1)*pageSize + $index+1}}</span></td> -->
+									<td>
+										<a href ng-click="nav.searchSpecy(especie.nombre)" title={{especie.foto.comentario}} > 
+											<img ng-src={{especie.foto.thumbnailURL}} alt={{especie.foto.comentario}}></img>
+										</a>					
+									</td>
+									<td>
+										<a href ng-click="nav.searchSpecy(especie.nombre)">
+										{{especie.nombre}}
+										</a>
+									</td>
+									<td>
+										<a href ng-click="nav.searchGenus(especie.nombre)">
+										{{util.getGenus(especie.nombre)}}
+										</a>
+									</td>
+									<td>
+										<a href ng-click="nav.searchFamily(especie.familia)">
+										{{especie.familia}}
+										</a>
+									</td>
+									<td>{{especie.fitotipo}}</td>
+									<td>{{especie.fitosubtipo}}</td>
+									<td>{{especie.colorflor}}</td>
+								</tr>
+							</tbody>
+						</table>
+						<dir-pagination-controls boundary-links="true" template-url="components/pagination/dirPagination.tpl.html"></dir-pagination-controls>
+					</div>
+
+
+				</div>
+				
+			</div>
+		</div>	
+
+	</div>
+

@@ -1,0 +1,779 @@
+img{ border: none; }
+
+iframe{ border: none; }
+
+
+h1 small {
+    
+font-size: 18.5px;
+
+}
+
+h1{
+    
+  font-size: 32px;
+
+}
+
+h1 a, h1 a:hover, h1 a:visited, h1 a:link { 
+    
+        text-decoration:none;
+        color: #3D3D3D;
+}
+
+
+.jumbotron {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
+
+#map_info{
+
+   background-color: #f5f5f5;
+   
+   border: 1px solid #ddd;
+
+  -webkit-border-radius: 4px 0 4px 0;
+   -moz-border-radius: 4px 0 4px 0;
+  border-radius: 4px 0 4px 0;
+  
+  padding: 5px 5px 9px 7px; 
+  
+   width: 155px;
+    
+   height: 32px;
+   
+}
+
+.utm_search_taxon{
+    
+   margin: 416px 7px 0px 554px;
+   position: absolute; top: 10px; left: 10px; z-index: 99;
+    
+}
+
+.utm_search_mainpage{
+    
+    
+   margin: 416px 7px 0px 554px;
+   position: absolute; top: 10px; left: 10px; z-index: 99;  
+   /*margin: -60px 7px 0px 594px;
+   position: relative; top: 10px; left: 10px; z-index: 99;*/
+
+}
+
+.utm_search_citation{
+    
+   margin: 310px 7px 0px 970px;
+   position: absolute; top: 10px; left: 10px; z-index: 99;
+    
+}
+
+
+
+
+#map_canvas_stats{
+    
+    width:100%;
+    height: 480px;
+    
+}
+
+#map_canvas{
+    
+    width:100%;
+    height: 480px;
+    
+}
+
+#map_canvas_select{
+    
+    margin-top: 10px;
+    width: 94%;
+    height: 330px;
+    
+}
+
+
+#map_config{
+
+	margin-top: 10px;
+	margin-bottom: 10xp;	
+
+}
+
+.labels {
+
+     color: #000;
+     background-color: white;
+     font-family: Verdana, Arial, Helvetica, sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     text-align: center;
+     width: 85px;     
+     border: 1px solid black;
+     white-space: nowrap;
+     
+   }
+     .form-signin {
+            max-width: 300px;
+            padding: 19px 29px 29px;
+            margin: 0 auto 20px;
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+            -webkit-border-radius: 5px;
+               -moz-border-radius: 5px;
+                    border-radius: 5px;
+            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+               -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+          }
+          .form-signin .form-signin-heading,
+          .form-signin .checkbox {
+            margin-bottom: 10px;
+          }
+          .form-signin input[type="text"],
+          .form-signin input[type="password"] {
+            font-size: 16px;
+            height: auto;
+            margin-bottom: 15px;
+            padding: 7px 9px;
+          }
+
+          
+ /* Base class */
+.bs-docs-example {
+	position: relative;
+  padding: 15px 18px 15px 12px;
+  margin-bottom: 8px;    
+  
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;	
+}
+
+.page-header{
+    
+    margin: 20px 0 15px;
+    padding-bottom: 2px;
+}
+
+ /* Base class */
+.box {
+  position: relative;
+  margin: 2px 10px 10px 5px;
+  padding: 10px 5px 10px 5px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+
+#synoDiv{
+    
+    float: right;
+    
+}
+
+
+#synoActions{
+    
+    
+
+}
+
+/* Echo out a label for the example */
+#section_title {
+  padding: 15px 18px 15px 12px;
+  margin-bottom: 8px;    
+  
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+.section-title-row {
+  margin-left: 10px;
+}
+
+.section-title-column {
+	font-style: italic;
+	font-size: 20px;
+	font-weight: bold;
+	color: #9da0a4;
+}
+
+.tab-pane{
+    
+    margin: 5px;
+        
+}
+
+#dvLoading{
+
+   height: 100px;
+   width: 200px;
+   position: fixed;
+   z-index: 1000;
+   left: 40%;
+   top: 50%;
+   margin: -25px 0 0 -25px;
+
+}
+
+#dvListLoading{
+
+   width: 200px;
+   margin: 5px auto 5px auto;
+   border: 1px solid #ddd;
+   color: #9da0a4;
+   padding: 7px;
+    
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+   
+}
+
+.loading{
+
+   width: 200px;
+   margin: 5px auto 5px auto;
+   color: #9da0a4;
+   padding: 7px;
+      
+   border: 1px solid #ddd;
+
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+   
+}
+
+
+
+#flags{
+    
+  margin-top: -4px;  
+  
+  text-align: center;
+  padding: 2px;
+  
+  margin-right: 4px;
+  margin-left: 4px;
+  
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+    
+  -webkit-border-radius: 4px 0 4px 0;
+  -moz-border-radius: 4px 0 4px 0;
+  border-radius: 4px 0 4px 0;
+          
+  width: 130px;        
+  float: right;  
+}
+
+#buttons{
+    
+    margin-top: -6px;
+    padding: 2px;
+    float:right;
+    margin-right: 5px;
+    margin-left: 8px;
+}
+
+#mapButtons{
+    
+    margin-left: auto;
+    margin-right:auto;
+    margin-top: 5px;
+    padding: 10px 15px 10px 15px;
+    text-align: center;
+    
+}
+
+#mapButtonsInit{
+    
+    margin-top: 210px;
+    margin-left: auto;
+    margin-right:auto;
+    padding: 5px;
+    
+}
+
+#miniSearch{
+    
+    margin-top: 7px;
+    margin-bottom: 5px;
+    float: right;
+}
+
+#logos{
+    
+    text-align: center;
+    
+}
+
+.badge_Jaca{
+    
+    background-color: #d3434f;
+
+}
+
+.badge_sector_1{
+    
+    background-color: #e87587;
+        margin-left: 5px;
+
+}
+
+.badge_sector_2{
+    
+    background-color:#b9b8b7;
+    margin-left: 5px;
+
+}
+.badge_sector_3{
+    
+    background-color: #e49247;
+    margin-left: 5px;
+
+}
+.badge_sector_4{
+    
+   background-color: #56e962; 
+    margin-left: 5px;
+
+}
+.badge_sector_5{
+    
+    background-color: #43C6DB;
+    margin-left: 5px;
+
+        
+}
+.badge_sector_6{
+    
+   background-color: #e9e331;
+    margin-left: 5px;
+
+}
+
+#sectorTable{
+    
+    margin-left: 5px;
+    
+}
+
+.centerTd{
+    
+    text-align: center;
+    
+}
+
+/* Fitxa biolï¿½gica Jaca */
+
+.fontTitulos{
+    
+   /* color: #3a87ad;
+    font-size: 120%;*/
+    padding: 5px 0px 5px 0px;
+   /* font-weight: bold;*/
+    
+    
+    
+}
+
+.jacaTaxonTitle{
+       
+    font-size: 150%;
+    margin: 10px 0px 20px 0px;
+        
+}
+
+.jacaBio tr{
+    
+    margin: 15px 0px 15px 0px;
+    
+    
+}
+
+
+.fontNormal{
+    
+    padding-right: 6px;
+    padding-bottom: 15px;
+    
+}
+
+#jacaDistrib td{
+    
+    padding: 2px 5px 2px 0px;
+    
+}
+
+#jacaBio td{
+    
+       padding: 2px 5px 2px 0px;
+ 
+}
+
+
+.legendItem{
+
+    display: inline-block;
+    padding: 2px 4px;
+    font-size: 11.844px;
+    font-weight: bold;
+    line-height: 14px;
+    color: #fff;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    vertical-align: baseline;
+    border: 1px solid #000;
+    margin-right: 4px;
+    height: 7px;
+    width: 3px;
+ 
+}
+
+.legend5{
+    
+    background-color: #DC0014;
+}
+.legend4{
+    
+    background-color: #FF3C14;
+}
+.legend3{
+    
+    background-color: #FF7814;
+}
+.legend2{
+    
+    background-color: #FFB414;
+
+
+}
+.legend1{
+    
+    background-color: #FFF014;
+}
+.legend0{
+    
+    background-color: #F0FF78;
+}
+
+.legend_empty{
+    
+    background-color: #BEBEBE;
+    
+}
+
+
+#legend{
+
+
+   background-color: #f5f5f5;
+   
+   border: 1px solid #ddd;
+
+  -webkit-border-radius: 4px 0 4px 0;
+   -moz-border-radius: 4px 0 4px 0;
+  border-radius: 4px 0 4px 0;
+  
+  padding: 7px; 
+
+
+}
+
+#legend p{
+    
+    font-size: 11px;
+    margin: 0 0 5px;
+}
+
+   #wrapper { position: relative; }
+
+   
+   .legend_main{
+       
+          height:142px;
+          margin: 260px 5px 0px 635px;
+          position: absolute; top: 10px; left: 10px; z-index: 99;
+       
+   }
+   
+   .legend_stats{
+       
+    margin: 250px 0px 0px 600px;
+    width: 110px;
+    position: absolute; top: 10px; left: 10px; z-index: 99;
+
+       
+   }
+   
+   .taxonEditForm{
+       
+    margin-top:10px;
+    
+    
+   }
+   
+   .uncertainCitation{
+       
+       background-color: #f2dede;
+
+   }
+   
+   .arrows{
+       
+       position: absolute; 
+       margin: 0px 0px 0px 0px;
+       
+       top: 107px;
+       z-index: 99;
+       
+              
+   }
+   
+   
+   .table tbody tr.bibTitle > td {
+       
+        padding-top: 22px;
+   
+   }
+   
+   .floatRight{
+       
+       float: right;
+       font-size: 80%;
+       padding-right: 30px;
+       
+   }
+   
+   #sliderY .slider-selection {
+	background: #3a87ad;    
+}
+
+
+#maxMinButton{
+    
+    margin-left: 4px;
+    
+}
+
+#sectorTable .nav{
+    
+    margin-bottom: 5px;
+}
+
+#sectorTable .nav > .disabled > a {
+    
+    margin-right: 60px; 
+    font-size: 14px;
+    color: #000;
+    font-weight: bold;
+}
+
+.tree{
+
+    height:350px;
+    overflow:auto;
+
+}  
+   
+   
+.tree li {
+    margin: 0px 0;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 5px 0px 5px;
+}
+.tree li::before {
+    content:'';
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    right: auto;
+    left: -20px;
+    border-left: 1px solid #3a87ad;
+    bottom: 50px;
+}
+.tree li::after {
+    content:'';
+    position: absolute;
+    top: 30px;
+    width: 25px;
+    height: 20px;
+    right: auto;
+    left: -20px;
+    border-top: 1px solid #3a87ad;
+}
+.tree li a {
+    display: inline-block;
+    border: 1px solid #3a87ad;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #666;
+    font-family: arial, verdana, tahoma;
+    font-size: 11px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+/*Remove connectors before root*/
+ .tree > ul > li::before, .tree > ul > li::after {
+    border: 0;
+}
+/*Remove connectors after last child*/
+ .tree li:last-child::before {
+    height: 30px;
+}
+/*Time for some hover effects*/
+
+/*We will apply the hover effect the the lineage of the element also*/
+ .tree li a:hover, .tree li a:hover+ul li a  {
+    background: #3a87ad;
+    color: #fff;
+    border: 1px solid #3a87ad;
+}
+/*Connector styles on hover*/
+ .tree li a:hover+ul li::after, .tree li a:hover+ul li::before, .tree li a:hover+ul::before, .tree li a:hover+ul ul::before {
+    border-color: #3a87ad;
+}
+
+#searchTaxon{
+ 
+    height: 190px;
+    
+}
+
+.white_box{
+    
+    margin: 0px 0 5px 0px;
+    padding: 20px 19px 14px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    
+    }
+    
+    .nav{
+        
+        margin-bottom: 5px;
+        
+    }
+    
+    .floatCenter{
+        
+        text-align: right;
+        margin-top: 20px;
+        
+    }
+    
+    .modal-dialog {}
+.thumbnail {margin-bottom:6px;}
+
+.carousel-control.left,.carousel-control.right{
+  background-image:none;
+  margin-top:10%;
+  width:5%;
+}
+
+#external_maps{
+
+        margin-bottom: 10px;
+    float: right;
+
+}
+#external_maps img{
+ 
+    
+}
+#extended_tabs{
+    
+    float: right;
+
+}
+
+
+#cbn_logos{
+    
+    text-align: center;
+    
+    
+}
+
+#cbn_logos img{
+    
+    margin-left: 15px;
+    
+    
+}
+
+#zonasAlphaList{
+    
+    margin-top: 10px;
+    width: auto;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+#taxonAlphaList{
+    
+    width: 400px;
+    height: 200px;
+    overflow-y: scroll;
+}
+
+#atlasDistrib img{
+    
+    height: 30px;
+    
+}
+
+.fontComentarios em{
+    
+    margin-right: 5px;
+    
+}
+
+td .fontNormal u{
+
+    padding-top: 5px;
+}
+
+#tabFlora td{
+    
+    padding-right: 8px;
+    padding-bottom: 4px;    
+    
+}

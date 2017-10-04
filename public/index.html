@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html ng-app="flora" class="no-js">
+<!--<![endif]-->
+
+<head>
+	<title>Flora Borja y Moncayo</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="Flora Ibérica">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta http-equiv="cache-control" content="max-age=0" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+	<meta http-equiv="pragma" content="no-cache" />
+	
+	<link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="//bootswatch.com/yeti/bootstrap.min.css" />
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	
+<!-- START GALLERY -->
+	<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+	<link rel="stylesheet" href="imageGallery/css/bootstrap-image-gallery.min.css">
+<!-- END GALLERY -->
+	
+	<link href="maps/style.css" rel="stylesheet" type="text/css" />
+	
+	<link rel="stylesheet" href="css/style.css" />
+	
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	
+	  ga('create', 'UA-63272703-1', 'auto');
+	  ga('send', 'pageview');
+	
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		<ng-include src="'components/navbar.html'"></ng-include>
+		<div id="push"></div>
+		<div class="container">
+			<div ng-view  autoscroll="true"></div>
+		</div>
+		<div id="push"></div>
+	</div>
+	
+	<ng-include src="'partials/footer.html'"></ng-include>
+
+	<script data-require="angular.js@1.3.14" data-semver="1.3.14" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-animate.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
+	
+	<script data-require="jquery@*" data-semver="2.1.3" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	
+	<script data-require="bootstrap@3.3.4" data-semver="3.3.4" src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	
+	
+	<!-- Regular GMAPS integration -->
+	<!-- START -->
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+	
+	<script type="text/javascript" src="maps/js/markerwithlabel_packed.js"></script>
+	<script type="text/javascript" src="maps/js/jshashtable-2.1.js"></script>
+	<script type="text/javascript" src="maps/js/forms.js"></script>
+	<script type="text/javascript" src="maps/js/mapa.js"></script>
+	<script type="text/javascript" src="maps/js/utm_converter.js"></script>
+	<script type="text/javascript" src="maps/js/utm_grid.js"></script>
+	<script type="text/javascript" src="maps/js/map_viewer.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<!-- END -->
+	
+	<script src="components/pagination/dirPagination.js"></script>
+
+	<script src="vendor/js/ui-bootstrap-0.12.0.js"></script>
+<!-- 	<script src="vendor/js/ui-bootstrap-0.12.0.min.js"></script> -->
+	<script src="vendor/js/ui-bootstrap-tpls-0.12.0.js"></script>
+<!-- 	<script src="vendor/js/ui-bootstrap-tpls-0.12.0.min.js"></script> -->
+
+
+<!-- START GALLERY -->
+	<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+	<script src="imageGallery/js/bootstrap-image-gallery.js"></script>
+<!-- END GALLERY -->
+
+	<script src="angular/app.js"></script>
+	<script src="angular/app.config.js"></script>
+	<script src="angular/app.directive.js"></script>
+	<script src="angular/app.services.js"></script>
+	<script src="angular/app.controllers.js"></script>
+	
+</body>
+
+</html>

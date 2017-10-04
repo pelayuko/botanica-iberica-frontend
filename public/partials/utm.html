@@ -1,0 +1,61 @@
+<div id="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div id="section_title">
+				<b>{{modelUTM.especies.length}} </b>
+				 especies en la cuadrícula UTM: 
+				<span class="text-info">{{utm}}</span>
+				<small><span style="float: right;">Sector: <b>{{modelUTM.elSector}}</b></span></small>
+			</div>
+		</div>
+	</div>
+	<div class="bs-docs-example">
+		<div class="form-group">
+			<input ng-model="q" id="search" class="form-control" placeholder="Escribe para buscar">
+		</div>					
+	
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+<!-- 					<td><b></b></td> -->
+					<td></td>
+					<td><b>Especie</b></td>
+					<td><b>Género</b></td>
+					<td><b>Familia</b></td>
+					<td><b>Fitotipo</b></td>
+					<td><b>Subtipo</b></td>
+					<td><b>Color (flor)</b></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr dir-paginate="taxon in modelUTM.especies | filter:q | itemsPerPage: pageSize" current-page="currentPage" >
+<!-- 					<td><span class="badge badge-info">{{(currentPage-1)*pageSize + $index+1}}</span></td> -->
+					<td>
+						<a href ng-click="nav.searchSpecy(taxon.nombre)" title={{taxon.foto.comentario}} > 
+							<img ng-src={{taxon.foto.thumbnailURL}} alt={{taxon.foto.comentario}}></img>
+						</a>					
+					</td>
+					<td>
+						<a href ng-click="nav.searchSpecy(taxon.nombre)">
+						{{taxon.nombre}}
+						</a>
+					</td>
+					<td>
+						<a href ng-click="nav.searchGenus(taxon.genero)">
+						{{taxon.genero}}
+						</a>
+					</td>
+					<td>
+						<a href ng-click="nav.searchFamily(taxon.familia)">
+						{{taxon.familia}}
+						</a>
+					</td>
+					<td>{{taxon.fitotipo}}</td>
+					<td>{{taxon.fitosubtipo}}</td>
+					<td>{{taxon.colorflor}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<dir-pagination-controls boundary-links="true" template-url="components/pagination/dirPagination.tpl.html"></dir-pagination-controls>
+	</div>
+</div>
