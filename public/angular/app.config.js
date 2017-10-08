@@ -3,7 +3,7 @@
 //var serverUrl = "http://192.168.1.16:8080";
 //var serverUrl = "http://botanica-moncayo-backend.herokuapp.com";
 //var serverUrl = "54.88.136.216";
-var serverUrl = "http://botanica-iberica-back-j8-estepasyhayedos.1d35.starter-us-east-1.openshiftapps.com";
+var serverUrl = "http://botanica-iberica-backend-estepasyhayedos.1d35.starter-us-east-1.openshiftapps.com";
 
 /**
  * Configure the Routes
