@@ -20,36 +20,77 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
 
 	/* per a determinar inversament el digraph */
 
-	var digraph1Array = [ "A", "B", "C", "D", "E", "F", "G", "H","J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
-        "Y", "Z" ];
-    
-    var digraph2Array = [ "V", "A", "B", "C", "D", "E", "F", "G",
-        "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V"];     
+var digraph1Array = [ "A", "B", "C", "D", "E", "F", "G", "H","J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
+    "Y", "Z" ];
+
+var digraph2Array = [ "V", "A", "B", "C", "D", "E", "F", "G",
+    "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V"];     
 
 
 	/* per a determinar el fus*/
 
-  var letters = [ 'A', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K',
+var letters = [ 'A', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K',
         'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Z' ];
 
-   var degrees = [ -90, -84, -72, -64, -56, -48, -40, -32, -24, -16,
+var degrees = [ -90, -84, -72, -64, -56, -48, -40, -32, -24, -16,
         -8, 0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 84 ];
 
-   var negLetters = [ 'A', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K',
+var negLetters = [ 'A', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K',
         'L', 'M' ];
 
-   var negDegrees = [-90, -84, -72, -64, -56, -48, -40, -32, -24,
+var negDegrees = [-90, -84, -72, -64, -56, -48, -40, -32, -24,
         -16, -8 ];
 
-   var posLetters = [ 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+var posLetters = [ 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
         'X', 'Z' ];
 
-    var posDegrees = [0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 84 ];
+var posDegrees = [0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 84 ];
 
-    var arrayLength = 22;
+var arrayLength = 22;
+
+function getLatZoneDegree(letter) //llamada desde drawUTMSquare
+{
+  var ltr = letter.charAt(0);
+  
+  for (var i = 0; i < arrayLength; i++){
+	  
+    if (letters[i] == ltr)
+    {
+      return degrees[i];
+    }
+  }
+  
+  return -100;
+}
+
+function getDigraph1Index(letter) //llamada desde drawUTMSquare
+{
+  for (var i = 0; i < digraph1Array.length; i++)
+  {
+    if (digraph1Array[i]==letter)
+    {
+      return i + 1;
+    }
+  }
+
+  return -1;
+}
+
+function getDigraph2Index(letter) //llamada desde drawUTMSquare
+{
+  for (var i = 0; i < digraph2Array.length; i++)
+  {
+    if (digraph2Array[i]==letter)
+    {
+      return i;
+    }
+  }
+
+  return -1;
+}
 
 
-	function getLatZone(latitude)
+function getLatZone(latitude) //llamada por convertLatLongToUTM y LatLongToUTM_info
     {
       var latIndex = -2;
       var lat = parseInt(latitude);
@@ -125,23 +166,7 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
       }
     }
 
-  function getLatZoneDegree(letter)
-    {
-      var ltr = letter.charAt(0);
-      
-      for (var i = 0; i < arrayLength; i++){
-		  
-        if (letters[i] == ltr)
-        {
-          return degrees[i];
-        }
-      }
-      
-      return -100;
-    }
-
-
-  function getDigraphEast(longZone, easting){
+function getDigraphEast(longZone, easting){ //llamada por convertLatLongToUTM y LatLongToUTM_info
 		
       var a1 = longZone;
       var a2 = 8 * ((a1 - 1) % 3) + 1;
@@ -155,7 +180,7 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
             
     }
     
-    function getDigraphNorth(longZone,northing){
+function getDigraphNorth(longZone,northing){ //llamada por convertLatLongToUTM y LatLongToUTM_info
 		      
       var a1 = longZone;
       var a2 = 1 + 5 * ((a1 - 1) % 2);
@@ -177,64 +202,13 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
       return result;
 
     }
-    
-    function getDigraph1Index(letter)
-    {
-      for (var i = 0; i < digraph1Array.length; i++)
-      {
-        if (digraph1Array[i]==letter)
-        {
-          return i + 1;
-        }
-      }
-
-      return -1;
-    }
-
-    function getDigraph2Index(letter)
-    {
-      for (var i = 0; i < digraph2Array.length; i++)
-      {
-        if (digraph2Array[i]==letter)
-        {
-          return i;
-        }
-      }
-
-      return -1;
-    }
-    
-    
-    function isSouthernHem(lat){
+ 
+function isSouthernHem(lat){ //llamada por convertLatLongToUTM
 	
 	     if (lat < 0) return true;
 		 else return false;
 		 
 	}
-    
-    function getLongZone(longitude){
-		
-      var longZone = 0;
-      
-      if (longitude < 0.0){
-		  
-        longZone = ((180.0 + longitude) / 6) + 1;
-        
-      }
-      else{
-		  
-        longZone = (longitude / 6) + 31;
-      }
-      
-      var val = String(parseInt(longZone));
-      
-      if (val.length == 1){
-		  
-        val = "0" + val;
-      }
-      
-      return val;
-    }
     
 
     /*
@@ -280,7 +254,7 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
     *     The ellipsoidal distance of the point from the equator, in meters.
     *
     */
-    function ArcLengthOfMeridian (phi)
+    function ArcLengthOfMeridian (phi) //llamada por MapLatLonToXY
     {
         var alpha, beta, gamma, delta, epsilon, n;
         var result;
@@ -316,7 +290,6 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
 
     return result;
     }
-
 
 
     /*
@@ -717,8 +690,8 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
    		return;
    	}
    	
-   	
-	function UTMObject (zone,xy,accuracy) {
+
+   	function UTMObject (zone,xy,accuracy) {
 		
 		this.zone = zone;
 		this.x = xy[0]
@@ -734,7 +707,7 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
 				
 	}	
 	
-   	function convertLatLongToUTM(lat,lng,acur,square,showUTM1x1)
+function convertLatLongToUTM(lat,lng,acur,square,showUTM1x1) //llamada desde getMGRSLabelTextAndSquare y loadTaxonList
    	{
    		var xy = new Array(2);
 
@@ -779,9 +752,6 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
 
 //   		isZoneLimit(zone, xy[0], xy[1], acur, isSouthernHem(lat), square, utmCoords);
 
-   		if (labelOn)
-   			infoUTM.set('labelContent', zone + getLatZone(lat) + "_" + x + y + "_" + xNum + yNum);
-
    		return zone + getLatZone(lat) + x + y + xNum + yNum;
 
    		//if(pretty)return (zone+determineLetter(y,yNum)+" "+x+y+" "+xNum+yNum);
@@ -796,7 +766,7 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
 
    	}
 
-   	function getX_num(x,acur,showUTM1x1){
+function getX_num(x,acur,showUTM1x1){ //llamada por convertLatLongToUTM y LatLongToUTM_info
 
    		if(acur==10000){  // || !showUTM1x1
 
@@ -809,13 +779,13 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
 
    	}
 
-   	function pad2(number) {
+function pad2(number) {
 
    		return (number < 10 ? '0' : '') + number
 
    	}
 
-   	function getY_num(y,acur,showUTM1x1){
+function getY_num(y,acur,showUTM1x1){ //llamada por convertLatLongToUTM y LatLongToUTM_info
 
    		if(acur==10000){ // || !showUTM1x1
 
@@ -828,7 +798,7 @@ var digraph1 = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 
 
    	}
 
-   	function LatLongToUTM_info(lat,lng,acur)
+function LatLongToUTM_info(lat,lng,acur) //llamada desde getMGRSLabelText
    	{
    		var xy = new Array(2);
 

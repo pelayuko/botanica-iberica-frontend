@@ -2,46 +2,19 @@ img{ border: none; }
 
 iframe{ border: none; }
 
-
 h1 small {
-    
 font-size: 18.5px;
-
 }
 
-h1{
-    
+h1{  
   font-size: 32px;
-
 }
 
-h1 a, h1 a:hover, h1 a:visited, h1 a:link { 
-    
+h1 a, h1 a:hover, h1 a:visited, h1 a:link {    
         text-decoration:none;
         color: #3D3D3D;
 }
 
-
-.jumbotron {
-        margin: 60px 0;
-        text-align: center;
-      }
-      .jumbotron h1 {
-        font-size: 72px;
-        line-height: 1;
-      }
-      .jumbotron .btn {
-        font-size: 21px;
-        padding: 14px 24px;
-      }
-
-      /* Supporting marketing content */
-      .marketing {
-        margin: 60px 0;
-      }
-      .marketing p + h4 {
-        margin-top: 28px;
-      }
 
 #map_info{
 
@@ -63,59 +36,26 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
 
 .utm_search_taxon{
     
-   margin: 416px 7px 0px 554px;
-   position: absolute; top: 10px; left: 10px; z-index: 99;
+/*    margin: 60% 7px 0px 10%; */
+   position: absolute; top: 90%; left: 10px; z-index: 99;
     
 }
 
 .utm_search_mainpage{
-    
-    
-   margin: 416px 7px 0px 554px;
-   position: absolute; top: 10px; left: 10px; z-index: 99;  
-   /*margin: -60px 7px 0px 594px;
+  
+/*    margin: 60% 7px 0px 10%; */
+   position: absolute; top:90%; left: 10px; z-index: 99;  
+   /*margin: 416px 7px 0px 554px;
    position: relative; top: 10px; left: 10px; z-index: 99;*/
 
 }
 
-.utm_search_citation{
-    
-   margin: 310px 7px 0px 970px;
-   position: absolute; top: 10px; left: 10px; z-index: 99;
-    
-}
-
-
-
-
-#map_canvas_stats{
-    
-    width:100%;
-    height: 480px;
-    
-}
 
 #map_canvas{
     
     width:100%;
     height: 480px;
     
-}
-
-#map_canvas_select{
-    
-    margin-top: 10px;
-    width: 94%;
-    height: 330px;
-    
-}
-
-
-#map_config{
-
-	margin-top: 10px;
-	margin-bottom: 10xp;	
-
 }
 
 .labels {
@@ -131,36 +71,13 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
      white-space: nowrap;
      
    }
-     .form-signin {
-            max-width: 300px;
-            padding: 19px 29px 29px;
-            margin: 0 auto 20px;
-            background-color: #fff;
-            border: 1px solid #e5e5e5;
-            -webkit-border-radius: 5px;
-               -moz-border-radius: 5px;
-                    border-radius: 5px;
-            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-               -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-                    box-shadow: 0 1px 2px rgba(0,0,0,.05);
-          }
-          .form-signin .form-signin-heading,
-          .form-signin .checkbox {
-            margin-bottom: 10px;
-          }
-          .form-signin input[type="text"],
-          .form-signin input[type="password"] {
-            font-size: 16px;
-            height: auto;
-            margin-bottom: 15px;
-            padding: 7px 9px;
-          }
 
           
  /* Base class */
 .bs-docs-example {
 	position: relative;
   padding: 15px 18px 15px 12px;
+  margin-top: 16px;
   margin-bottom: 8px;    
   
   background-color: #ffffff;
@@ -189,19 +106,6 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
           border-radius: 4px;
 }
 
-
-#synoDiv{
-    
-    float: right;
-    
-}
-
-
-#synoActions{
-    
-    
-
-}
 
 /* Echo out a label for the example */
 #section_title {
@@ -233,7 +137,7 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
         
 }
 
-#dvLoading{
+/* #dvLoading{
 
    height: 100px;
    width: 200px;
@@ -243,37 +147,7 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
    top: 50%;
    margin: -25px 0 0 -25px;
 
-}
-
-#dvListLoading{
-
-   width: 200px;
-   margin: 5px auto 5px auto;
-   border: 1px solid #ddd;
-   color: #9da0a4;
-   padding: 7px;
-    
-  -webkit-border-radius: 4px 0 4px 0;
-     -moz-border-radius: 4px 0 4px 0;
-          border-radius: 4px 0 4px 0;
-   
-}
-
-.loading{
-
-   width: 200px;
-   margin: 5px auto 5px auto;
-   color: #9da0a4;
-   padding: 7px;
-      
-   border: 1px solid #ddd;
-
-  -webkit-border-radius: 4px 0 4px 0;
-     -moz-border-radius: 4px 0 4px 0;
-          border-radius: 4px 0 4px 0;
-   
-}
-
+} */
 
 
 #flags{
@@ -396,51 +270,12 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
     
 }
 
-/* Fitxa biolï¿½gica Jaca */
-
-.fontTitulos{
-    
-   /* color: #3a87ad;
-    font-size: 120%;*/
-    padding: 5px 0px 5px 0px;
-   /* font-weight: bold;*/
-    
-    
-    
-}
-
-.jacaTaxonTitle{
-       
-    font-size: 150%;
-    margin: 10px 0px 20px 0px;
-        
-}
-
-.jacaBio tr{
-    
-    margin: 15px 0px 15px 0px;
-    
-    
-}
-
 
 .fontNormal{
     
     padding-right: 6px;
     padding-bottom: 15px;
     
-}
-
-#jacaDistrib td{
-    
-    padding: 2px 5px 2px 0px;
-    
-}
-
-#jacaBio td{
-    
-       padding: 2px 5px 2px 0px;
- 
 }
 
 
@@ -459,39 +294,6 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
     height: 7px;
     width: 3px;
  
-}
-
-.legend5{
-    
-    background-color: #DC0014;
-}
-.legend4{
-    
-    background-color: #FF3C14;
-}
-.legend3{
-    
-    background-color: #FF7814;
-}
-.legend2{
-    
-    background-color: #FFB414;
-
-
-}
-.legend1{
-    
-    background-color: #FFF014;
-}
-.legend0{
-    
-    background-color: #F0FF78;
-}
-
-.legend_empty{
-    
-    background-color: #BEBEBE;
-    
 }
 
 
@@ -519,37 +321,6 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
 
    #wrapper { position: relative; }
 
-   
-   .legend_main{
-       
-          height:142px;
-          margin: 260px 5px 0px 635px;
-          position: absolute; top: 10px; left: 10px; z-index: 99;
-       
-   }
-   
-   .legend_stats{
-       
-    margin: 250px 0px 0px 600px;
-    width: 110px;
-    position: absolute; top: 10px; left: 10px; z-index: 99;
-
-       
-   }
-   
-   .taxonEditForm{
-       
-    margin-top:10px;
-    
-    
-   }
-   
-   .uncertainCitation{
-       
-       background-color: #f2dede;
-
-   }
-   
    .arrows{
        
        position: absolute; 
@@ -567,25 +338,7 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
         padding-top: 22px;
    
    }
-   
-   .floatRight{
-       
-       float: right;
-       font-size: 80%;
-       padding-right: 30px;
-       
-   }
-   
-   #sliderY .slider-selection {
-	background: #3a87ad;    
-}
 
-
-#maxMinButton{
-    
-    margin-left: 4px;
-    
-}
 
 #sectorTable .nav{
     
@@ -686,21 +439,22 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
     
     }
     
-    .nav{
-        
-        margin-bottom: 5px;
-        
-    }
+.nav{
     
-    .floatCenter{
-        
-        text-align: right;
-        margin-top: 20px;
-        
-    }
+    margin-bottom: 5px;
     
-    .modal-dialog {}
-.thumbnail {margin-bottom:6px;}
+}
+
+.floatCenter{
+    
+    text-align: right;
+    margin-top: 20px;
+    
+}
+
+.modal-dialog {}
+
+.thumbnail {margin-bottom:0px;}
 
 .carousel-control.left,.carousel-control.right{
   background-image:none;
@@ -708,36 +462,6 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
   width:5%;
 }
 
-#external_maps{
-
-        margin-bottom: 10px;
-    float: right;
-
-}
-#external_maps img{
- 
-    
-}
-#extended_tabs{
-    
-    float: right;
-
-}
-
-
-#cbn_logos{
-    
-    text-align: center;
-    
-    
-}
-
-#cbn_logos img{
-    
-    margin-left: 15px;
-    
-    
-}
 
 #zonasAlphaList{
     
@@ -749,16 +473,11 @@ h1 a, h1 a:hover, h1 a:visited, h1 a:link {
 
 #taxonAlphaList{
     
-    width: 400px;
+    width: 100%;
     height: 200px;
     overflow-y: scroll;
 }
 
-#atlasDistrib img{
-    
-    height: 30px;
-    
-}
 
 .fontComentarios em{
     
@@ -771,9 +490,3 @@ td .fontNormal u{
     padding-top: 5px;
 }
 
-#tabFlora td{
-    
-    padding-right: 8px;
-    padding-bottom: 4px;    
-    
-}

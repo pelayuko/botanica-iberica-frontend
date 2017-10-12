@@ -1,13 +1,13 @@
-<div class="row">
+<div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<div id="titleContainer">
 				<div id="section_title" class="row">
 					<div class="row section-title-row">
-					    <div class="section-title-column col-md-7">
+					    <div class="section-title-column col-md-7" style="height: 100px">
 					    	<div class="row">				
 								Especie: <span class="text-info">{{modelSpecy.datosTaxon.nombre}}</span>
-								<span style="padding: 0 40px">&nbsp;</span>
+<!-- 								<span style="padding: 0 40px">&nbsp;</span> -->
 							</div>
 							<div class="row">
 								<small>
@@ -29,17 +29,13 @@
 							</div>
 						</div>
 						<div class="col-md-5">
-	<!-- 						<div class="row"> -->
-	<!-- 							<b>Citas: </b> <span id="citationCount" class="badge badge-info">-</span> -->
-	<!-- 							<b> UTMs: </b> <span id="utmCount" class="badge badge-info">-</span>							 -->
-	<!-- 							<b> HerbarioJaca: </b> <span id="JacaCount" class="badge badge_Jaca">-</span> -->
-	<!-- 						</div> -->
+	
 							<div class="row">
-								<div class="col-md-6" id="sinonimos"  style="height: 120px; overflow: auto;">
+								<div class="col-md-6" id="sinonimos"  style="margin-top: 20px; height: 100px; overflow: auto;">
 									<table class="table">
 										<thead>
 											<tr>
-												<td><b>Sinónimos</b></td>
+												<td><b>Nombres Científicos</b></td>
 											</tr>
 										</thead>
 										<tbody>
@@ -50,7 +46,7 @@
 										</tbody>
 									</table>
 								</div>
-								<div class="col-md-6" id="comunes" style="height: 120px; overflow: auto;">
+								<div class="col-md-6" id="comunes" style="margin-top: 20px; height: 100px; overflow: auto;" ng-if="modelSpecy.comunes.length > 0">
 									<table class="table">
 										<thead>
 											<tr>
@@ -69,7 +65,7 @@
 						</div>
 						
 					</div>
-					<div class="row section-title-row">
+					<div class="row section-title-row" style="margin-top: 20px;">
 						<a href ng-click="nav.previousSpecy(modelSpecy.datosTaxon.nombre)" class="btn btn-primary btn-xs">	
 							<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Anterior
 						</a>
@@ -109,7 +105,7 @@
 	<div class="row bs-docs-example">
 			<ul id="main_tabs" class="nav nav-tabs">
 				<li class="active"><a href="javascript:;" data-target="#distribTab" data-toggle="tab">Mapa Distribución</a></li>
-				<li><a href="javascript:;" data-target="#genusTab" data-toggle="tab">Listado citas</a></li>
+				<li><a href="javascript:;" data-target="#citasTab" data-toggle="tab">Listado citas</a></li>
 <!-- 				<li><a href="javascript:;" data-target="#caractTab" data-toggle="tab">Características</a></li> -->
 			</ul>
 
@@ -117,53 +113,54 @@
 				<div class="tab-pane active" id="distribTab">
 					<div class="row rightSidebar">
 						<div class="col-md-8">
-							<div id="dvLoading">
-								<div class="well">
-									Cargando citas:
-									<div class="progress progress-striped active">
-										<div class="bar" style="width: 100%;"></div>
-									</div>
-								</div>
-							</div>
+<!-- 							<div id="dvLoading"> -->
+<!-- 								<div class="well"> -->
+<!-- 									Cargando citas: -->
+<!-- 									<div class="progress progress-striped active"> -->
+<!-- 										<div class="bar" style="width: 100%;"></div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 
 							<div id="wrapper">
 
 								<div id="map_canvas"></div>
 								<!-- 					<div id="map_canvas" class="map_style"></div> -->
-								<div id="legend" style="visibility: hidden" class="legend_main"></div>
-								<div id="map_info" class="utm_search_taxon"></div>
+<!-- 								<div id="legend" style="visibility: hidden" class="legend_main"></div> -->
+								<div id="map_info" class="hidden-xs utm_search_taxon"></div>
 
 							</div>
-							<div id="fus_info"></div>
 
 							<div id="mapButtons">
 								<div class="btn-group">
 									<button id="hideCitationsBt"
 										class="btn btn-small citEnabled btn-info" type="button"
-										onclick="showUTMSquares()">Distribución de citas</button>
+										onclick="showUTMSquares()">Citas</button>
 								</div>
 
 								<div class="btn-group">
 									<button id="addGridBt" class="btn btn-small gridDisabled"
-										type="button" onclick="loadUTMGrid()">Cuadrícula UTM</button>
+										type="button" onclick="loadUTMGrid()">UTMs10x10</button>
 									<button id="addSectorGridBt"
 										class="btn btn-small sectorGridDisabled" type="button"
-										onclick="loadSectorGrid( false )">Sectores</button>
+										onclick="loadSectorGrid(false)">Sectores</button>
 								</div>
 								<!--<button class="btn btn-small" type="button" onclick="loadUTMGrid()">Descarga KML</button>-->
 
 							</div>
 
-							<div id="legend_test"></div>
+<!-- 							<div id="legend_test"></div> -->
 
 						</div>
 						<div class="col-md-4">
 							<div class="row">
 								<b>Citas: </b> <span id="citationCount" class="badge badge-info">-</span>
-								<b> UTMs: </b> <span id="utmCount" class="badge badge-info">-</span>							
-								<b> HerbarioJaca: </b> <span id="JacaCount" class="badge badge_Jaca">-</span>
+								<b> UTMs: </b> <span id="utmCount" class="badge badge-info">-</span>
+								<span ng-if="JacaEnabled">						
+									<b> HerbarioJaca: </b> <span id="JacaCount" class="badge badge_Jaca">-</span>
+								</span>
 							</div>
-							<div id="chart_div" style="width: 355px; height: 20px"></div>
+							<div id="chart_div" style="width: 100%; height: 20px"></div>
 							
 							<table id="tabla_caract" class="table">
 		       					<tbody>
@@ -211,32 +208,32 @@
 
 					
 				</div>
-				<div class="tab-pane" id="genusTab">
-					<div id="commentList">
-						<table class="table">
-							<thead>
-								<tr>
-									<td><b>#</b></td>
-									<td><b>UTM</b></td>
-									<td><b>Fecha</b></td>
-									<td><b>Zona</b></td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="cita in modelSpecy.citas track by $index">
-									<td><span class="badge badge-info">{{$index+1}}</span></td>
-									<td>{{cita.utm1x1}}</td>
-									<td>{{cita.laFecha}}</td>
-									<td><a ng-if="cita.laZona !== 'Indefinido'" href ng-click="searchZone(cita.laZona, cita.sector)" >{{cita.laZona}}</a></td>
-									<td>{{cita.elLugar}}</td>
-								</tr>
-							</tbody>
-						</table>
+				<div class="tab-pane" id="citasTab">
+					<div class="col-md-12" style="overflow-x: auto">
+						<div id="commentList">
+							<table class="table">
+								<thead>
+									<tr>
+										<td><b>#</b></td>
+										<td><b>UTM</b></td>
+										<td><b>Fecha</b></td>
+										<td><b>Zona</b></td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="cita in modelSpecy.citas track by $index">
+										<td><span class="badge badge-info">{{$index+1}}</span></td>
+										<td>{{cita.utm1x1}}</td>
+										<td>{{cita.laFecha}}</td>
+										<td><a ng-if="cita.laZona !== 'Indefinido'" href ng-click="searchZone(cita.laZona, cita.sector)" >{{cita.laZona}}</a></td>
+										<td>{{cita.elLugar}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
-				
 			</div>
 
 		</div>
-
 </div>

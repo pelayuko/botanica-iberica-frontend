@@ -1,10 +1,11 @@
 
-flora.service('CitasService', function($http) {
+/*
+ flora.service('CitasService', function($http) {
     this.getCitas = function(pageNumber, pageSize, sort) {
     	return $http.get(serverUrl + '/citas?page=' + pageNumber + '&size=' + pageSize + '&sort=' + sort);
     };
 });
-
+*/
 
 flora.service('PhotoService', function($http) {
     this.getRandomPhotoFlower = function(size) {

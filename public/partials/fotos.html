@@ -1,0 +1,40 @@
+<div id="container">
+	
+	<div class="row">
+		<div class="col-md-12">
+
+			<div id="links">
+				<div class="row">
+					<div ng-repeat="foto in fotos" class="col-xs-6 col-md-3">
+						<a href={{foto.originalURL}} title={{foto.comentario}}
+							data-gallery class="thumbnail"> <img
+							ng-src={{foto.small240URL}} alt={{foto.comentario}}></img>
+						</a>
+						<p class="text-info">
+							<a href ng-click="nav.searchZoneSect(foto.zona,foto.descripcion)"><small>{{foto.zona}}</small>
+							</a>
+						</p>
+					</div>
+
+				</div>
+			</div>
+			<ng-include src="'partials/gallery.html'"></ng-include>
+		</div>
+
+	</div>	
+	<form role="form">
+        <div class="row omnisearch">
+            <div class="form-group">  <!-- ng-controller="MainCtrl" -->
+                <input 
+                	ng-model="searchModel" 
+    				typeahead="res for res in getSearchResults($viewValue) | filter:$viewValue | limitTo:1" 
+    				typeahead-loading="loadingEspecies"  
+    				typeahead-on-select="onSelect($item, $model, $label)" 				                	
+                	placeholder="Buscar tema: mariposa, araña, ..." 
+                	type="text" 
+                	class="form-control input-lg">
+                <i ng-show="loadingResults" class="glyphicon glyphicon-refresh"></i>
+            </div>
+        </div>
+    </form>
+</div>

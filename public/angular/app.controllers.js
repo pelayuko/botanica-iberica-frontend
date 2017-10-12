@@ -2,6 +2,8 @@
 
 flora.controller('MainCtrl', function ($scope, $http, $location, NavigationService) {
 	$scope.nav = NavigationService;
+//	$scope.modelMain ={};
+//	$scope.modelMain.inicial = 0;
 	
 	  $scope.getSearchResults = function(val) {
 		    return $http.get( serverUrl + "/searchAll" , {
@@ -24,11 +26,11 @@ flora.controller('MainCtrl', function ($scope, $http, $location, NavigationServi
 	        	  } else if ($item.type == 'GENERO') {
 	        		  $location.path('/genus').search('query=' + $item.result);
 	        	  } else if ($item.type == 'FAMILIA') {
-	        		  $location.path('/family').search('query=' + $item.result);
+	        		  $location.path('/family').search('query=' + $item.taxon.nombre);
 	        	  }  else if ($item.type == 'ZONA') {
 	        		  $location.path('/zone').search({zone : $item.result, sector : '-'});
 	        	  }  else {
-	        		  $location.path('/map');
+	        		  $location.path('/parajes');
 	        	  }
 	          }
 		};
@@ -54,9 +56,23 @@ flora.controller('MainCtrl', function ($scope, $http, $location, NavigationServi
 		    	$scope.numeroZonas = response.data;
 		 });
 		
+		$http.get( serverUrl + "/numeroFotosPlantas" , {
+		      params: {
+		      }
+		    }).then(function(response){
+		    	$scope.numeroFotosPlantas = response.data;
+		 });
+
+		$http.get( serverUrl + "/numeroFotosLugares" , {
+		      params: {
+		      }
+		    }).then(function(response){
+		    	$scope.numeroFotosLugares = response.data;
+		 });
+		
 		$http.get( serverUrl + "/datosDeInicioZon" , {
 		      params: {
-		    	  count: 2
+		    	  count: 1
 		      }
 		    }).then(function(response){
 		    	$scope.fotosZona = response.data;
@@ -64,13 +80,14 @@ flora.controller('MainCtrl', function ($scope, $http, $location, NavigationServi
 		
 		$http.get( serverUrl + "/datosDeInicioEsp" , {
 		      params: {
-		    	  count: 2
+		    	  count: 1
 		      }
 		    }).then(function(response){
 		    	$scope.fotosEspecie = response.data;
 		 });
 });
 
+/*
 flora.controller('DenomListController', function DenomListController($scope, $http, CitasService) {
 
     $scope.citasList = [];
@@ -97,11 +114,15 @@ flora.controller('DenomListController', function DenomListController($scope, $ht
     }
  
 });
+*/
 
 flora.controller('MapCtrl', function ($scope, $location, $http, $timeout, NavigationService) {
 	$scope.nav = NavigationService;
+//	$scope.inicial = 0;
 	
 	$scope.zones = [];
+	
+	acur = 1000;
 	
 	  $(".dropdown-menu li a").click(function(){
 		  var selText = $(this).text();
@@ -109,7 +130,7 @@ flora.controller('MapCtrl', function ($scope, $location, $http, $timeout, Naviga
 		  $("#zonasearchButton").css("background-color", $(this).closest("li").css("background-color"));
 		  $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+'<span class="caret"></span>');
 		});
-	
+		
 	  $scope.loadZonesFromSector = function(sector) {
 		  $scope.selectedSector = sector;
 		    return $http.get( serverUrl + "/zonasBySector" , {
@@ -134,19 +155,65 @@ flora.controller('MapCtrl', function ($scope, $location, $http, $timeout, Naviga
 		$timeout(function() {
 			createMap("search", "map_canvas");
 			loadSectorGrid(true);
+			loadAllUTMsSector();
 			document.getElementById("zonasearchButton").style.background = "lightpink";		
 			
 				// $scope.$apply();
 		  }, 0);	   	
     };
+    
     $scope.loadSearchMapTab();
-
+    
 	$http.get( serverUrl + "/datosDeInicioZon" , {
 	      params: {
 	      }
 	    }).then(function(response){
 	    	$scope.fotos = response.data;
 	 });
+});
+
+flora.controller('FotosCtrl', function ($scope, $location, $http, $timeout, NavigationService) {
+	$scope.nav = NavigationService;
+	  
+	  $scope.getSearchResults = function(val) {
+		  return $http.get( serverUrl + "/searchTemas" , {
+		      params: {
+		    	  clave: val, //.replace(/ /g, "+"),
+		    	  limit: 10
+		      }
+		    }).then(function(response){
+		      return response.data;
+		    });
+		  };	
+		  
+	  $scope.onSelect = function ($item, $model, $label) {
+		    $scope.$item = $item;
+		    $scope.$model = $model;
+		    $scope.$label = $label;
+	          if ($item) {
+	        		  $location.path('/fotos').search('query=' + $item);
+	          }
+		};	
+
+    if ( $location.search().query ) {
+	    	 
+		$http.get( serverUrl + "/datosDeInicioTema" , {
+		      params: {
+		    	  tema: $location.search().query
+		      }
+		    }).then(function(response){
+		    	$scope.fotos = response.data;
+		 });		  
+  } else {
+	  $http.get( serverUrl + "/datosDeInicioTema" , {
+	      params: {
+	    	  tema: ""
+	      }
+	    }).then(function(response){
+	    	$scope.fotos = response.data;
+	 });	  
+  }
+	
 });
 
 /**
@@ -166,8 +233,13 @@ flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, Navig
 	$("#top-search").val('');
 	$scope.nav = NavigationService;
 	$scope.util = UtilService;
-	$scope.modelSpecy = {}
-//	$scope.elFiltro = "";
+	$scope.modelSpecy = {};
+	$scope.JacaEnabled = JacaEnabled;
+//	$scope.inicial = 0;
+	
+//	$scope.$on('$viewContentLoaded', function(){
+//		updateOffset("map_canvas");
+//	  });
 	
 	$scope.searchZone = function (zoneParam, sectorParam) {
 		$location.path('/zone').search({zone : zoneParam, sector : sectorParam});
@@ -175,9 +247,9 @@ flora.controller('SpecyCtrl', function($scope, $http, $location, $timeout, Navig
 	
 	$scope.loadGMap = function(especie) {
 		$timeout(function() {
-			$('#dvLoading').fadeOut(1000);
+//			$('#dvLoading').fadeOut(1000);
 			createMap("view", "map_canvas");
-			loadUTMGrid();
+			loadSectorGrid(false);
 			loadUTMsTaxon(especie); //$location.search().query);
 				// $scope.$apply();
 		  }, 0);		
@@ -265,6 +337,22 @@ flora.controller('FamilyCtrl', function($scope, $http, $location, NavigationServ
 	    	$scope.refFloraIberica = $scope.modelFamily.refFloraIberica;
 
 	 });
+	
+	$http.get( serverUrl + "/taxonesDeFamilia" , {
+	      params: {
+	    	  family: $location.search().query,
+	      }
+	    }).then(function(response){
+	    	$scope.modelFamily.especies = response.data;
+	 });	
+	
+	$http.get( serverUrl + "/generosDeFamilia" , {
+	      params: {
+	    	  family: $location.search().query,
+	      }
+	    }).then(function(response){
+	    	$scope.modelFamily.generos = response.data;
+	 });
 });
 
 flora.controller('GenusCtrl', function($scope, $http, $location, NavigationService) {
@@ -294,17 +382,17 @@ flora.controller('ZoneCtrl', function($scope, $http, $location, $timeout, Naviga
 	  $scope.currentPage = 1;
 	  $scope.pageSize = 10;
 	  
-	$scope.$on('$viewContentLoaded', function(){
-	    //Here your view content is fully loaded !!
-		//TableService.prepareTable("miTabla");
-	  });
+//	$scope.$on('$viewContentLoaded', function(){
+//	    //Here your view content is fully loaded !!
+//		//TableService.prepareTable("miTabla");
+//	  });
 	
 	$scope.loadGMap = function() {
 		$timeout(function() {
-			$('#dvLoading').fadeOut(2000);
+//			$('#dvLoading').fadeOut(2000);
 			createMap("view", "map_canvas");
 
-			loadUTMGrid();
+			loadSectorGrid(false);
 			loadUTMsZona($location.search().zone);
 			
 				// $scope.$apply();
@@ -321,7 +409,18 @@ flora.controller('ZoneCtrl', function($scope, $http, $location, $timeout, Naviga
 			    }).then(function(response){
 			    	$scope.modelZone = response.data;
 			    	$scope.loadGMap();
-			 });		  
+			 });
+		  
+			$http.get( serverUrl + "/taxonesDeZonaFromUTM", {
+			      params: {
+			    	  utm: $location.search().utm,
+			    	  sector: $location.search().sector
+			      }
+			    }).then(function(response){
+			    	$scope.modelZone.especies = response.data;
+			 });	
+			
+			
 	  } else {
 		  $http.get( serverUrl + "/datosDeZona" , {
 		      params: {
@@ -331,7 +430,16 @@ flora.controller('ZoneCtrl', function($scope, $http, $location, $timeout, Naviga
 		    }).then(function(response){
 		    	$scope.modelZone = response.data;
 		    	$scope.loadGMap();
-		 });		  
+		 });	
+		  
+		  $http.get( serverUrl + "/taxonesDeZona" , {
+		      params: {
+		    	  zona: $location.search().zone,
+		    	  sector: $location.search().sector
+		      }
+		    }).then(function(response){
+		    	$scope.modelZone.especies = response.data;
+		 });	
 	  }
 	
 	
@@ -350,6 +458,14 @@ flora.controller('UTMCtrl', function($scope, $http, $location, NavigationService
 	      }
 	    }).then(function(response){
 	    	$scope.modelUTM = response.data;
+	 });
+	
+	 $http.get( serverUrl + "/taxonesDeUtm" , {
+	      params: {
+	    	  utm: $scope.utm
+	      }
+	    }).then(function(response){
+	    	$scope.modelUTM.especies = response.data;
 	 });
 });
 
@@ -402,7 +518,7 @@ flora.controller('AdvancedSearchCtrl', function($scope, $http, $location, Naviga
 	        	  } else if ($item.type == 'ZONA') {
 	        		  $location.path('/zone').search({zone : $item.result, sector : '-'});
 	        	  }  else {
-	        		  $location.path('/map');
+	        		  $location.path('/parajes');
 	        	  }
 	          }
 		};

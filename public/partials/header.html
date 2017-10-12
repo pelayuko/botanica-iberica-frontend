@@ -4,7 +4,8 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="site-heading">
                     <h1>Flora de la comarca de Borja y el Moncayo</h1>
-                    <p>Navega entre <b>{{numeroEspecies}} <a href="#/advancedSearch">especies</a></b>, <b>{{numeroZonas}} <a href="#/map">parajes</a></b> que contienen más de <b>{{numeroCitas}}</b> citas</p>
+                    <span class="subheading">Con <b>{{numeroFotosPlantas}}</b> fotos y <b>{{numeroCitas}}</b> citas de <b>{{numeroEspecies}} <a href="#/especies">especies</a></b>
+					+ <b>{{numeroFotosLugares}}</b> fotos de <b>{{numeroZonas}} <a href="#/parajes">parajes</a></b></span>
 				    <form role="form">
 				        <div class="row omnisearch">
 				            <div class="form-group">
@@ -21,29 +22,31 @@
 				        </div>
 				    </form>
 
-                   	<div class="row">
-						<div class="col-md-12">
+					<div class="row">
+<!--                    		<div class="col-md-3"> </div> -->
+						<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
 				
 							<div id="links">
 								<div class="row">
-									<div ng-repeat="foto in fotosZona" class="col-xs-6 col-md-3">
-										<a href ng-click="nav.searchZoneSect(foto.zona,foto.descripcion)" title={{foto.comentario}} class="thumbnail"> 
-											<img ng-src={{foto.small240URL}} alt={{foto.comentario}}></img>
+									<div ng-repeat="foto in fotosZona" class="col-xs-6 col-md-6">
+										<a href ng-click="nav.searchZoneSect(foto.zona,foto.descripcion)" title={{foto.zona}} class="thumbnail"> 
+											<img ng-src={{foto.small240URL}} alt={{foto.zona}}></img>
 										</a>
 									</div>
-									  <div ng-repeat="foto in fotosEspecie"  class="col-xs-6 col-md-3">
-									    <a href ng-click="nav.searchSpecy(foto.descripcion)" title={{foto.comentario}} class="thumbnail">
-									    	<img ng-src={{foto.small240URL}} alt={{foto.comentario}}></img>	    	
+									  <div ng-repeat="foto in fotosEspecie"  class="col-xs-6 col-md-6">
+									    <a href ng-click="nav.searchSpecy(foto.descripcion)" title={{foto.descripcion}} class="thumbnail">
+									    	<img ng-src={{foto.small240URL}} alt={{foto.descripcion}}></img>	    	
 									    </a>
 									  </div>
 								</div>
 							</div>
 						</div>
 				
-					</div>				    
-				    
-                    <hr class="small">
-                    <span class="subheading">Paisajes y botánica de la comarca</span>
+<!--                    		<div class="col-md-3"> </div> -->
+					</div>			
+
+					<hr class="small">
+                    <span class="subheading">Parajes y plantas de la comarca de Borja y el Moncayo</span>
                 </div>
             </div>
         </div>
