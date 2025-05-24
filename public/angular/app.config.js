@@ -5,8 +5,8 @@
 
 
 
-var serverUrl = "http://botanica-iberica-backend-estepasyhayedos.1d35.starter-us-east-1.openshiftapps.com";
-// var serverUrl = "http://localhost:8080";
+// var serverUrl = "http://botanica-iberica-backend-estepasyhayedos.1d35.starter-us-east-1.openshiftapps.com";
+var serverUrl = "http://localhost:8080";
 var JacaEnabled = false;
 
 /**
