@@ -6,5 +6,6 @@ Frontend for botanica iberica project
 - npm
 - express (npm install express)
 
-# how to launch express server, by default in 8080 server
+# how to launch express server
+By default in 8000 server, connected to a backend launched in localhost:8080
 - npm start
